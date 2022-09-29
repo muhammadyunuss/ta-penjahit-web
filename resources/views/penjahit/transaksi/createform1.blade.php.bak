@@ -1,0 +1,109 @@
+@extends('penjahit.layout.conquer')
+
+@section('left_sidebar')
+<li class="sidebar-toggler-wrapper">
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="sidebar-toggler">
+    </div>
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+</li>
+<li class="sidebar-search-wrapper">
+    <form class="search-form" role="form" action="index.html" method="get">
+        <div class="input-icon right">
+            <i class="icon-magnifier"></i>
+            <input type="text" class="form-control" name="query" placeholder="Search...">
+        </div>
+    </form>
+</li>
+<li >
+    <a href="{{url('/')}}">
+    <i class="icon-home"></i>
+    <span class="title">Dashboard</span>
+    </a>
+</li>
+<li>
+    <a href="{{route('bahanbakus.index')}}">
+    <i class="icon-puzzle"></i>
+    <span class="title">Bahan Baku</span>
+    </a>
+</li>
+<li >
+    <a href="{{route('models.index')}}">
+    <i class="icon-layers"></i>
+    <span class="title">Model</span>
+    </a>
+</li>
+<li class="active ">
+    <a href="javascript:;">
+    <i class="icon-briefcase"></i>
+    <span class="title">Pemesanan</span>
+    <span class="selected"></span>
+    <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li>
+            <a href="{{route('pelanggans.index')}}">
+            Pelanggan</a>
+        </li>
+        <li class="active">
+            <a href="{{route('transaksis.index')}}">
+            Transaksi</a>
+        </li>
+        <li>
+            <a href="{{route('pemesananprias.index')}}">
+            Pemesanan Pria</a>
+        </li>
+        <li>
+            <a href="{{route('pemesananwanitas.index')}}">
+            Pemesanan Wanita</a>
+        </li>
+    </ul>
+</li>
+@endsection
+
+@section('konten')
+<h3 class="page-title">
+    Transaksi
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="{{url('/')}}">Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{route('transaksis.index')}}">Transaksi</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{ route('transaksis.create') }}">Tambah Transaksi</a>
+        </li>
+    </ul>
+</div>
+
+<form action="{{ route('transaksis.store') }}" method="post">
+  @csrf
+  <div class="container">
+	<div class="form-group">
+        <button type="button" value="Tambah Jawaban" id="addButton" class="btn btn-default">+</button>
+        <a type= "button" value="Tambah Jawaban" id="addButton" class="btn btn-default">  + TAMBAH DAFTAR PRODUK
+    </a>
+        <button type="button" value="Tambah Jawaban" id="removeButton" class="btn btn-danger">-</button>
+	</div>
+ </div>
+</form>
+@endsection
+
+<!-- https://www.kang-cahya.com/2015/03/membuat-dynamic-form-field-add-and.html -->
+@section('footer')
+
+
+<script>
+$("#addbutton").click(function (e) {
+    console.log('aaa');
+})
+</script>
+@stop

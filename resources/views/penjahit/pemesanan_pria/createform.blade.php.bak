@@ -1,0 +1,261 @@
+@extends('penjahit.layout.conquer')
+
+@section('left_sidebar')
+<li class="sidebar-toggler-wrapper">
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="sidebar-toggler">
+    </div>
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+</li>
+<li class="sidebar-search-wrapper">
+    <form class="search-form" role="form" action="index.html" method="get">
+        <div class="input-icon right">
+            <i class="icon-magnifier"></i>
+            <input type="text" class="form-control" name="query" placeholder="Search...">
+        </div>
+    </form>
+</li>
+<li >
+    <a href="{{url('/')}}">
+    <i class="icon-home"></i>
+    <span class="title">Dashboard</span>
+    </a>
+</li>
+<li >
+    <a href="{{route('bahanbakus.index')}}">
+    <i class="icon-puzzle"></i>
+    <span class="title">Bahan Baku</span>
+    </a>
+</li>
+<li >
+    <a href="{{route('katalogs.index')}}">
+    <i class="icon-layers"></i>
+    <span class="title">Katalog</span>
+    </a>
+</li>
+<li class="active ">
+    <a href="javascript:;">
+    <i class="icon-briefcase"></i>
+    <span class="title">Pemesanan</span>
+    <span class="selected"></span>
+    <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li>
+            <a href="{{route('pelanggans.index')}}">
+            Pelanggan</a>
+        </li>
+        <li class="active ">
+            <a href="{{route('pemesananprias.index')}}">
+            Pemesanan Pria</a>
+        </li>
+        <li>
+            <a href="{{route('pemesananwanitas.index')}}">
+            Pemesanan Wanita</a>
+        </li>
+        <li>
+            <a href="table_responsive.html">
+            Nota</a>
+        </li>
+        <li>
+            <a href="table_managed.html">
+            Pengajuan Perubahan</a>
+        </li>
+    </ul>
+</li>
+@endsection
+
+@section('konten')
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    Pelanggan <br>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="{{url('/')}}">Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{route('pemesananprias.index')}}">Pemesanan</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{route('pemesananprias.index')}}">Pemesanan Pria</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{route('pemesananprias.create')}}">Tambah Pemesanan Pria</a>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE HEADER-->
+
+<!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
+<div >
+<div class="portlet">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="fa fa-reorder"></i> Tambah Pemesanan Pria
+			</div>
+		</div>
+		<div class="portlet-body form">
+			<form method="POST" action="{{ route('pemesananprias.store') }}" enctype="multipart/form-data">
+			@csrf
+				<div class="form-body">
+                    <div class="form-group" hidden>
+                        <label for="jnsModelPemesanan">Jenis Model</label> <br>
+                    	<div class="form-check">
+							<label><input type="radio" name="jnsModelPemesanan" id="jnsModelPemesanan" value="pria" checked="checked"/> Pria </label>
+                        </div>
+						<div class="form-check">
+							<label><input type="radio" name="jnsModelPemesanan" id="jnsModelPemesanan" value="wanita"/> Wanita </label>
+                        </div>
+                	</div><br>
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 col-form-label">Nama Pelanggan</label>
+                        <div class="col-md-11">
+                            <select name="nmPelanggan" id="nmPelanggan" class="form-control @error('nmPelanggan') is-invalid @enderror">
+                                <option value="">== Pilih Nama Pelanggan ==</option>
+                                @foreach($datapelanggan as $dp)
+                                    <option value="{{ $dp->id }}" {{ old('nmPelanggan') == $dp->id ? 'selected' : null }}>{{ $dp->nama_pelanggan }}</option>
+                                @endforeach
+                            </select>
+                            @error('nmPelanggan')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group">
+						<label for="jmlhPemesanan">Jumlah</label>
+						<input type="number" step="any" class="form-control @error('jmlhPemesanan') is-invalid @enderror" name="jmlhPemesanan" value="{{ old('jmlhPemesanan') }}"  placeholder="Isikan jumlah pemesanan pelanggan" min="0">
+						@error('jmlhPemesanan')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+					</div><br>
+                    <div class="mb-3">
+						<label for="image" class="form-label">Gambar</label> 
+						<input class="form-control" type="file" id="image" name="image" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+						@error('image')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+						<img class="img-fluid" id="img-preview" style="max-height:400px">
+					</div><br>
+                    <div class="form-group">
+						<label for="nmPemesanan">Nama Pemesanan</label>
+						<input type="text" class="form-control @error('nmPemesanan') is-invalid @enderror" name="nmPemesanan" value="{{ old('nmPemesanan') }}" placeholder="Isikan nama pemesanan Anda">
+						@error('nmPemesanan')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+					</div><br>
+                    <div class="form-group">
+                        <label for="uknBajuPemesanan">Ukuran Baju</label> <br>
+                    	<div class="form-check">
+							<label><input type="radio" name="uknBajuPemesanan" id="uknBajuPemesanan" value="s"/> S </label>
+                        </div>
+						<div class="form-check">
+							<label><input type="radio" name="uknBajuPemesanan" id="uknBajuPemesanan" value="m"/> M </label>
+                        </div>
+                        <div class="form-check">
+							<label><input type="radio" name="uknBajuPemesanan" id="uknBajuPemesanan" value="l"/> L </label>
+                        </div>
+                        <div class="form-check">
+							<label><input type="radio" name="uknBajuPemesanan" id="uknBajuPemesanan" value="xl"/> XL </label>
+                        </div>
+                        <div class="form-check">
+							<label><input type="radio" name="uknBajuPemesanan" id="uknBajuPemesanan" value="xxl"/> XXL </label>
+                        </div>
+                	</div><br>
+                    <button id="btnUncheck">Deactivate</button>
+
+
+                    
+
+                    <div class="form-group">
+						<label for="pnjgJasPemesanan">Panjang Jas</label>
+						<input type="number" step="any" class="form-control" name="pnjgJasPemesanan" value="{{ old('pnjgJasPemesanan') }}"  placeholder="Isikan panjang jas pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lngkrDadaPemesanan">Lingkar Dada</label>
+						<input type="number" step="any" class="form-control" name="lngkrDadaPemesanan" value="{{ old('lngkrDadaPemesanan') }}"  placeholder="Isikan lingkar dada pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lngkrPinggangPemesanan">Lingkar Pinggang</label>
+						<input type="number" step="any" class="form-control" name="lngkrPinggangPemesanan" value="{{ old('lngkrPinggangPemesanan') }}"  placeholder="Isikan lingkar pinggang pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lngkrPinggulPemesanan">Lingkar Pinggul</label>
+						<input type="number" step="any" class="form-control" name="lngkrPinggulPemesanan" value="{{ old('lngkrPinggulPemesanan') }}"  placeholder="Isikan lingkar pinggul pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lbrBahuPemesanan">Lebar Bahu</label>
+						<input type="number" step="any" class="form-control" name="lbrBahuPemesanan" value="{{ old('lbrBahuPemesanan') }}"  placeholder="Isikan lebar bahu pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lbrPunggungPemesanan">Lebar Punggung</label>
+						<input type="number" step="any" class="form-control" name="lbrPunggungPemesanan" value="{{ old('lbrPunggungPemesanan') }}"  placeholder="Isikan lebar punggung pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="pjgLenganPemesanan">Panjang Lengan</label>
+						<input type="number" step="any" class="form-control" name="pjgLenganPemesanan" value="{{ old('pjgLenganPemesanan') }}"  placeholder="Isikan panjang lengan pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrSikuPemesanan">Lingkar Siku</label>
+						<input type="number" step="any" class="form-control" name="lkrSikuPemesanan" value="{{ old('lkrSikuPemesanan') }}"  placeholder="Isikan lingkar siku pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrUjungLenganPemesanan">Lingkar Ujung Lengan</label>
+						<input type="number" step="any" class="form-control" name="lkrUjungLenganPemesanan" value="{{ old('lkrUjungLenganPemesanan') }}"  placeholder="Isikan lingkar ujung lengan pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrKerongLenganPemesanan">Lingkar Kerong Lengan</label>
+						<input type="number" step="any" class="form-control" name="lkrKerongLenganPemesanan" value="{{ old('lkrKerongLenganPemesanan') }}"  placeholder="Isikan lingkar kerong lengan pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="pjgCelanaPemesanan">Panjang Celana</label>
+						<input type="number" step="any" class="form-control" name="pjgCelanaPemesanan" value="{{ old('pjgCelanaPemesanan') }}"  placeholder="Isikan panjang celana pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrPerutPemesanan">Lingkar Perut</label>
+						<input type="number" step="any" class="form-control" name="lkrPerutPemesanan" value="{{ old('lkrPerutPemesanan') }}"  placeholder="Isikan lingkar perut pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="pesakPemesanan">Pesak</label>
+						<input type="number" step="any" class="form-control" name="pesakPemesanan" value="{{ old('pesakPemesanan') }}"  placeholder="Isikan pesak pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrPahaPemesanan">Lingkar Paha</label>
+						<input type="number" step="any" class="form-control" name="lkrPahaPemesanan" value="{{ old('lkrPahaPemesanan') }}"  placeholder="Isikan lingkar paha pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrLututPemesanan">Lingkar Lutut</label>
+						<input type="number" step="any" class="form-control" name="lkrLututPemesanan" value="{{ old('lkrLututPemesanan') }}"  placeholder="Isikan lingkar lutut pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="lkrKakiPemesanan">Lingkar Kaki</label>
+						<input type="number" step="any" class="form-control" name="lkrKakiPemesanan" value="{{ old('lkrKakiPemesanan') }}"  placeholder="Isikan lingkar kaki pemesanan pelanggan" min="0">
+					</div><br>
+                    <div class="form-group">
+						<label for="deskTambahanPemesanan">Deskripsi Tambahan</label>
+						<textarea class="form-control" name="deskTambahanPemesanan" placeholder="Isikan deskripsi tambahan pemesanan Anda" rows="3">{{ old('deskProduk') }}</textarea>
+					</div><br>
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+@endsection
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#btnUncheck").click(function() {
+        $("input[type='radio']").prop("checked", false);
+    });
+});
+</script>
