@@ -29,13 +29,21 @@ Route::get('/dashboard', function () {
 Route::prefix('data-master')->group(function () {
     Route::resource('supplier', SupplierController::class);
     Route::resource('bahanbaku', BahanBakuController::class);
-    Route::resource('pelanggan', PelangganController::class);
-    Route::resource('modelanda', ModelAndaController::class);
-    Route::resource('transaksi', TransaksiController::class);
     // Route::resource('modelpelanggans','ModelBajuPelangganController');
     // Route::resource('pelanggans','PelangganController');
     // Route::resource('pemesananprias','PemesananPriaController');
     // Route::resource('pemesananwanitas','PemesananWanitaController');
+});
+Route::prefix('pemesanan')->group(function () {
+    Route::resource('pelanggan', PelangganController::class);
+    Route::resource('modelanda', ModelAndaController::class);
+
+    Route::resource('transaksi', TransaksiController::class);
+    Route::prefix('transaksi')->group(function () {
+        Route::get('tambah-detail-transaksi/{id}', [TransaksiController::class, 'createDetailTransaksi'])->name('transaksi.detail.create');
+        Route::get('edit-detail-transaksi/{id}', [TransaksiController::class, 'editDetailTransaksi'])->name('transaksi.detail.edit');
+        Route::post('save-detail-transaksi', [TransaksiController::class, 'saveDetail'])->name('transaksi.save.detail');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+
 <h3 class="page-title">
     Transaksi &nbsp;&nbsp;
     <a type= "button" href="{{route('transaksi.create')}}" class="btn btn-primary btn-sm">
@@ -20,6 +21,18 @@
     </ul>
 </div>
 
+@if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
+@if (session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
+@endif
+
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
 <table class="table" id="sample_1">
 <thead>
@@ -32,12 +45,12 @@
     <th>Aksi</th>
     </tr>
 </thead>
-{{-- <tbody>
+<tbody>
     @foreach($data as $d)
     <?php $total=0 ?>
     <tr>
-        <td>{{ $d->pelanggan->nama_pelanggan }}</td>
-        <td>{{ $d->created_at }}</td>
+        <td>{{ $d->nama_pelanggan }}</td>
+        <td>{{ $d->tanggal }}</td>
         <td>
 
         </td>
@@ -46,6 +59,9 @@
         <ul class="nav nav-pills">
             <li >
                 <button onclick="window.location='{{ route('transaksi.show', $d->id) }}'" type="button" class="btn btn-default">Nota</button>
+            </li>
+            <li >
+                <button onclick="window.location='{{ route('transaksi.detail.create', $d->id) }}'" type="button" class="btn btn-default">Tambah Pemesanan</button>
             </li>
             <li >
                 <button onclick="window.location='{{ route('transaksi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
@@ -62,7 +78,7 @@
         </td>
     </tr>
     @endforeach
-</tbody> --}}
+</tbody>
 </table>
 @endsection
 
