@@ -194,7 +194,7 @@
 						@enderror
 					</div><br>
                     <div class="mb-3">
-						<label for="image" class="form-label">Gambar</label> 
+						<label for="image" class="form-label">Gambar</label>
 						<input class="form-control" type="file" id="image" name="image" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
 						@error('image')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
@@ -301,7 +301,7 @@
 </div>
 @endsection
 
-@section('footer')
+@section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {

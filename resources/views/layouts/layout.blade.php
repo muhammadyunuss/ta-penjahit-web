@@ -144,6 +144,8 @@ jQuery(document).ready(function() {
    Tasks.initDashboardWidget();
 });
 </script>
+
+@yield('scripts')
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

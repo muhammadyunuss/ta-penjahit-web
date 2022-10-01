@@ -1,112 +1,6 @@
-@extends('penjahit.layout.conquer')
+@extends('layouts.layout')
 
-@section('left_sidebar')
-<li class="sidebar-toggler-wrapper">
-    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-    <div class="sidebar-toggler">
-    </div>
-    <div class="clearfix">
-    </div>
-    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-</li>
-<li class="sidebar-search-wrapper">
-    <form class="search-form" role="form" action="index.html" method="get">
-        <div class="input-icon right">
-            <i class="icon-magnifier"></i>
-            <input type="text" class="form-control" name="query" placeholder="Search...">
-        </div>
-    </form>
-</li>
-<li >
-    <a href="{{url('/')}}">
-    <i class="icon-home"></i>
-    <span class="title">Dashboard</span>
-    </a>
-</li>
-<li>
-    <a href="javascript:;">
-    <i class="icon-puzzle"></i>
-    <span class="title">Bahan Baku</span>
-    <span class="selected"></span>
-    <span class="arrow open"></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="{{route('suppliers.index')}}">
-            Supplier</a>
-        </li>
-        <li>
-            <a href="{{route('bahanbakus.index')}}">
-            Sediaan Bahan Baku</a>
-        </li>
-        <li>
-            <a href="{{route('pembelians.index')}}">
-            Transaksi Bahan Baku</a>
-        </li>
-    </ul>
-</li>
-<li class="active ">
-    <a href="javascript:;">
-    <i class="icon-briefcase"></i>
-    <span class="title">Pemesanan</span>
-    <span class="selected"></span>
-    <span class="arrow open"></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="{{route('pelanggans.index')}}">
-            Pelanggan</a>
-        </li>
-        <li>
-            <a href="{{route('modelandas.index')}}">
-            Model Anda</a>
-        </li>
-        <li>
-            <a href="{{route('modelpelanggans.index')}}">
-            Model Pelanggan</a>
-        </li>
-        <li class="active">
-            <a href="{{route('transaksis.index')}}">
-            Transaksi</a>
-        </li>
-        <li>
-            <a href="{{route('pemesananprias.index')}}">
-            Pemesanan Pria</a>
-        </li>
-        <li>
-            <a href="{{route('pemesananwanitas.index')}}">
-            Pemesanan Wanita</a>
-        </li>
-    </ul>
-</li>
-<li >
-    <a href="javascript:;">
-    <i class="icon-present"></i>
-    <span class="title">Produksi</span>
-    <span class="arrow "></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="#">
-            Daftar Progres</a>
-        </li>
-        <li>
-            <a href="#">
-            Jadwal Progres</a>
-        </li>
-        <li>
-            <a href="#">
-            Penggunaan Bahan Baku</a>
-        </li>
-        <li>
-            <a href="#">
-            Realisasi Progres</a>
-        </li>
-    </ul>
-</li>
-@endsection
-
-@section('konten')
+@section('content')
 <h3 class="page-title">
     Transaksi
 </h3>
@@ -118,11 +12,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('transaksis.index')}}">Transaksi</a>
+            <a href="{{route('transaksi.index')}}">Transaksi</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{ route('transaksis.create') }}">Tambah Transaksi</a>
+            <a href="{{ route('transaksi.create') }}">Tambah Transaksi</a>
         </li>
     </ul>
 </div>
@@ -135,7 +29,7 @@
 			</div>
 		</div>
 		<div class="portlet-body form">
-			<form method="POST" action="{{ route('transaksis.store') }}" enctype="multipart/form-data">
+			<form method="POST" action="{{ route('transaksi.store') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
                 <div class="form-group row">
@@ -218,7 +112,7 @@
 @endsection
 
 <!-- https://blog.quickadminpanel.com/master-detail-form-in-laravel-jquery-create-order-with-products/ -->
-@section('footer')
+@section('scripts')
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
@@ -261,7 +155,7 @@
 			var qty = $(this).find('.qty').val();
 			var price = $(this).find('.price').val();
 			$(this).find('.total').val(qty*price);
-			
+
 			calc_total();
 		}
     });

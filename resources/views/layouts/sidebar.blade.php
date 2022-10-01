@@ -58,7 +58,7 @@
                             Pelanggan</a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('modelanda.index') }}">
                             Model Anda</a>
                         </li>
                         <li>
@@ -66,7 +66,7 @@
                             Model Pelanggan</a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('transaksi.index') }}">
                             Transaksi Pemesanan</a>
                         </li>
                         <li>

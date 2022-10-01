@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @foreach($bahan_baku as $bb) 
+                   @foreach($bahan_baku as $bb)
                     <tr>
                         <td>{{ $bb->nama_bahanbaku}}</td>
                         <td>{{ $bb->harga_beli}}</td>
@@ -29,18 +29,18 @@
                 </table>
 			</div>
 			<!-- <div class="modal-footer">
-				
+
 			</div> -->
 		</div>
 	</div>
 </div>
 
-@section('footer')
+@section('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 <script>
-jQuery(document).ready(function() {    
+jQuery(document).ready(function() {
 	//plugin datatable
 	$('#sample_1').DataTable();
 });

@@ -152,14 +152,14 @@
             <label for="nama_bahanbaku" class="col-lg-2">Bahan Baku:</label>
             <div class = "col-lg-5">
                 <div class="input-group">
-                    <input name="pembelian_id" id="pembelian_id" value="{{ $pembelian_id }}"> 
-                    <input name="id" id="id"> 
+                    <input name="pembelian_id" id="pembelian_id" value="{{ $pembelian_id }}">
+                    <input name="id" id="id">
                     <input type="text" class="form-control" name="nama_bahanbaku" id="nama_bahanbaku">
                     <span class="input-group-btn">
                         <button data-toggle="modal" href="#basic" onClick="tampilBahanBaku()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
                     </span>
                 </div>
-            </div>   
+            </div>
         </div>
     </form>
 </div>
@@ -177,13 +177,13 @@
     </tr>
 </thead>
 <tbody>
-   
+
 </tbody>
 </table>
 @includeIf('penjahit.pembelian.bahanbaku')
 @endsection
 
-@section('footer')
+@section('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
@@ -191,7 +191,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script>
-jQuery(document).ready(function() {    
+jQuery(document).ready(function() {
     //plugin datatable
         // $('#sample_1').DataTable();
     }

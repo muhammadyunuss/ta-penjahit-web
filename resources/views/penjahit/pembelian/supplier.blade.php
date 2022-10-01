@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @foreach($supplier as $s) 
+                   @foreach($supplier as $s)
                     <tr>
                         <td>{{ $s->nama_supplier}}</td>
                         <td>{{ $s->email}}</td>
@@ -31,18 +31,18 @@
                 </table>
 			</div>
 			<!-- <div class="modal-footer">
-				
+
 			</div> -->
 		</div>
 	</div>
 </div>
 
-@section('footer')
+@section('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 <script>
-jQuery(document).ready(function() {    
+jQuery(document).ready(function() {
 	//plugin datatable
 	$('#sample_1').DataTable();
 });

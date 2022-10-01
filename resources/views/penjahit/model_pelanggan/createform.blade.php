@@ -145,7 +145,7 @@
 			@csrf
 				<div class="form-body">
                     <div class="mb-3">
-						<label for="image" class="form-label">Gambar</label> 
+						<label for="image" class="form-label">Gambar</label>
 						<input class="form-control" type="file" id="image" name="image" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
 						@error('image')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
@@ -169,7 +169,7 @@
 					<div class="form-group">
 						<label for="deskModel">Deskripsi</label>
 						<textarea class="form-control @error('deskModel') is-invalid @enderror" name="deskModel" placeholder="Isikan deskripsi model Pelanggan" rows="3">{{ old('deskModel') }}</textarea>
-						
+
 					</div><br>
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>
@@ -218,7 +218,7 @@
 </div>
 @endsection
 
-@section('footer')
+@section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {

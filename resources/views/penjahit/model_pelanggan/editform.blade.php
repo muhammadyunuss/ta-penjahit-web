@@ -146,7 +146,7 @@
 			@method("PUT")
 				<div class="form-body">
                     <div class="mb-3">
-						<label for="image" class="form-label">Gambar</label> 
+						<label for="image" class="form-label">Gambar</label>
 						<input type="hidden" name="oldImage" value="{{ $data->foto_model }}"> <!-- menyimpan image lama -->
 						<input class="form-control" type="file" id="image" name="image" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
 						@if($data->foto_model)
@@ -182,11 +182,11 @@
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>
                     	<div class="form-check">
-							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="tampilkan" {{ $data->status == 'tampilkan' ? 'checked' : ''}}> 
+							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="tampilkan" {{ $data->status == 'tampilkan' ? 'checked' : ''}}>
 							<label for="tampiltrue" class="form-check-label"> Ya </label>
                         </div>
 						<div class="form-check">
-							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="sembunyikan" {{ $data->status == 'sembunyikan' ? 'checked' : ''}}> 
+							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="sembunyikan" {{ $data->status == 'sembunyikan' ? 'checked' : ''}}>
 							<label for="tampilfalse" class="form-check-label"> Tidak  </label>
                         </div>
                 	</div><br> -->
@@ -228,7 +228,7 @@
 </div>
 @endsection
 
-@section('footer')
+@section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {

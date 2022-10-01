@@ -1,111 +1,6 @@
-@extends('penjahit.layout.conquer')
+@extends('layouts.layout')
 
-@section('left_sidebar')
-<li class="sidebar-toggler-wrapper">
-    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-    <div class="sidebar-toggler">
-    </div>
-    <div class="clearfix">
-    </div>
-    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-</li>
-<li class="sidebar-search-wrapper">
-    <form class="search-form" role="form" action="index.html" method="get">
-        <div class="input-icon right">
-            <i class="icon-magnifier"></i>
-            <input type="text" class="form-control" name="query" placeholder="Search...">
-        </div>
-    </form>
-</li>
-<li >
-    <a href="{{url('/')}}">
-    <i class="icon-home"></i>
-    <span class="title">Dashboard</span>
-    </a>
-</li>
-<li>
-    <a href="javascript:;">
-    <i class="icon-puzzle"></i>
-    <span class="title">Bahan Baku</span>
-    <span class="selected"></span>
-    <span class="arrow open"></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="{{route('suppliers.index')}}">
-            Supplier</a>
-        </li>
-        <li>
-            <a href="{{route('bahanbakus.index')}}">
-            Sediaan Bahan Baku</a>
-        </li>
-        <li>
-            <a href="{{route('pembelians.index')}}">
-            Transaksi Bahan Baku</a>
-        </li>
-    </ul>
-</li>
-<li class = "active">
-    <a href="javascript:;">
-    <i class="icon-briefcase"></i>
-    <span class="title">Pemesanan</span>
-    <span class="arrow "></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="{{route('pelanggans.index')}}">
-            Pelanggan</a>
-        </li>
-        <li class = "active">
-            <a href="{{route('modelandas.index')}}">
-            Model Anda</a>
-        </li>
-        <li>
-            <a href="{{route('modelpelanggans.index')}}">
-            Model Pelanggan</a>
-        </li>
-        <li>
-            <a href="{{route('transaksis.index')}}">
-            Transaksi Pemesanan</a>
-        </li>
-        <li>
-            <a href="{{route('pemesananprias.index')}}">
-            Ukuran Pria</a>
-        </li>
-        <li>
-            <a href="{{route('pemesananwanitas.index')}}">
-            Ukuran Wanita</a>
-        </li>
-    </ul>
-</li>
-<li >
-    <a href="javascript:;">
-    <i class="icon-present"></i>
-    <span class="title">Produksi</span>
-    <span class="arrow "></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="#">
-            Daftar Progres</a>
-        </li>
-        <li>
-            <a href="#">
-            Jadwal Progres</a>
-        </li>
-        <li>
-            <a href="#">
-            Penggunaan Bahan Baku</a>
-        </li>
-        <li>
-            <a href="#">
-            Realisasi Progres</a>
-        </li>
-    </ul>
-</li>
-@endsection
-
-@section('konten')
+@section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Model Anda<br>
@@ -118,15 +13,15 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('modelandas.index')}}">Pemesanan</a>
+            <a href="{{route('modelanda.index')}}">Pemesanan</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('modelandas.index')}}">Model Anda</a>
+            <a href="{{route('modelanda.index')}}">Model Anda</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('modelandas.edit', $data->id)}}">Ubah Model Anda</a>
+            <a href="{{route('modelanda.edit', $data->id)}}">Ubah Model Anda</a>
         </li>
     </ul>
 </div>
@@ -141,12 +36,12 @@
 			</div>
 		</div>
 		<div class="portlet-body form">
-			<form method="POST" action="{{ route('modelandas.update', $data->id) }}" enctype="multipart/form-data">
+			<form method="POST" action="{{ route('modelanda.update', $data->id) }}" enctype="multipart/form-data">
 			@csrf
 			@method("PUT")
 				<div class="form-body">
                     <div class="mb-3">
-						<label for="image" class="form-label">Gambar</label> 
+						<label for="image" class="form-label">Gambar</label>
 						<input type="hidden" name="oldImage" value="{{ $data->foto_model }}"> <!-- menyimpan image lama -->
 						<input class="form-control" type="file" id="image" name="image" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
 						@if($data->foto_model)
@@ -179,11 +74,11 @@
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>
                     	<div class="form-check">
-							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="tampilkan" {{ $data->status == 'tampilkan' ? 'checked' : ''}}> 
+							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="tampilkan" {{ $data->status == 'tampilkan' ? 'checked' : ''}}>
 							<label for="tampiltrue" class="form-check-label"> Ya </label>
                         </div>
 						<div class="form-check">
-							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="sembunyikan" {{ $data->status == 'sembunyikan' ? 'checked' : ''}}> 
+							<input type="radio" class="form-check-input" name="tampilModel" id="tampilModel" value="sembunyikan" {{ $data->status == 'sembunyikan' ? 'checked' : ''}}>
 							<label for="tampilfalse" class="form-check-label"> Tidak  </label>
                         </div>
                 	</div><br> -->
@@ -193,7 +88,14 @@
 							<select name="jnsModel" id="jnsModel" class="form-control @error('jnsModel') is-invalid @enderror">
 								<option value="" >== Pilih Jenis Model ==</option>
 								@foreach($jenismodel as $jm)
-								<option value="{{ $jm->id }}" {{ old('jnsModel', $data->jenismodel_id) == $jm->id ? 'selected' : null }}>{{ $jm->nama_jenismodel }}</option>
+								    <option value="{{ $jm->id }}" {{ old('jnsModel', $data->jenismodel_id) == $jm->id ? 'selected' : null }}>{{ $jm->nama_jenismodel }}</option>
+								@endforeach
+							</select>
+                            <select name="jenis_model" id="jenis_model" class="form-control @error('jenis_model') is-invalid @enderror">
+								<option value="">== Pilih Jenis Model ==</option>
+								@foreach($jenismodel as $key => $jm)
+								<option value="{{ $key }}" {{ old('jenis_model', $data->jenis_model) == $key ? 'selected' : null }}>{{ $jm }}</option>
+									<option value="{{ $key }}">{{ $jm }}</option>
 								@endforeach
 							</select>
 							@error('jnsModel')

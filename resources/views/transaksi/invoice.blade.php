@@ -1,112 +1,6 @@
-@extends('penjahit.layout.conquer')
+@extends('layouts.layout')
 
-@section('left_sidebar')
-<li class="sidebar-toggler-wrapper">
-    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-    <div class="sidebar-toggler">
-    </div>
-    <div class="clearfix">
-    </div>
-    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-</li>
-<li class="sidebar-search-wrapper">
-    <form class="search-form" role="form" action="index.html" method="get">
-        <div class="input-icon right">
-            <i class="icon-magnifier"></i>
-            <input type="text" class="form-control" name="query" placeholder="Search...">
-        </div>
-    </form>
-</li>
-<li >
-    <a href="{{url('/')}}">
-    <i class="icon-home"></i>
-    <span class="title">Dashboard</span>
-    </a>
-</li>
-<li>
-    <a href="javascript:;">
-    <i class="icon-puzzle"></i>
-    <span class="title">Bahan Baku</span>
-    <span class="selected"></span>
-    <span class="arrow open"></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="{{route('suppliers.index')}}">
-            Supplier</a>
-        </li>
-        <li>
-            <a href="{{route('bahanbakus.index')}}">
-            Sediaan Bahan Baku</a>
-        </li>
-        <li>
-            <a href="{{route('pembelians.index')}}">
-            Transaksi Bahan Baku</a>
-        </li>
-    </ul>
-</li>
-<li class="active ">
-    <a href="javascript:;">
-    <i class="icon-briefcase"></i>
-    <span class="title">Pemesanan</span>
-    <span class="selected"></span>
-    <span class="arrow open"></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="{{route('pelanggans.index')}}">
-            Pelanggan</a>
-        </li>
-        <li>
-            <a href="{{route('modelandas.index')}}">
-            Model Anda</a>
-        </li>
-        <li>
-            <a href="{{route('modelpelanggans.index')}}">
-            Model Pelanggan</a>
-        </li>
-        <li class="active">
-            <a href="{{route('transaksis.index')}}">
-            Transaksi</a>
-        </li>
-        <li>
-            <a href="{{route('pemesananprias.index')}}">
-            Pemesanan Pria</a>
-        </li>
-        <li>
-            <a href="{{route('pemesananwanitas.index')}}">
-            Pemesanan Wanita</a>
-        </li>
-    </ul>
-</li>
-<li >
-    <a href="javascript:;">
-    <i class="icon-present"></i>
-    <span class="title">Produksi</span>
-    <span class="arrow "></span>
-    </a>
-    <ul class="sub-menu">
-        <li>
-            <a href="#">
-            Daftar Progres</a>
-        </li>
-        <li>
-            <a href="#">
-            Jadwal Progres</a>
-        </li>
-        <li>
-            <a href="#">
-            Penggunaan Bahan Baku</a>
-        </li>
-        <li>
-            <a href="#">
-            Realisasi Progres</a>
-        </li>
-    </ul>
-</li>
-@endsection
-
-@section('konten')
+@section('content')
 <h3 class="page-title">
     Nota
 </h3>
@@ -118,11 +12,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('transaksis.index')}}">Transaksi</a>
+            <a href="{{route('transaksi.index')}}">Transaksi</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{ route('transaksis.show', $data->id) }}">Nota</a>
+            {{-- <a href="{{ route('transaksi.show', $data->id) }}">Nota</a> --}}
         </li>
     </ul>
 </div>
@@ -133,7 +27,7 @@
             <img src="{{ asset('assets/img/invoice/walmart.png')}}" alt=""/>
         </div>
         <div class="col-xs-6">
-            
+
         </div>
     </div>
     <hr/>
@@ -141,7 +35,7 @@
         <div class="col-xs-4">
             <h4>Pelanggan</h4>
             <ul class="list-unstyled">
-                <li>
+                {{-- <li>
                     <strong>Nama:</strong> {{ $data->pelanggan->nama_pelanggan }}
                 </li>
                 <li>
@@ -149,8 +43,8 @@
                 </li>
                 <li>
                     <strong>No. Telepon:</strong> {{ $data->pelanggan->no_telepon }}
-                </li>
-            
+                </li> --}}
+
             </ul>
         </div>
         <div class="col-xs-2">
@@ -159,7 +53,7 @@
         <div class="col-xs-4 invoice-payment">
             <h4>Detail Pembayaran</h4>
             <ul class="list-unstyled">
-                <li>
+                {{-- <li>
                     <strong>Tanggal Masuk:</strong> {{ $data->created_at }}
                 </li>
                 <li>
@@ -167,7 +61,7 @@
                 </li>
                 <li>
                     <strong>Status Pembayaran:</strong> {{ $data->status_pembayaran }}
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
@@ -188,9 +82,9 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($data->modelBajus as $m)
+            {{-- @foreach($data->modelBajus as $m) --}}
             <tr>
-                <td>
+                {{-- <td>
                     {{ $m->model->jumlah }}
                 </td>
                 <td>
@@ -198,10 +92,10 @@
                 </td>
                 <td class="hidden-480">
                         Server hardware purchase
-                </td>
-                
+                </td> --}}
+
             </tr>
-            @endforeach            
+            {{-- @endforeach --}}
             </tbody>
             </table>
         </div>
