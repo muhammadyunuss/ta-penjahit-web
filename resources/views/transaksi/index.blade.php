@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 
-@section('content')
+@section('styles')
+@endsection
 
+@section('content')
 <h3 class="page-title">
     Transaksi &nbsp;&nbsp;
     <a type= "button" href="{{route('transaksi.create')}}" class="btn btn-primary btn-sm">
@@ -34,7 +36,7 @@
 @endif
 
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
-<table class="table" id="sample_1">
+<table class="table" id="example" class="display">
 <thead>
     <tr>
     <!-- <th>ID</th> -->
@@ -58,11 +60,11 @@
         <td>
         <ul class="nav nav-pills">
             <li >
-                <button onclick="window.location='{{ route('transaksi.show', $d->id) }}'" type="button" class="btn btn-default">Nota</button>
+                <button onclick="window.location='{{ route('transaksi.show', $d->id) }}'" type="button" class="btn btn-default">Detail</button>
             </li>
-            <li >
-                <button onclick="window.location='{{ route('transaksi.detail.create', $d->id) }}'" type="button" class="btn btn-default">Tambah Pemesanan</button>
-            </li>
+            {{-- <li >
+                <button onclick="window.location='{{ route('transaksi.detail.create', $d->id) }}'" type="button" class="btn btn-info">Tambah Pemesanan</button>
+            </li> --}}
             <li >
                 <button onclick="window.location='{{ route('transaksi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
             </li>
@@ -83,13 +85,9 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 <script>
-jQuery(document).ready(function() {
-	//plugin datatable
-	$('#sample_1').DataTable();
+$(document).ready(function () {
+    $('#example').DataTable();
 });
 </script>
-@stop
+@endsection

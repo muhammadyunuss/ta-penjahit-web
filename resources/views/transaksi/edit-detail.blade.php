@@ -65,10 +65,12 @@
         </div>
     </div>
     <div class="portlet-body form">
-        <form method="POST" action="{{ route('transaksi.save.detail') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('transaksi.update.detail') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-body">
                 <input type="hidden" name="pemesanan_id" id="pemesanan_id" value="{{ $data->id }}">
+                <input type="hidden" name="detail_pemesanan_id" id="detail_pemesanan_id" value="{{ $dataModelDetail->id }}">
+
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">

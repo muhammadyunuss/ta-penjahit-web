@@ -153,6 +153,18 @@ class TransaksiController extends Controller
         return view('transaksi.edit-detail', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail'));
     }
 
+    public function updateDetailTransaksi(Request $request)
+    {
+        $data = new DetailPemesanan();
+        $data->where('id', $request->detail_pemesanan_id)->update(request()->except(['_token','detail_pemesanan_id']));
+
+        if($request){
+            return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['error' => 'Data Gagal Diupdate!']);
+        }
+    }
+
     public function saveDetail(Request $request)
     {
         DetailPemesanan::create($request->all());
@@ -173,7 +185,13 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Pemesanan::find($id);
+        // dd($data);
+        $dataPelanggan = Pelanggan::all();
+        $dataModel = ModelAnda::all();
+        $dataPenjahit = Penjahit::all();
+
+        return view('transaksi.edit', compact('data', 'dataPelanggan', 'dataModel','dataPenjahit','id'));
     }
 
     /**
@@ -185,7 +203,14 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = new Pemesanan();
+        $data->where('id', $id)->update(request()->except(['_token', '_method']));
+
+        if($request){
+            return redirect()->route('transaksi.show', $id )->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('transaksi.show', $id )->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -196,6 +221,9 @@ class TransaksiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Pemesanan::where('id', $id)->delete();
+        $dataDetail = DetailPemesanan::where('pemesanan_id', $id)->delete();
+
+        return redirect()->route('transaksi.index', $id )->with(['success' => 'Data Berhasil Diupdate!']);
     }
 }
