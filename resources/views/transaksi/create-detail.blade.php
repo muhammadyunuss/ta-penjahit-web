@@ -42,18 +42,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label">Pelanggan</h4>
-                        <h2 class="control-label">{{ $data->nama_pelanggan }}</h2>
+                        <h4 class="control-label"><strong>Pelanggan</strong></h4>
+                        <p class="control-label">Nama : {{ $data->nama_pelanggan }}</p>
+                        <p class="control-label">Email : {{ $data->email_pelanggan }}</p>
+                        <p class="control-label">No. Telepon : {{ $data->no_telepon_pelanggan }}</p>
+                        <p class="control-label">Alamat : {{ $data->alamat_pelanggan }}</p>
                     </div>
                 </div>
-                <!--/span-->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label">Penjahit</h4>
-                        <h2 class="control-label">{{ $data->nama_penjahit }}</h2>
+                        <h4 class="control-label"><strong>Penjahit</strong></h4>
+                        <p class="control-label">Nama Penjahit : {{ $data->nama_penjahit }}</p>
                     </div>
                 </div>
-                <!--/span-->
             </div>
         </div>
     </div>
@@ -135,7 +136,18 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Ukuran Baju</label>
-                            <input type="number" id="ukuran_baju" name="ukuran_baju" class="form-control" placeholder="Ukuran Baju">
+                            <select class="select2_category form-control" name="ukuran_baju" id="ukuran_baju" tabindex="1">
+                                <option value="">Pilih Ukuran Baju</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                {{-- @foreach ($dataModel as $model)
+                                    <option value="{{ $model->id }}">{{ $model->nama_model }}</option>
+                                @endforeach --}}
+                            </select>
+                            {{-- <input type="number" id="ukuran_baju" name="ukuran_baju" class="form-control" placeholder="Ukuran Baju"> --}}
                         </div>
                     </div>
                     <!--/span-->
@@ -367,6 +379,14 @@
                         </div>
                     </div>
                     <!--/span-->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Deskripsi</label>
+                            <input type="text" id="deskripsi_pemesanan" name="deskripsi_pemesanan" class="form-control" placeholder="Deskripsi">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-actions right">

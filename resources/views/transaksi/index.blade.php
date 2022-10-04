@@ -5,7 +5,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Transaksi &nbsp;&nbsp;
+    Daftar Transaksi Pemesanan &nbsp;&nbsp;
     <a type= "button" href="{{route('transaksi.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH TRANSAKSI
     </a>
@@ -18,7 +18,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('transaksi.index')}}">Transaksi</a>
+            <a href="{{route('transaksi.index')}}">Daftar Transaksi</a>
         </li>
     </ul>
 </div>
@@ -40,10 +40,10 @@
 <thead>
     <tr>
     <!-- <th>ID</th> -->
-    <th>Pelanggan</th>
     <th>Tanggal</th>
-    <th>Produk</th>
+    <th>Pelanggan</th>
     <th>Total</th>
+    <th>Penjahit</th>
     <th>Aksi</th>
     </tr>
 </thead>
@@ -51,16 +51,14 @@
     @foreach($data as $d)
     <?php $total=0 ?>
     <tr>
-        <td>{{ $d->nama_pelanggan }}</td>
         <td>{{ $d->tanggal }}</td>
-        <td>
-
-        </td>
-        <td>{{ $total }}</td>
+        <td>{{ $d->nama_pelanggan }}</td>
+        <td>{{ $d->total_ongkos }}</td>
+        <td>{{ $d->nama_penjahit }}</td>
         <td>
         <ul class="nav nav-pills">
             <li >
-                <button onclick="window.location='{{ route('transaksi.show', $d->id) }}'" type="button" class="btn btn-default">Detail</button>
+                <button onclick="window.location='{{ route('transaksi.show', $d->id) }}'" type="button" class="btn btn-default">Lihat</button>
             </li>
             {{-- <li >
                 <button onclick="window.location='{{ route('transaksi.detail.create', $d->id) }}'" type="button" class="btn btn-info">Tambah Pemesanan</button>
@@ -82,12 +80,54 @@
     @endforeach
 </tbody>
 </table>
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal Title</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" id="formbahanbaku" action="{{route('transaksi.save.bahanbaku')}}" name="formbahanbaku">
+                    @csrf
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Bahan Baku</label>
+                            <div class="col-md-9">
+                                <select class="form-control input-sm" id="bahan_baku" name="bahan_baku">
+                                    <option value="">Pilih Bahan Baku</option>
+                                    @foreach ($bahanBaku as $bb)
+                                        <option value="{{ $bb->id }}">{{ $bb->nama_bahanbaku }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Ongkos</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="ongkos" name="ongkos" placeholder="Ongkos">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 @endsection
 
 @section('scripts')
 <script>
-$(document).ready(function () {
-    $('#example').DataTable();
-});
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
 </script>
 @endsection

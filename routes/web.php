@@ -44,6 +44,11 @@ Route::prefix('pemesanan')->group(function () {
         Route::get('edit-detail-transaksi/{id}', [TransaksiController::class, 'editDetailTransaksi'])->name('transaksi.detail.edit');
         Route::post('save-detail-transaksi', [TransaksiController::class, 'saveDetail'])->name('transaksi.save.detail');
         Route::post('update-detail-transaksi', [TransaksiController::class, 'updateDetailTransaksi'])->name('transaksi.update.detail');
+
+        Route::post('save-bahan-baku', [TransaksiController::class, 'saveBahanBaku'])->name('transaksi.save.bahanbaku');
+
+        // AJAX
+        Route::get('get-ajax-bahan-baku/{id}', [TransaksiController::class, 'getAjaxBahanBaku']);
     });
 });
 

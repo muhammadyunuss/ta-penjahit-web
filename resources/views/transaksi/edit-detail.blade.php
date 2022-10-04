@@ -42,18 +42,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label">Pelanggan</h4>
-                        <h2 class="control-label">{{ $data->nama_pelanggan }}</h2>
+                        <h4 class="control-label"><strong>Pelanggan</strong></h4>
+                        <p class="control-label">Nama : {{ $data->nama_pelanggan }}</p>
+                        <p class="control-label">Email : {{ $data->email_pelanggan }}</p>
+                        <p class="control-label">No. Telepon : {{ $data->no_telepon_pelanggan }}</p>
+                        <p class="control-label">Alamat : {{ $data->alamat_pelanggan }}</p>
                     </div>
                 </div>
-                <!--/span-->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label">Penjahit</h4>
-                        <h2 class="control-label">{{ $data->nama_penjahit }}</h2>
+                        <h4 class="control-label"><strong>Penjahit</strong></h4>
+                        <p class="control-label">Nama Penjahit : {{ $data->nama_penjahit }}</p>
                     </div>
                 </div>
-                <!--/span-->
             </div>
         </div>
     </div>
@@ -369,6 +370,14 @@
                         </div>
                     </div>
                     <!--/span-->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Deskripsi</label>
+                            <input type="text" id="deskripsi_pemesanan" name="deskripsi_pemesanan" class="form-control" placeholder="Deskripsi" value="{{ $dataModelDetail->deskripsi_pemesanan }}">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-actions right">
