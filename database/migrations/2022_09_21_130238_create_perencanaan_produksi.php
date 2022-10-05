@@ -15,10 +15,10 @@ class CreatePerencanaanProduksi extends Migration
     {
         Schema::create('perencanaan_produksi', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('proses_produksi_id');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->string('gambar_pola');
+            $table->bigInteger('proses_produksi_id')->nullable();
+            $table->date('tanggal_mulai')->nullable();
+            $table->date('tanggal_selesai')->nullable();
+            $table->string('gambar_pola')->nullable();
             $table->timestamps();
         });
     }

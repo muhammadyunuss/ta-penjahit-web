@@ -15,8 +15,8 @@ class CreateRealisasiPenjahit extends Migration
     {
         Schema::create('realisasi_penjahit', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('realisasi_produksi_id');
-            $table->bigInteger('penjahit_id');
+            $table->bigInteger('realisasi_produksi_id')->nullable();
+            $table->bigInteger('penjahit_id')->nullable();
             $table->timestamps();
         });
     }

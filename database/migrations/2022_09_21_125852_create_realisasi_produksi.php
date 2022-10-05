@@ -15,12 +15,12 @@ class CreateRealisasiProduksi extends Migration
     {
         Schema::create('realisasi_produksi', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('perencanaan_produksi_id');
-            $table->bigInteger('proses_produksi_id');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->string('foto');
-            $table->text('keterangan');
+            $table->bigInteger('perencanaan_produksi_id')->nullable();
+            $table->bigInteger('proses_produksi_id')->nullable();
+            $table->date('tanggal_mulai')->nullable();
+            $table->date('tanggal_selesai')->nullable();
+            $table->string('foto')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -41,7 +41,7 @@
                             Sediaan Bahan Baku</a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('transaksi-bahanbaku.index') }}">
                             Transaksi Bahan Baku</a>
                         </li>
                     </ul>

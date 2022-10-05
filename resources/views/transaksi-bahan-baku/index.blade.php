@@ -5,8 +5,8 @@
 
 @section('content')
 <h3 class="page-title">
-    Daftar Transaksi Pemesanan &nbsp;&nbsp;
-    <a type= "button" href="{{route('transaksi.create')}}" class="btn btn-primary btn-sm">
+    Daftar Transaksi Bahan Baku &nbsp;&nbsp;
+    <a type= "button" href="{{route('transaksi-bahanbaku.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH TRANSAKSI
     </a>
 </h3>
@@ -18,7 +18,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('transaksi.index')}}">Daftar Transaksi</a>
+            <a href="{{route('transaksi-bahanbaku.index')}}">Daftar Transaksi Bahan Baku</a>
         </li>
     </ul>
 </div>
@@ -41,9 +41,8 @@
     <tr>
     <!-- <th>ID</th> -->
     <th>Tanggal</th>
-    <th>Pelanggan</th>
-    <th>Total</th>
-    <th>Penjahit</th>
+    <th>Supplier</th>
+    <th>Total Harga</th>
     <th>Aksi</th>
     </tr>
 </thead>
@@ -51,23 +50,22 @@
     @foreach($data as $d)
     <?php $total=0 ?>
     <tr>
-        <td>{{ $d->tanggal }}</td>
-        <td>{{ $d->nama_pelanggan }}</td>
-        <td>{{ $d->total_ongkos }}</td>
-        <td>{{ $d->nama_penjahit }}</td>
+        <td>{{ $d->tanggal_beli }}</td>
+        <td>{{ $d->supplier_id }}</td>
+        <td>{{ $d->total }}</td>
         <td>
         <ul class="nav nav-pills">
             <li >
-                <button onclick="window.location='{{ route('transaksi.show', $d->id) }}'" type="button" class="btn btn-default">Lihat</button>
+                <button onclick="window.location='{{ route('transaksi-bahanbaku.show', $d->id) }}'" type="button" class="btn btn-default">Lihat</button>
             </li>
             {{-- <li >
-                <button onclick="window.location='{{ route('transaksi.detail.create', $d->id) }}'" type="button" class="btn btn-info">Tambah Pemesanan</button>
+                <button onclick="window.location='{{ route('transaksi-bahanbaku.detail.create', $d->id) }}'" type="button" class="btn btn-info">Tambah Pemesanan</button>
             </li> --}}
             <li >
-                <button onclick="window.location='{{ route('transaksi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
+                <button onclick="window.location='{{ route('transaksi-bahanbaku.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
             </li>
             <li>
-                <form method="POST" action="{{route('transaksi.destroy' , $d->id)}}">
+                <form method="POST" action="{{route('transaksi-bahanbaku.destroy' , $d->id)}}">
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"

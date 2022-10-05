@@ -15,11 +15,11 @@ class CreatePembelianBahanbaku extends Migration
     {
         Schema::create('pembelian_bahanbaku', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('supplier_id');
-            $table->bigInteger('penjahit_id');
-            $table->date('tanggal_beli');
-            $table->double('bayar');
-            $table->double('total');
+            $table->bigInteger('supplier_id')->nullable();
+            $table->bigInteger('penjahit_id')->nullable();
+            $table->date('tanggal_beli')->nullable();
+            $table->double('bayar')->nullable();
+            $table->double('total')->nullable();
             $table->timestamps();
         });
     }

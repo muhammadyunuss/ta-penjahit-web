@@ -15,7 +15,7 @@ class CreateJenisModel extends Migration
     {
         Schema::create('jenis_model', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_jenismodel');
+            $table->string('nama_jenismodel')->nullable();
             $table->timestamps();
         });
     }

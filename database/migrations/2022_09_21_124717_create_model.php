@@ -15,12 +15,12 @@ class CreateModel extends Migration
     {
         Schema::create('model', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('jenis_model');
-            $table->bigInteger('pelanggan_id');
-            $table->string('foto_model');
-            $table->string('nama_model');
-            $table->string('ongkos_jahit');
-            $table->string('deskripsi_model');
+            $table->bigInteger('jenis_model')->nullable();
+            $table->bigInteger('pelanggan_id')->nullable();
+            $table->string('foto_model')->nullable();
+            $table->string('nama_model')->nullable();
+            $table->string('ongkos_jahit')->nullable();
+            $table->string('deskripsi_model')->nullable();
             $table->timestamps();
         });
     }

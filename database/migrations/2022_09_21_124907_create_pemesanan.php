@@ -15,15 +15,15 @@ class CreatePemesanan extends Migration
     {
         Schema::create('pemesanan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pelanggan_id');
-            $table->bigInteger('penjahit_id');
-            $table->bigInteger('proses_produksi_id');
-            $table->bigInteger('pengambilan_id');
-            $table->bigInteger('perencanaan_produksi_id');
-            $table->date('tanggal');
-            $table->double('total_ongkos');
-            $table->double('bayar');
-            $table->string('status_pembayaran');
+            $table->bigInteger('pelanggan_id')->nullable();
+            $table->bigInteger('penjahit_id')->nullable();
+            $table->bigInteger('proses_produksi_id')->nullable();
+            $table->bigInteger('pengambilan_id')->nullable();
+            $table->bigInteger('perencanaan_produksi_id')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->double('total_ongkos')->nullable();
+            $table->double('bayar')->nullable();
+            $table->string('status_pembayaran')->nullable();
             $table->timestamps();
         });
     }

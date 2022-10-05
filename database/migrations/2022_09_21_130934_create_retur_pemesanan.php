@@ -15,11 +15,11 @@ class CreateReturPemesanan extends Migration
     {
         Schema::create('retur_pemesanan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pemesanan_id');
-            $table->date('tanggal_pengajuan');
-            $table->string('gambar');
-            $table->text('deskripsi');
-            $table->string('status');
+            $table->bigInteger('pemesanan_id')->nullable();
+            $table->date('tanggal_pengajuan')->nullable();
+            $table->string('gambar')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

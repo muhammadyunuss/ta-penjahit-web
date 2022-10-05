@@ -205,7 +205,7 @@
 @section('scripts')
 <script>
     $("#bahan_baku_id").on('change', function(event) {
-        var id = $(this).val();
+        let id = $(this).val();
         document.getElementById("ongkos_jahit").value = 0;
         if(id){
             $.ajax ({

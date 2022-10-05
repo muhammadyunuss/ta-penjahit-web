@@ -15,10 +15,10 @@ class CreatePenjahitsTable extends Migration
     {
         Schema::create('penjahits', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('no_telepon');
-            $table->string('nama_penjahit');
-            $table->string('password');
+            $table->string('email')->nullable();
+            $table->string('no_telepon')->nullable();
+            $table->string('nama_penjahit')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

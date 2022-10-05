@@ -15,7 +15,7 @@ class CreateProsesProduksi extends Migration
     {
         Schema::create('proses_produksi', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_prosesproduksi');
+            $table->string('nama_prosesproduksi')->nullable();
             $table->timestamps();
         });
     }

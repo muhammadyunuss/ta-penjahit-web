@@ -15,13 +15,13 @@ class CreateBahanBakusTable extends Migration
     {
         Schema::create('bahan_baku', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_bahanbaku');
-            $table->string('letak_bahanbaku');
-            $table->double('harga_beli');
-            $table->double('harga_jual');
-            $table->double('stok');
-            $table->string('satuan');
-            $table->bigInteger('supplier_id');
+            $table->string('nama_bahanbaku')->nullable();
+            $table->string('letak_bahanbaku')->nullable();
+            $table->double('harga_beli')->nullable();
+            $table->double('harga_jual')->nullable();
+            $table->double('stok')->nullable();
+            $table->string('satuan')->nullable();
+            $table->bigInteger('supplier_id')->nullable();
             $table->timestamps();
         });
     }

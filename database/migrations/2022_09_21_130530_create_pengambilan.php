@@ -15,11 +15,11 @@ class CreatePengambilan extends Migration
     {
         Schema::create('pengambilan', function (Blueprint $table) {
             $table->id();
-            $table->string('opsi_pengambilan');
-            $table->date('tanggal');
-            $table->string('alamat_pengiriman');
-            $table->double('biaya_pengiriman');
-            $table->string('no_resi');
+            $table->string('opsi_pengambilan')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('alamat_pengiriman')->nullable();
+            $table->double('biaya_pengiriman')->nullable();
+            $table->string('no_resi')->nullable();
             $table->timestamps();
         });
     }
