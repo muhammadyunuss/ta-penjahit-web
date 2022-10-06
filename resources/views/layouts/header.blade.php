@@ -19,7 +19,7 @@
 <!-- BEGIN TOP NAVIGATION MENU -->
 <ul class="nav navbar-nav pull-right">
     <!-- BEGIN NOTIFICATION DROPDOWN -->
-    <li class="dropdown" id="header_notification_bar">
+    {{-- <li class="dropdown" id="header_notification_bar">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="icon-bell"></i>
         <span class="badge badge-success">
@@ -120,10 +120,10 @@
                 <a href="#">See all notifications <i class="fa fa-angle-right"></i></a>
             </li>
         </ul>
-    </li>
+    </li> --}}
     <!-- END NOTIFICATION DROPDOWN -->
     <!-- BEGIN INBOX DROPDOWN -->
-    <li class="dropdown" id="header_inbox_bar">
+    {{-- <li class="dropdown" id="header_inbox_bar">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="icon-envelope-open"></i>
         <span class="badge badge-info">
@@ -218,10 +218,10 @@
                 <a href="inbox.html">See all messages <i class="fa fa-angle-right"></i></a>
             </li>
         </ul>
-    </li>
+    </li> --}}
     <!-- END INBOX DROPDOWN -->
     <!-- BEGIN TODO DROPDOWN -->
-    <li class="dropdown" id="header_task_bar">
+    {{-- <li class="dropdown" id="header_task_bar">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <i class="icon-calendar"></i>
         <span class="badge badge-warning">
@@ -353,7 +353,7 @@
                 <a href="#">See all tasks <i class="fa fa-angle-right"></i></a>
             </li>
         </ul>
-    </li>
+    </li> --}}
     <!-- END TODO DROPDOWN -->
     <li class="devider">
          &nbsp;
@@ -362,11 +362,11 @@
     <li class="dropdown user">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <img alt="" src="{{asset('assets/img/avatar3_small.jpg')}}"/>
-        <span class="username username-hide-on-mobile">Nick </span>
+        <span class="username username-hide-on-mobile">{{ Auth::user()->name }} </span>
         <i class="fa fa-angle-down"></i>
         </a>
         <ul class="dropdown-menu">
-            <li>
+            {{-- <li>
                 <a href="extra_profile.html"><i class="fa fa-user"></i> My Profile</a>
             </li>
             <li>
@@ -381,11 +381,18 @@
                 <a href="#"><i class="fa fa-tasks"></i> My Tasks <span class="badge badge-success">
                 7 </span>
                 </a>
-            </li>
+            </li> --}}
             <li class="divider">
             </li>
             <li>
-                <a href="login.html"><i class="fa fa-key"></i> Log Out</a>
+                <div class="row">
+                    <div class="col text-center mt-3">
+                        <form class="actions" method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="btn btn-default btn-sm" type="submit">Log Out</button>
+                        </form>
+                    </div>
+                </div>
             </li>
         </ul>
     </li>

@@ -149,8 +149,11 @@ class TransaksiBahanBakuController extends Controller
      * @param  \App\Models\TransaksiBahanBaku  $transaksiBahanBaku
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransaksiBahanBaku $transaksiBahanBaku)
+    public function destroy($id)
     {
-        //
+        DB::table('pembelian_bahanbaku')->where('id', $id)->delete();
+        DB::table('detail_pembelian_bahanbaku')->where('pembelian_bahanbaku_id', $id)->delete();
+
+        return redirect()->back()->with(['success' => 'Data Berhasil Diupdate!']);
     }
 }
