@@ -13,11 +13,11 @@ class CreatePenjahitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('penjahits', function (Blueprint $table) {
+        Schema::create('penjahit', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_penjahit')->nullable();
             $table->string('email')->nullable();
             $table->string('no_telepon')->nullable();
-            $table->string('nama_penjahit')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
         });

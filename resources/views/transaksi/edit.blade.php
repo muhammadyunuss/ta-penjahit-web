@@ -51,7 +51,7 @@
                         <label for="name" class="col-md-4 col-form-label">Nama Penjahit</label>
                         <div class="col-md-12">
                             <select name="penjahit_id" id="penjahit_id" data-with="100%" class="form-control @error('penjahit_id') is-invalid @enderror">
-                                <option value="">== Pilih Nama Penjahit ==</option>
+                                <option value="">Pilih Nama Penjahit</option>
                                 @foreach($dataPenjahit as $dp)
                                     <option value="{{ $dp->id }}" {{ old('penjahit_id', $data->penjahit_id ) == $dp->id ? 'selected' : null }}>{{ $dp->nama_penjahit }}</option>
                                 @endforeach
