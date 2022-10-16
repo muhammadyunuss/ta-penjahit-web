@@ -17,9 +17,7 @@ class CreatePemesanan extends Migration
             $table->id();
             $table->bigInteger('pelanggan_id')->nullable();
             $table->bigInteger('penjahit_id')->nullable();
-            $table->bigInteger('proses_produksi_id')->nullable();
             $table->bigInteger('pengambilan_id')->nullable();
-            $table->bigInteger('perencanaan_produksi_id')->nullable();
             $table->date('tanggal')->nullable();
             $table->double('total_ongkos')->nullable();
             $table->double('bayar')->nullable();

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BahanBaku;
+use App\Models\DetailPemesananBahanBaku;
 use App\Models\ProsesProduksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,13 +17,17 @@ class PengunaanBahanBakuController extends Controller
      */
     public function index()
     {
-        $data = DB::table('perencanaan_produksi')
-        ->join('proses_produksi','perencanaan_produksi.proses_produksi_id','proses_produksi.id')
+        $data = DB::table('detail_pemesanan_bahanbaku')
+        ->join('bahan_baku','detail_pemesanan_bahanbaku.bahan_baku_id','bahan_baku.id')
+        // ->join('detail_pemesanan_model', 'detail_pemesanan_bahanbaku.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
         ->select(
-            'perencanaan_produksi.*',
-            'proses_produksi.nama_prosesproduksi as nama_prosesproduksi'
+            'detail_pemesanan_bahanbaku.*',
+            'bahan_baku.nama_bahanbaku',
+            'bahan_baku.stok',
+            'bahan_baku.satuan'
         )
         ->get();
+        // dd($data);
         return view('peng-bahan-baku.index', compact('data'));
     }
 
@@ -40,8 +46,10 @@ class PengunaanBahanBakuController extends Controller
         )
         ->get();
         $prosesProduksi = ProsesProduksi::get();
+        $bahanBaku = BahanBaku::get();
 
-        return view('peng-bahan-baku.create', compact('pemesanan', 'prosesProduksi'));
+
+        return view('peng-bahan-baku.create', compact('pemesanan', 'prosesProduksi', 'bahanBaku'));
     }
 
     /**
@@ -52,7 +60,13 @@ class PengunaanBahanBakuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DetailPemesananBahanBaku::create($request->all());
+
+        if($request){
+            return redirect()->route('peng-bahan-baku.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            return redirect()->route('peng-bahan-baku.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
 
     /**
@@ -74,7 +88,29 @@ class PengunaanBahanBakuController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $pengBahanBaku = DB::table('detail_pemesanan_bahanbaku')
+        ->leftjoin('detail_pemesanan_model','detail_pemesanan_bahanbaku.detail_pemesanan_model_id','detail_pemesanan_model.id')
+        // ->join('pemesanan','detail_pemesanan_model.pemesanan_id','pemesanan.id')
+        ->where('detail_pemesanan_bahanbaku.id', $id)
+        ->select(
+            'detail_pemesanan_bahanbaku.*',
+            'detail_pemesanan_model.pemesanan_id'
+        )
+        ->first();
+        // dd($pengBahanBaku);
+        $pemesanan = DB::table('pemesanan')
+        ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
+        ->select(
+            'pemesanan.*',
+            'pelanggan.nama_pelanggan'
+        )
+        ->get();
+        $prosesProduksi = ProsesProduksi::get();
+        $bahanBaku = BahanBaku::get();
+
+
+        return view('peng-bahan-baku.edit', compact('pemesanan', 'prosesProduksi', 'bahanBaku', 'pengBahanBaku'));
     }
 
     /**
@@ -86,7 +122,14 @@ class PengunaanBahanBakuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = new DetailPemesananBahanBaku();
+        $data->where('id', $id)->update(request()->except(['_token', '_method','pemesanan_id']));
+
+        if($request){
+            return redirect()->route('peng-bahan-baku.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('peng-bahan-baku.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -97,6 +140,7 @@ class PengunaanBahanBakuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DetailPemesananBahanBaku::where('id', $id)->delete();
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

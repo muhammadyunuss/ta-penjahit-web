@@ -3,9 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Penggunaan Bahan Baku &nbsp;&nbsp;
+    Pengunaan Bahan Baku &nbsp;&nbsp;
     <a type= "button" href="{{route('peng-bahan-baku.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH PENGUNAAN BAHAN BAKU
+        + TAMBAH PENGGUNAAN BAHAN BAKU
     </a>
 </h3>
 <div class="page-bar">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('peng-bahan-baku.index')}}">Penggunaan Bahan Baku</a>
+            <a href="{{route('peng-bahan-baku.index')}}">Pengunaan Bahan Baku</a>
         </li>
     </ul>
 </div>
@@ -39,18 +39,18 @@
 <thead>
     <tr>
     <!-- <th>ID</th> -->
-    <th>Nama Progres</th>
-    <th>Tanggal Mulai</th>
-    <th>Tanggal Selesai</th>
+    <th>Nama Bahan Baku</th>
+    <th>Jumlah Terpakai</th>
+    <th>Stock</th>
     <th>Aksi</th>
     </tr>
 </thead>
 <tbody>
     @foreach($data as $d)
     <tr>
-    <td>{{ $d->nama_prosesproduksi }}</td>
-    <td>{{ $d->tanggal_mulai }}</td>
-    <td>{{ $d->tanggal_selesai }}</td>
+    <td>{{ $d->nama_bahanbaku }}</td>
+    <td>{{ $d->jumlah_terpakai }}</td>
+    <td>{{ $d->stok }} {{ $d->satuan }}</td>
     <td>
         <ul class="nav nav-pills">
             <li >

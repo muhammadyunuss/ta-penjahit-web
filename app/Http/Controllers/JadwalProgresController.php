@@ -57,7 +57,6 @@ class JadwalProgresController extends Controller
             'model.nama_model',
         )
         ->get();
-        // dd($pemesananDetail);
         return response()->json($pemesananDetail);
     }
 
@@ -69,7 +68,6 @@ class JadwalProgresController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         PerencanaanProduksi::create($request->all());
 
         if($request){
@@ -98,7 +96,6 @@ class JadwalProgresController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $perencanaanProduksi = DB::table('perencanaan_produksi')
         ->join('proses_produksi','perencanaan_produksi.proses_produksi_id','proses_produksi.id')
         ->join('detail_pemesanan_model','perencanaan_produksi.detail_pemesanan_model_id','detail_pemesanan_model.id')
@@ -111,7 +108,6 @@ class JadwalProgresController extends Controller
         )
         ->first();
         $prosesProduksi = ProsesProduksi::get();
-        // dd($perencanaanProduksi);
         $pemesanan = DB::table('pemesanan')
         ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
         ->select(
@@ -137,7 +133,6 @@ class JadwalProgresController extends Controller
             'model.nama_model'
         )
         ->get();
-        // dd($pemesananDetail);
         return response()->json($pemesananDetail);
     }
 

@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout')jadwal-progres
 
 @section('content')
 <!-- BEGIN PAGE HEADER-->
@@ -13,15 +13,15 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('jadwal-progres.index')}}">Pemesanan</a>
+            <a href="{{route('peng-bahan-baku.index')}}">Pemesanan</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('jadwal-progres.index')}}">Jadwal Progress</a>
+            <a href="{{route('peng-bahan-baku.index')}}">Jadwal Progress</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('jadwal-progres.create')}}">Tambah Jadwal Progress</a>
+            <a href="{{route('peng-bahan-baku.create')}}">Tambah Jadwal Progress</a>
         </li>
     </ul>
 </div>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div class="portlet-body form">
-			<form method="POST" action="{{ route('jadwal-progres.store') }}" enctype="multipart/form-data">
+			<form method="POST" action="{{ route('peng-bahan-baku.store') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
                     <div class="form-group row">
@@ -65,29 +65,23 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="proses_produksi_id" class="col-md-4 col-form-label">Proses Produksi</label>
+                        <label for="bahan_baku_id" class="col-md-4 col-form-label">Bahan Baku</label>
                         <div class="col-md-12">
-                            <select name="proses_produksi_id" id="proses_produksi_id" data-with="100%" class="form-control @error('proses_produksi_id') is-invalid @enderror">
-                                <option value="">Pilih Pemesanan Detail</option>
-                                @foreach($prosesProduksi as $p)
-                                    <option value="{{ $p->id }}" {{ old('proses_produksi_id') == $p->id ? 'selected' : null }}>{{ $p->nama_prosesproduksi }}</option>
+                            <select name="bahan_baku_id" id="bahan_baku_id" data-with="100%" class="form-control @error('bahan_baku_id') is-invalid @enderror">
+                                <option value="">Pilih Bahan Baku</option>
+                                @foreach($bahanBaku as $p)
+                                    <option value="{{ $p->id }}" {{ old('bahan_baku_id') == $p->id ? 'selected' : null }}>{{ $p->nama_bahanbaku }}</option>
                                 @endforeach
                             </select>
-                            @error('proses_produksi_id')
+                            @error('bahan_baku_id')
                                 <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="tanggal_mulai">Tanggal Mulai</label>
+                        <label for="jumlah_terpakai">Jumlah Pemakaian</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggal_selesai">Tanggal Selesai</label>
-                        <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}">
+                            <input type="number" class="form-control @error('jumlah_terpakai') is-invalid @enderror" id="jumlah_terpakai" name="jumlah_terpakai" placeholder="Jumlah Pemakaian" value="{{ old('jumlah_terpakai') }}">
                         </div>
                     </div>
 				</div>

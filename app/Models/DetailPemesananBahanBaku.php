@@ -13,6 +13,7 @@ class DetailPemesananBahanBaku extends Model
     protected $fillable = [
         'bahan_baku_id',
         'ongkos_jahit',
-        'jumlah_terpakai'
+        'jumlah_terpakai',
+        'detail_pemesanan_model_id'
     ];
 }
