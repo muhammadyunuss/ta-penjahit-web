@@ -62,7 +62,7 @@
                             Model Anda</a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('modelpelanggan.index') }}">
                             Model Pelanggan</a>
                         </li>
                         <li>
