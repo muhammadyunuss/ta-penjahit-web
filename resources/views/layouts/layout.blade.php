@@ -111,13 +111,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/jquery.vmap.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.peity.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.pulsate.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery-knob/js/jquery.knob.js')}}" type="text/javascript"></script>
@@ -131,28 +124,34 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/scripts/app.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/scripts/index.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/scripts/tasks.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
-<script>
-jQuery(document).ready(function() {
-   App.init(); // initlayout and core plugins
-   Index.init();
-   Index.initJQVMAP(); // init index page's custom scripts
-   Index.initCalendar(); // init index page's custom scripts
-   Index.initCharts(); // init index page's custom scripts
-   Index.initChat();
-   Index.initMiniCharts();
-   Index.initPeityElements();
-   Index.initKnowElements();
-   Index.initDashboardDaterange();
-   Tasks.initDashboardWidget();
-});
-</script>
 
 @yield('scripts')
+
+<script>
+    jQuery(document).ready(function() {
+       App.init(); // initlayout and core plugins
+       Index.init();
+       Index.initCalendar(); // init index page's custom scripts
+       Index.initCharts(); // init index page's custom scripts
+       Index.initChat();
+       Index.initMiniCharts();
+       Index.initPeityElements();
+       Index.initKnowElements();
+       Index.initDashboardDaterange();
+       Tasks.initDashboardWidget();
+       TableAdvanced.init();
+    });
+    </script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
