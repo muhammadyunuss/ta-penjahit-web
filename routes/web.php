@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BahanBakuController;
 use App\Http\Controllers\ModelAndaController;
+use App\Http\Controllers\ModelBajuPelangganController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiBahanBakuController;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('pemesanan')->group(function () {
         Route::resource('pelanggan', PelangganController::class);
         Route::resource('modelanda', ModelAndaController::class);
+        Route::resource('modelpelanggan', ModelBajuPelangganController::class); 
 
         Route::resource('transaksi', TransaksiController::class);
         Route::prefix('transaksi')->group(function () {
