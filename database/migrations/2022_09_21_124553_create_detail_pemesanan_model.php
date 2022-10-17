@@ -50,7 +50,7 @@ class CreateDetailPemesananModel extends Migration
             $table->double('turun_dada')->nullable();
             $table->double('panjang_rok')->nullable();
             $table->double('panjang_bawah')->nullable();
-            $table->text('deskripsi_pemesanana')->nullable();
+            $table->text('deskripsi_pemesanan')->nullable();
             $table->timestamps();
         });
     }

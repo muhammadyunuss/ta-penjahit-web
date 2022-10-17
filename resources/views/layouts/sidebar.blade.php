@@ -87,15 +87,15 @@
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#">
+                            <a href="{{ route('daftar-progres.index') }}">
                             Daftar Progres</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('jadwal-progres.index') }}">
                             Jadwal Progres</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('peng-bahan-baku.index') }}">
                             Penggunaan Bahan Baku</a>
                         </li>
                         <li>

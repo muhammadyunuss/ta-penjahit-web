@@ -5,6 +5,9 @@ use App\Http\Controllers\ModelAndaController;
 use App\Http\Controllers\ModelBajuPelangganController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DaftarProgresController;
+use App\Http\Controllers\JadwalProgresController;
+use App\Http\Controllers\PengunaanBahanBakuController;
 use App\Http\Controllers\TransaksiBahanBakuController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -60,7 +63,22 @@ Route::middleware(['auth'])->group(function () {
             Route::get('get-ajax-bahan-baku/{id}', [TransaksiController::class, 'getAjaxBahanBaku']);
         });
     });
-    
+
+    Route::prefix('produksi')->group(function () {
+        Route::resource('daftar-progres', DaftarProgresController::class);
+        Route::prefix('daftar-progres')->group(function () {
+
+        });
+
+        Route::resource('jadwal-progres', JadwalProgresController::class);
+        Route::prefix('jadwal-progres')->group(function () {
+            Route::get('get-ajax-pemesanan-to-pemesanan-detail/{id}', [JadwalProgresController::class, 'getAjaxPemesanantoPemesananDetail'])->name('get-ajax-pemesanan-to-pemesanan-detail');
+            Route::get('get-ajax-perencanaan-produksi-to-pemesanan-detail-edit/{id}', [JadwalProgresController::class, 'getAjaxPerencanaanProduksitoPemesananDetailEdit'])->name('get-ajax-perencanaan-produksi-to-pemesanan-detail-edit');
+        });
+
+        Route::resource('peng-bahan-baku', PengunaanBahanBakuController::class);
+    });
+
 });
 
 
