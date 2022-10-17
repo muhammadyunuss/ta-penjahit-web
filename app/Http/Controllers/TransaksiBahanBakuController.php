@@ -9,7 +9,7 @@ use App\Models\PembelianBahanBaku;
 use App\Models\PembelianBahanBakuDetail;
 use App\Models\Penjahit;
 use App\Models\Supplier;
-use App\Models\TransaksiBahanBaku;
+#use App\Models\TransaksiBahanBaku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
