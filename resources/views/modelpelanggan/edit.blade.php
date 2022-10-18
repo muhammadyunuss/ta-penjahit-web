@@ -85,12 +85,6 @@
                     <div class="form-group row">
 						<label for="name" class="col-md-4 col-form-label">Jenis Model</label>
 						<div class="col-md-12">
-							<select name="jnsModel" id="jnsModel" class="form-control @error('jnsModel') is-invalid @enderror">
-								<option value="" >== Pilih Jenis Model ==</option>
-								@foreach($jenismodel as $jm)
-								    <option value="{{ $jm->id }}" {{ old('jnsModel', $data->jenismodel_id) == $jm->id ? 'selected' : null }}>{{ $jm->nama_jenismodel }}</option>
-								@endforeach
-							</select>
                             <select name="jenis_model" id="jenis_model" class="form-control @error('jenis_model') is-invalid @enderror">
 								<option value="">== Pilih Jenis Model ==</option>
 								@foreach($jenismodel as $key => $jm)

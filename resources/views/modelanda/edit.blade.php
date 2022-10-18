@@ -41,36 +41,36 @@
 			@method("PUT")
 				<div class="form-body">
                     <div class="mb-3">
-						<label for="image" class="form-label">Gambar</label>
-						<input type="hidden" name="oldImage" value="{{ $data->foto_model }}"> <!-- menyimpan image lama -->
-						<input class="form-control" type="file" id="image" name="image" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+						<label for="foto_model" class="form-label">Gambar</label>
+						{{-- <input type="hidden" name="oldfoto_model" value="{{ $data->foto_model }}"> --}}
+						<input class="form-control" type="file" id="foto_model" name="foto_model" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
 						@if($data->foto_model)
-							<img src="{{ asset('storage/' . $data->foto_model) }}" class="img-fluid" id="img-preview" style="max-height:400px">
+							<img src="{{ asset('upload_image/foto_model/'.$data->foto_model) }}" class="img-fluid" id="img-preview" style="max-height:400px">
 						@else
-							<img class="img-fluid" id="img-preview" style="max-height:400px">
-							@error('image')
-							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
-						@enderror
+                            <img class="img-fluid" id="img-preview" style="max-height:400px">
+                            @error('foto_model')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
 						@endif
-					</div><br>
+					</div>
                     <div class="form-group">
-						<label for="nmModel">Nama</label>
-						<input type="text" class="form-control @error('nmModel') is-invalid @enderror" name="nmModel" value="{{ old('nmModel', $data->nama_model) }}" placeholder="Isikan nama model Anda">
-						@error('nmModel')
+						<label for="nama_model">Nama</label>
+						<input type="text" class="form-control @error('nama_model') is-invalid @enderror" name="nama_model" value="{{ old('nama_model', $data->nama_model) }}" placeholder="Isikan nama model Anda">
+						@error('nama_model')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
-					</div><br>
+					</div>
 					<div class="form-group">
-						<label for="hrgModel">Ongkos Jahit</label> (Rp)
-						<input type="number" class="form-control @error('hrgModel') is-invalid @enderror" name="hrgModel" value="{{ old('hrgModel', $data->ongkos_jahit) }}"  placeholder="Isikan harga model Anda" min="0">
-						@error('hrgModel')
+						<label for="ongkos_jahit">Ongkos Jahit</label> (Rp)
+						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit', $data->ongkos_jahit) }}"  placeholder="Isikan harga model Anda" min="0">
+						@error('ongkos_jahit')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
-					</div><br>
+					</div>
 					<div class="form-group">
-						<label for="deskModel">Deskripsi</label>
-						<textarea class="form-control @error('deskModel') is-invalid @enderror" name="deskModel" placeholder="Isikan deskripsi model Anda" rows="3">{{ old('deskModel', $data->deskripsi_model) }}</textarea>
-					</div><br>
+						<label for="deskripsi_model">Deskripsi</label>
+						<textarea class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Anda" rows="3">{{ old('deskripsi_model', $data->deskripsi_model) }}</textarea>
+					</div>
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>
                     	<div class="form-check">
@@ -85,12 +85,6 @@
                     <div class="form-group row">
 						<label for="name" class="col-md-4 col-form-label">Jenis Model</label>
 						<div class="col-md-12">
-							<select name="jnsModel" id="jnsModel" class="form-control @error('jnsModel') is-invalid @enderror">
-								<option value="" >== Pilih Jenis Model ==</option>
-								@foreach($jenismodel as $jm)
-								    <option value="{{ $jm->id }}" {{ old('jnsModel', $data->jenismodel_id) == $jm->id ? 'selected' : null }}>{{ $jm->nama_jenismodel }}</option>
-								@endforeach
-							</select>
                             <select name="jenis_model" id="jenis_model" class="form-control @error('jenis_model') is-invalid @enderror">
 								<option value="">== Pilih Jenis Model ==</option>
 								@foreach($jenismodel as $key => $jm)

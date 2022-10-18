@@ -87,26 +87,25 @@ class ModelAndaController extends Controller
      * @param  \App\Models\ModelAnda  $modelAnda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ModelAnda $modelAnda)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required'
+            'foto_model' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $data = $request->all();
+        
+        $data = request()->except(['_token', '_method']);
 
         if ($image = $request->file('foto_model')) {
             $destinationPath = 'upload_image/foto_model/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $data['foto_model'] = "$profileImage";
-        }else{
+        }
+        else{
             unset($data['foto_model']);
         }
 
-        $modelAnda->update($data);
-
+        ModelAnda::where('id', $id)->update($data);
         return redirect()->route('modelanda.index')->with('status','Data model Anda berhasil diubah');
 
     }
