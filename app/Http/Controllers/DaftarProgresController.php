@@ -15,31 +15,10 @@ class DaftarProgresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // dd($request->id);
-        $id = $request->id;
         $data = ProsesProduksi::all();
-        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
-        $pemesanan = DB::table('pemesanan')
-        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
-        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id');
-        // ->where('pemesanan.id', $id)
-        // if($id){
-        //     $pemesanan->where('pemesanan.id', $id);
-        // }
-
-        $pemesanan = $pemesanan->select(
-            'pemesanan.*',
-            'pelanggan.nama_pelanggan as nama_pelanggan',
-            'pelanggan.email as email_pelanggan',
-            'pelanggan.no_telepon as no_telepon_pelanggan',
-            'pelanggan.alamat as alamat_pelanggan',
-            'penjahit.nama_penjahit as nama_penjahit'
-        )
-        ->get();
-        // dd($pemesanan);
-        return view('daftar-progres.index', compact('data','viewTransaksiPemesanan','pemesanan','id'));
+        return view('daftar-progres.index', compact('data'));
     }
 
     /**

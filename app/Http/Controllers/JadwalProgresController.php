@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PerencanaanProduksi;
 use App\Models\ProsesProduksi;
+use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,16 +15,22 @@ class JadwalProgresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $id = $request->id;
         $data = DB::table('perencanaan_produksi')
-        ->join('proses_produksi','perencanaan_produksi.proses_produksi_id','proses_produksi.id')
-        ->select(
+        ->join('proses_produksi','perencanaan_produksi.proses_produksi_id','proses_produksi.id');
+        if($id){
+            $data->where('perencanaan_produksi.detail_pemesanan_model_id', $id);
+        }
+        $data = $data->select(
             'perencanaan_produksi.*',
             'proses_produksi.nama_prosesproduksi as nama_prosesproduksi'
         )
         ->get();
-        return view('jadwal-progres.index', compact('data'));
+
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
+        return view('jadwal-progres.index', compact('data', 'viewTransaksiPemesanan', 'id'));
     }
 
     /**

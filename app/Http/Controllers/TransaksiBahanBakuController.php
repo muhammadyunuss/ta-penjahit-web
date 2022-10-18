@@ -79,7 +79,6 @@ class TransaksiBahanBakuController extends Controller
 
     public function saveDetail(Request $request)
     {
-        // dd($request->all());
         PembelianBahanBakuDetail::create($request->all());
         if($request){
             return redirect()->route('transaksi-bahanbaku.show', $request->pembelian_bahanbaku_id)->with(['success' => 'Data Berhasil Disimpan!']);

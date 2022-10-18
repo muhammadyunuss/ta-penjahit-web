@@ -85,7 +85,6 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         Pemesanan::create($request->all());
         $data = Pemesanan::latest()->first();
 
@@ -217,7 +216,6 @@ class TransaksiController extends Controller
     public function edit($id)
     {
         $data = Pemesanan::find($id);
-        // dd($data);
         $dataPelanggan = Pelanggan::all();
         $dataModel = ModelAnda::all();
         $dataPenjahit = Penjahit::all();

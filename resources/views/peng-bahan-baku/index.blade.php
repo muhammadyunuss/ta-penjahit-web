@@ -34,6 +34,28 @@
 </div>
 @endif
 
+<div class="alert alert-default">
+    <form method="POST" action="">
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label">Nama Pemesanan</label>
+            <div class="col-md-10">
+                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
+                    <option value="">Pilih Nama Pemesanan</option>
+                    @foreach($viewTransaksiPemesanan as $p)
+                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }} | Jenis Model : {{ $p->jenis_model }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                    @endforeach
+                </select>
+                @error('s_pemesanan_id')
+                    <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-md-2">
+                <a href="" id="btn-search" class="btn btn-info">Search</a>
+            </div>
+        </div>
+   </form>
+</div>
+
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
 <table class="table" id="sample_1">
 <thead>
@@ -80,6 +102,12 @@
 jQuery(document).ready(function() {
 	//plugin datatable
 	$('#sample_1').DataTable();
+    $('#s_pemesanan_id').on('change', function() {
+        let id_pemesanan = $(this).val();
+        let url = id_pemesanan? '{{ route("peng-bahan-baku.index") }}?id='+id_pemesanan : '{{ route("peng-bahan-baku.index") }}'
+        $('#btn-search').attr('href', url);
+
+    });
 });
 </script>
 @stop

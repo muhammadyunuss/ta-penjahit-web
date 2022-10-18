@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BahanBaku;
 use App\Models\DetailPemesananBahanBaku;
 use App\Models\ProsesProduksi;
+use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,20 +16,25 @@ class PengunaanBahanBakuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $id = $request->id;
         $data = DB::table('detail_pemesanan_bahanbaku')
-        ->join('bahan_baku','detail_pemesanan_bahanbaku.bahan_baku_id','bahan_baku.id')
+        ->join('bahan_baku','detail_pemesanan_bahanbaku.bahan_baku_id','bahan_baku.id');
+        if($id){
+            $data->where('detail_pemesanan_bahanbaku.detail_pemesanan_model_id', $id);
+        }
         // ->join('detail_pemesanan_model', 'detail_pemesanan_bahanbaku.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
-        ->select(
+        $data = $data->select(
             'detail_pemesanan_bahanbaku.*',
             'bahan_baku.nama_bahanbaku',
             'bahan_baku.stok',
             'bahan_baku.satuan'
         )
         ->get();
-        // dd($data);
-        return view('peng-bahan-baku.index', compact('data'));
+
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
+        return view('peng-bahan-baku.index', compact('data', 'viewTransaksiPemesanan','id'));
     }
 
     /**
@@ -98,7 +104,6 @@ class PengunaanBahanBakuController extends Controller
             'detail_pemesanan_model.pemesanan_id'
         )
         ->first();
-        // dd($pengBahanBaku);
         $pemesanan = DB::table('pemesanan')
         ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
         ->select(

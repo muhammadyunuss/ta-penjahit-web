@@ -27,7 +27,6 @@ class ModelAndaController extends Controller
     public function create()
     {
         $jenismodel = ModelAnda::getJenisModel();
-        // dd($jenismodel);
         return view('modelanda.create',compact('jenismodel'));
     }
 
@@ -78,7 +77,6 @@ class ModelAndaController extends Controller
     {
         $jenismodel = ModelAnda::getJenisModel();
         $data = ModelAnda::find($modelAnda);
-        // dd($jenismodel);
         return view('modelanda.edit',compact('data', 'jenismodel'));
     }
 

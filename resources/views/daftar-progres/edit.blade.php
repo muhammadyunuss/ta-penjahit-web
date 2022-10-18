@@ -42,7 +42,7 @@
 				<div class="form-body">
                     <div class="form-group">
 						<label for="nama_prosesproduksi">Nama</label>
-						<input type="text" class="form-control @error('nama_prosesproduksi') is-invalid @enderror" name="nama_prosesproduksi" value="{{ old('nama_prosesproduksi', $data->nama_prosesproduksi) }}" placeholder="Isikan nama supplier Anda">
+						<input type="text" class="form-control @error('nama_prosesproduksi') is-invalid @enderror" name="nama_prosesproduksi" value="{{ old('nama_prosesproduksi', $data->nama_prosesproduksi) }}" placeholder="Isikan nama Daftar Progres Anda">
 						@error('nama_prosesproduksi')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror

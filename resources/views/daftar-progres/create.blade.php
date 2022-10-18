@@ -3,7 +3,7 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Supplier <br>
+    Daftar Progres <br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -17,11 +17,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('daftar-progres.index')}}">Supplier</a>
+            <a href="{{route('daftar-progres.index')}}">Daftar Progres</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('daftar-progres.create')}}">Tambah Supplier</a>
+            <a href="{{route('daftar-progres.create')}}">Tambah Daftar Progres</a>
         </li>
     </ul>
 </div>
@@ -32,7 +32,7 @@
     <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Tambah Supplier
+				<i class="fa fa-reorder"></i> Tambah Daftar Progres
 			</div>
 		</div>
 		<div class="portlet-body form">
