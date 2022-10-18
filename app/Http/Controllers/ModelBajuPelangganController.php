@@ -79,7 +79,7 @@ class ModelBajuPelangganController extends Controller
     {
         $data = ModelAnda::find($modelAnda);
         $jenismodel = ModelAnda::getJenisModel();
-        $pelanggan = Pelanggan::all(); 
+        $pelanggan = Pelanggan::all();
 
         return view('modelpelanggan.edit',compact('data', 'jenismodel', 'pelanggan'));
     }
