@@ -34,6 +34,27 @@
 </div>
 @endif
 
+<div class="alert alert-default">
+    <form method="POST" action="">
+    <div class="form-group row">
+        <label for="name" class="col-md-4 col-form-label">Nama Penjahit</label>
+        <div class="col-md-10">
+            <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
+                <option value="">== Pilih Nama Penjahit ==</option>
+                @foreach($pemesanan as $p)
+                    <option value="{{ $p->id }}" {{ old('s_pemesanan_id', $id) == $p->id ? 'selected' : null }}>{{ $p->nama_pelanggan }} | {{ $p->tanggal }}</option>
+                @endforeach
+            </select>
+            @error('s_pemesanan_id')
+                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="col-md-2">
+            <a href="" id="btn-search" class="btn btn-info">Search</a>
+        </div>
+    </div>
+   </form>
+</div>
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
 <table class="table" id="sample_1">
 <thead>
@@ -80,6 +101,12 @@
 jQuery(document).ready(function() {
 	//plugin datatable
 	$('#sample_1').DataTable();
+    $('#s_pemesanan_id').on('change', function() {
+        let id_pemesanan = $(this).val();
+        let url = id_pemesanan? '{{ route("daftar-progres.index") }}?id='+id_pemesanan : '{{ route("daftar-progres.index") }}'
+        $('#btn-search').attr('href', url);
+
+    });
 });
 </script>
 @stop

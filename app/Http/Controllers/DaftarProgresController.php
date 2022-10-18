@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pemesanan;
 use App\Models\ProsesProduksi;
+use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DaftarProgresController extends Controller
 {
@@ -12,10 +15,31 @@ class DaftarProgresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->id);
+        $id = $request->id;
         $data = ProsesProduksi::all();
-        return view('daftar-progres.index', compact('data'));
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
+        $pemesanan = DB::table('pemesanan')
+        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
+        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id');
+        // ->where('pemesanan.id', $id)
+        // if($id){
+        //     $pemesanan->where('pemesanan.id', $id);
+        // }
+
+        $pemesanan = $pemesanan->select(
+            'pemesanan.*',
+            'pelanggan.nama_pelanggan as nama_pelanggan',
+            'pelanggan.email as email_pelanggan',
+            'pelanggan.no_telepon as no_telepon_pelanggan',
+            'pelanggan.alamat as alamat_pelanggan',
+            'penjahit.nama_penjahit as nama_penjahit'
+        )
+        ->get();
+        // dd($pemesanan);
+        return view('daftar-progres.index', compact('data','viewTransaksiPemesanan','pemesanan','id'));
     }
 
     /**

@@ -138,7 +138,19 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Ukuran Baju</label>
-                            <input type="number" id="ukuran_baju" name="ukuran_baju" class="form-control" placeholder="Ukuran Baju" value="{{ $dataModelDetail->ukuran_baju }}">
+                            <select class="select2_category form-control" name="ukuran_baju" id="ukuran_baju" tabindex="1">
+                                <option value="{{ $dataModelDetail->ukuran_baju }}" {{ old('ukuran_baju', $dataModelDetail->ukuran_baju ) == $dataModelDetail->ukuran_baju ? 'selected' : null }}>{{ $dataModelDetail->ukuran_baju }}</option>
+                                <option value="">Pilih Ukuran Baju</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                {{-- @foreach ($dataModel as $model)
+                                    <option value="{{ $model->id }}">{{ $model->nama_model }}</option>
+                                @endforeach --}}
+                            </select>
+                            {{-- <input type="number" id="ukuran_baju" name="ukuran_baju" class="form-control" placeholder="Ukuran Baju"> --}}
                         </div>
                     </div>
                     <!--/span-->
