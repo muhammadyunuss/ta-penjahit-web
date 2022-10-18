@@ -62,8 +62,8 @@
                             <a href="{{ route('modelanda.index') }}">
                             Model Anda</a>
                         </li>
-                        <li class="{{ (request()->segment(2) == 'model-pelanggan') ? 'active' : '' }}">
-                            <a href="">
+                        <li class="{{ (request()->segment(2) == 'modelpelanggan') ? 'active' : '' }}">
+                            <a href="{{ route('modelpelanggan.index') }}">
                             Model Pelanggan</a>
                         </li>
                         <li class="{{ (request()->segment(2) == 'transaksi') ? 'active' : '' }}">
