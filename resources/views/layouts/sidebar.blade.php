@@ -101,7 +101,7 @@
                             Penggunaan Bahan Baku</a>
                         </li>
                          <li class="{{ (request()->segment(2) == 'realisasi-progres') ? 'active' : '' }}">
-                            <a href="#">
+                            <a href="{{ route('realisasi-progres.index') }}">
                             Realisasi Progres</a>
                         </li>
                     </ul>

@@ -38,6 +38,9 @@
             <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="#basic">
                 + Tambah Bahan Baku
             </a>
+            <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="{{ route('transaksi.invoice', $data->id )}}">
+                + Invoice
+            </a>
         </div>
     </div>
 </div>
@@ -76,6 +79,9 @@
             <i class="fa fa-reorder"></i> Detail Pemesanan
         </div>
     </div>
+    @php
+        $total = 0;
+    @endphp
     <div class="portlet-body form">
         <div class="form-body">
             <div class="card-body">
@@ -96,11 +102,58 @@
                             <td>{{ $model->nama_model }}</td>
                             <td>{{ $model->banyaknya }}</td>
                             <td>{{ $model->nama_jenismodel }}</td>
-                            <td>{{ $model->ongkos_jahit }}</td>
+                            <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
                             <td>{{ $model->deskripsi_pemesanan }}</td>
                             <td>
                                 <a href="{{ route('transaksi.detail.edit', $model->id) }}">Edit</a>
                             </td>
+                            @php
+                                $total += $model->ongkos_jahit;
+                            @endphp
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="modal fade" id="edit_modal">
+                    <div class="modal-dialog">
+                       <form id="dataDetailPemesanan">
+                            <div class="modal-content">
+                            <input type="hidden" id="color_id" name="color_id" value="">
+                            <div class="modal-body">
+                                <input type="text" name="name" id="name" value="" class="form-control">
+                            </div>
+                            <input type="submit" value="Submit" id="submit" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                        </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-body">
+            <div class="card-body">
+                <table class="table table-bordered table-hover" id="products_table">
+                    <thead>
+                        <tr>
+                            <th>Nama Bahan Baku</th>
+                            <th>Qty</th>
+                            <th>Ongkos</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($detailBahanBaku as $model)
+                        <tr>
+                            <td>{{ $model->nama_bahanbaku }}</td>
+                            <td>{{ $model->jumlah_terpakai }}</td>
+                            <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
+                            <td>
+                                <a href="{{ route('transaksi.detail.edit', $model->id) }}">Edit</a>
+                            </td>
+                            @php
+                                $total += $model->ongkos_jahit;
+                            @endphp
                         </tr>
                         @endforeach
                     </tbody>
@@ -124,17 +177,20 @@
 </div>
 <div class="portlet-body form">
     <!-- BEGIN FORM-->
-    <form action="#" class="horizontal-form">
+    <form role="form" method="POST" id="formtotaltransaksi" name="formtotaltransaksi" action="{{ route('transaksi.update.total', $data->id) }}" class="horizontal-form">
+        @csrf
+        @method("PUT")
         <div class="form-body">
             <h3 class="form-section">Pembayaran</h3>
             <div class="row">
                 <div class="col-md-6">
-
+                    {{-- <input type="hidden" id="id" name="id" value="{{ $data->id }}"> --}}
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Total</label>
-                        <input type="number" id="total_ongkos" class="form-control" placeholder="Total" value="{{ $data->total_ongkos }}" readonly>
+                        <span class="form-control">Rp. {{ number_format($total ,2,',','.') }}</span>
+                        <input type="hidden" id="total_ongkos" name="total_ongkos" class="form-control" placeholder="Total" value="{{ $total }}" readonly>
                     </div>
                 </div>
             </div>
@@ -145,7 +201,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Bayar</label>
-                        <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar">
+                        <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar" value="{{ $data->bayar }}">
                     </div>
                 </div>
             </div>
@@ -214,7 +270,6 @@
                 dataType: 'json',
                 success : function(data) {
                     document.getElementById("ongkos_jahit").value = data[0].harga_jual;
-
                 }
             });
         }

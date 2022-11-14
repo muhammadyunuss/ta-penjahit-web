@@ -68,6 +68,19 @@ class PengunaanBahanBakuController extends Controller
     {
         DetailPemesananBahanBaku::create($request->all());
 
+        #1. read dulu dari tabel detail_pemesanan_bahanbaku
+        /*
+        ("SELECT * FROM detail_pemesanan_bahanbaku WHERE bahan_baku_id='.$bahan_baku_id.' AND pemesanan_id='.$pemesanan_id.' AND ongkos_jahit>0")
+        $counting_row = x
+
+        if($counting_row>0){
+            script update
+        }
+        else{
+            script insertwi
+        }
+        */
+
         if($request){
             return redirect()->route('peng-bahan-baku.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{

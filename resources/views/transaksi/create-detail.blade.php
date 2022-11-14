@@ -74,18 +74,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Model</label>
-                            <select class="select2_category form-control" name="model_id" id="model_id" tabindex="1">
-                                <option value="">Pilih</option>
-                                @foreach ($dataModel as $model)
-                                    <option value="{{ $model->id }}">{{ $model->nama_model }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <label class="control-label">Jenis Model</label>
                             <select class="select2_category form-control" name="jenis_model_id" id="jenis_model_id" tabindex="1">
                                 <option value="">Pilih</option>
@@ -95,14 +83,24 @@
                             </select>
                         </div>
                     </div>
-                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Model</label>
+                            <select class="select2_category form-control" name="model_id" id="model_id" tabindex="1">
+                                <option value="">Pilih</option>
+                                {{-- @foreach ($dataModel as $model)
+                                    <option value="{{ $model->id }}">{{ $model->nama_model }}</option>
+                                @endforeach --}}
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Stock</label>
-                            <input type="number" id="banyaknya" name="banyaknya" class="form-control" placeholder="Stock">
+                            <label class="control-label">Qty</label>
+                            <input type="number" id="banyaknya" name="banyaknya" class="form-control" placeholder="Qty">
                         </div>
                     </div>
                     <!--/span-->
@@ -400,5 +398,38 @@
 @endsection
 
 @section('scripts')
+<script>
+    $("#bahan_baku_id").on('change', function(event) {
+        let id = $(this).val();
+        document.getElementById("ongkos_jahit").value = 0;
+        if(id){
+            $.ajax ({
+                type: 'GET',
+                url: "{{ url('/pemesanan/transaksi/get-ajax-bahan-baku') }}"+"/"+id,
+                dataType: 'json',
+                success : function(data) {
+                    document.getElementById("ongkos_jahit").value = data[0].harga_jual;
 
+                }
+            });
+        }
+    });
+
+    $('#jenis_model_id').change(function(){
+    let id = $(this).val();
+    $.ajax({
+        type:"GET",
+        url: "{{ url('/pemesanan/transaksi/get-ajax-model-to-jenismodel') }}"+"/"+id,
+        dataType: 'JSON',
+        success:function(data){
+            let html = '';
+            let i;
+            for(i=0; i<data.length; i++){
+                html += '<option value='+data[i].id+'>'+data[i].nama_model+'</option>';
+            }
+            $('#model_id').html(html);
+        }
+    });
+   });
+</script>
 @stop

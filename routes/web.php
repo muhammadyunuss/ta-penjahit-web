@@ -8,6 +8,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DaftarProgresController;
 use App\Http\Controllers\JadwalProgresController;
 use App\Http\Controllers\PengunaanBahanBakuController;
+use App\Http\Controllers\RealisasiProgresController;
 use App\Http\Controllers\TransaksiBahanBakuController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -48,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('pemesanan')->group(function () {
         Route::resource('pelanggan', PelangganController::class);
         Route::resource('modelanda', ModelAndaController::class);
-        Route::resource('modelpelanggan', ModelBajuPelangganController::class); 
+        Route::resource('modelpelanggan', ModelBajuPelangganController::class);
 
         Route::resource('transaksi', TransaksiController::class);
         Route::prefix('transaksi')->group(function () {
@@ -58,9 +59,12 @@ Route::middleware(['auth'])->group(function () {
             Route::post('update-detail-transaksi', [TransaksiController::class, 'updateDetailTransaksi'])->name('transaksi.update.detail');
 
             Route::post('save-bahan-baku', [TransaksiController::class, 'saveBahanBaku'])->name('transaksi.save.bahanbaku');
+            Route::put('update-total-transaksi/{id}', [TransaksiController::class, 'updateTotalTransaksi'])->name('transaksi.update.total');
+            Route::get('invoice-transaksi/{id}', [TransaksiController::class, 'invoiceTransaksi'])->name('transaksi.invoice');
 
             // AJAX
             Route::get('get-ajax-bahan-baku/{id}', [TransaksiController::class, 'getAjaxBahanBaku']);
+            Route::get('get-ajax-model-to-jenismodel/{id}', [TransaksiController::class, 'getAjaxModelToJenisModel']);
         });
     });
 
@@ -77,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::resource('peng-bahan-baku', PengunaanBahanBakuController::class);
+        Route::resource('realisasi-progres', RealisasiProgresController::class);
+
     });
 
 });
