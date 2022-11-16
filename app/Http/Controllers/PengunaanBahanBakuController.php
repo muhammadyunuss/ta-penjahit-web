@@ -66,7 +66,67 @@ class PengunaanBahanBakuController extends Controller
      */
     public function store(Request $request)
     {
-        DetailPemesananBahanBaku::create($request->all());
+        // dd($request->all());
+        $pengBahanBaku = DB::table('detail_pemesanan_bahanbaku')
+        ->where('pemesanan_id', $request->pemesanan_id)
+        ->where('detail_pemesanan_model_id', $request->detail_pemesanan_model_id)
+        ->where('bahan_baku_id', $request->bahan_baku_id)
+        // ->where('ongkos_jahit', '>' , 0)
+        ->count();
+
+        if($pengBahanBaku > 0 ) {
+            $pengBahanBakuId = DB::table('detail_pemesanan_bahanbaku')
+            ->where('pemesanan_id', $request->pemesanan_id)
+            ->where('detail_pemesanan_model_id', $request->detail_pemesanan_model_id)
+            ->where('bahan_baku_id', $request->bahan_baku_id)
+            // ->where('ongkos_jahit', '>' , 0)
+            ->first();
+
+            $pengBahanBaku = DB::table('detail_pemesanan_bahanbaku')
+            ->where('id', $pengBahanBakuId->id)
+            ->first();
+
+            $bahanBaku = DB::table('bahan_baku')
+            ->where('id', $pengBahanBaku->bahan_baku_id)
+            ->first();
+
+            $pemakaian_old = $pengBahanBaku->jumlah_terpakai;
+            $pemakaian_new = floatval($request->jumlah_terpakai);
+            $bahanBakustock = $bahanBaku->stok;
+            $laststock = ($bahanBakustock + $pemakaian_old) - $pemakaian_new;
+            // $laststock = $bahanBakustock - $pemakaian_new;
+
+            $data = new DetailPemesananBahanBaku();
+            $data->where('id', $pengBahanBakuId->id)->update(request()->except(['_token', '_method']));
+
+            $bahanBaku = BahanBaku::findOrFail($pengBahanBaku->bahan_baku_id);
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
+        }else{
+            $id = DetailPemesananBahanBaku::create($request->all())->id;
+
+            $pengBahanBaku = DB::table('detail_pemesanan_bahanbaku')
+            ->where('id', $id)
+            ->first();
+
+            $bahanBaku = DB::table('bahan_baku')
+            ->where('id', $pengBahanBaku->bahan_baku_id)
+            ->first();
+
+            $pemakaian_old = $pengBahanBaku->jumlah_terpakai;
+            $pemakaian_new = floatval($request->jumlah_terpakai);
+            $bahanBakustock = $bahanBaku->stok;
+            // $laststock = ($bahanBakustock + $pemakaian_old) - $pemakaian_new;
+            $laststock = $bahanBakustock - $pemakaian_new;
+
+            $bahanBaku = BahanBaku::findOrFail($pengBahanBaku->bahan_baku_id);
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
+
+
+        }
 
         #1. read dulu dari tabel detail_pemesanan_bahanbaku
         /*

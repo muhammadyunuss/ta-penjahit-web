@@ -12,11 +12,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('transaksi.index')}}">Transaksi</a>
+            <a href="{{route('transaksi-bahanbaku.index')}}">Transaksi</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{ route('transaksi.create') }}">Tambah Transaksi Bahan Baku</a>
+            <a href="{{ route('transaksi-bahanbaku.create') }}">Tambah Transaksi Bahan Baku</a>
         </li>
     </ul>
 </div>
@@ -93,11 +93,11 @@
                         @foreach ($dataDetail as $model)
                         <tr>
                             <td>{{ $model->nama_bahan_baku }}</td>
-                            <td>{{ $model->harga_beli }}</td>
+                            <td>Rp. {{ number_format($model->harga_beli ,2,',','.') }}</td>
                             <td>{{ $model->jumlah }}</td>
-                            <td>{{ $model->subtotal }}</td>
+                            <td>Rp. {{ number_format($model->subtotal ,2,',','.') }}</td>
                             <td>
-                                <a href="{{ route('transaksi.detail.edit', $model->id) }}">Edit</a>
+                                <a href="{{ route('transaksi.bahanbaku.detail.edit', $model->id) }}">Edit</a>
                             </td>
                         </tr>
                         @php
@@ -125,7 +125,9 @@
 </div>
 <div class="portlet-body form">
     <!-- BEGIN FORM-->
-    <form action="#" class="horizontal-form">
+    <form method="POST" action="{{ route('transaksi.update.totalbayar', $id) }}" class="horizontal-form" enctype="multipart/form-data">
+        @method('PUT')
+        @csrf
         <div class="form-body">
             <h3 class="form-section">Pembayaran</h3>
             <div class="row">
@@ -135,7 +137,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Total</label>
-                        <input type="number" id="total_ongkos" class="form-control" placeholder="Total" value="{{ $total }}" readonly>
+                        <span class="form-control">Rp. {{ number_format($total ,2,',','.') }}</span>
+                        <input type="hidden" id="total" name="total" class="form-control" placeholder="Total" value="{{ $total }}" readonly>
                     </div>
                 </div>
             </div>
@@ -146,7 +149,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Bayar</label>
-                        <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar">
+                        <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar" value="{{ $data->bayar }}">
                     </div>
                 </div>
             </div>

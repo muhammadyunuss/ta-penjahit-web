@@ -63,7 +63,7 @@
     <!-- <th>ID</th> -->
     <th>Nama Bahan Baku</th>
     <th>Jumlah Terpakai</th>
-    <th>Stock</th>
+    {{-- <th>Stock</th> --}}
     <th>Aksi</th>
     </tr>
 </thead>
@@ -72,7 +72,7 @@
     <tr>
     <td>{{ $d->nama_bahanbaku }}</td>
     <td>{{ $d->jumlah_terpakai }}</td>
-    <td>{{ $d->stok }} {{ $d->satuan }}</td>
+    {{-- <td>{{ $d->stok }} {{ $d->satuan }}</td> --}}
     <td>
         <ul class="nav nav-pills">
             <li >

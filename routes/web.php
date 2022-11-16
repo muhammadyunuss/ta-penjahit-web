@@ -42,7 +42,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tambah-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'createDetail'])->name('transaksi.bahanbaku.detail.create');
         Route::post('save-detail-transaksi-bahanbaku', [TransaksiBahanBakuController::class, 'saveDetail'])->name('transaksi.bahanbaku.save.detail');
         Route::get('edit-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'editDetailTransaksi'])->name('transaksi.bahanbaku.detail.edit');
-        Route::post('update-detail-transaksi-bahanbaku', [TransaksiBahanBakuController::class, 'updateDetailTransaksi'])->name('transaksi.bahanbaku.update.detail');
+        Route::put('update-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'updateDetailTransaksi'])->name('transaksi.bahanbaku.update.detail');
+        Route::put('update-transaksi-totalbayar/{id}/update', [TransaksiBahanBakuController::class, 'updateTransaksiTotalbayar'])->name('transaksi.update.totalbayar');
+
 
     });
 

@@ -51,7 +51,7 @@
     <?php $total=0 ?>
     <tr>
         <td>{{ $d->tanggal_beli }}</td>
-        <td>{{ $d->supplier_id }}</td>
+        <td>{{ $d->nama_supplier }}</td>
         <td>{{ $d->total }}</td>
         <td>
         <ul class="nav nav-pills">
