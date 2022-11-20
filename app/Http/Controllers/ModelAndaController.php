@@ -92,7 +92,7 @@ class ModelAndaController extends Controller
         $request->validate([
             'foto_model' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
+
         $data = request()->except(['_token', '_method']);
 
         if ($image = $request->file('foto_model')) {

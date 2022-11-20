@@ -11,6 +11,8 @@ use App\Http\Controllers\PengunaanBahanBakuController;
 use App\Http\Controllers\RealisasiProgresController;
 use App\Http\Controllers\TransaksiBahanBakuController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UkuranPriaController;
+use App\Http\Controllers\UkuranWanitaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pelanggan', PelangganController::class);
         Route::resource('modelanda', ModelAndaController::class);
         Route::resource('modelpelanggan', ModelBajuPelangganController::class);
+        Route::resource('ukuranpria', UkuranPriaController::class);
+        Route::resource('ukuranwanita', UkuranWanitaController::class);
 
         Route::resource('transaksi', TransaksiController::class);
         Route::prefix('transaksi')->group(function () {
@@ -84,6 +88,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('peng-bahan-baku', PengunaanBahanBakuController::class);
         Route::resource('realisasi-progres', RealisasiProgresController::class);
+
+        Route::prefix('realisasi-progres')->group(function () {
+            Route::get('get-ajax-pemesanan-to-pemesanan-detail/{id}', [RealisasiProgresController::class, 'getAjaxPemesanantoPemesananDetail'])->name('realisasi-get-ajax-pemesanan-to-pemesanan-detail');
+            Route::get('get-ajax-pemesanan-detail-to-perencanaan-produksi/{id}', [RealisasiProgresController::class, 'getAjaxPemesananDetailtoPerencanaanProduksi'])->name('realisasi-get-ajax-pemesanan-detail-to-perencanaan-produksi');
+        });
 
     });
 

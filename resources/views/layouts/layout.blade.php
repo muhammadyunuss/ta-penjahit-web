@@ -149,7 +149,6 @@ License: You must have a valid license purchased only from themeforest(the above
        Index.initKnowElements();
        Index.initDashboardDaterange();
        Tasks.initDashboardWidget();
-       TableAdvanced.init();
     });
     </script>
 <!-- END JAVASCRIPTS -->

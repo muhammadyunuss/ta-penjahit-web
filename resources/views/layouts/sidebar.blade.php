@@ -70,12 +70,12 @@
                             <a href="{{ route('transaksi.index') }}">
                             Transaksi Pemesanan</a>
                         </li>
-                        <li class="{{ (request()->segment(2) == 'ukuran-pria') ? 'active' : '' }}">
-                            <a href="">
+                        <li class="{{ (request()->segment(2) == 'ukuranpria') ? 'active' : '' }}">
+                            <a href="{{ route('ukuranpria.index') }}">
                             Ukuran Pria</a>
                         </li>
-                        <li class="{{ (request()->segment(2) == 'ukuran-wanita') ? 'active' : '' }}">
-                            <a href="">
+                        <li class="{{ (request()->segment(2) == 'ukuranwanita') ? 'active' : '' }}">
+                            <a href="{{ route('ukuranwanita.index') }}">
                             Ukuran Wanita</a>
                         </li>
                     </ul>

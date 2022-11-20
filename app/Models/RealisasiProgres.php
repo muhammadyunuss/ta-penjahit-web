@@ -12,7 +12,8 @@ class RealisasiProgres extends Model
     protected $table = 'realisasi_produksi';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'perencaan_produksi_id',
+        'pemesanan_id',
+        'perencanaan_produksi_id',
         'proses_produksi_id',
         'tanggal_mulai',
         'tanggal_selesai',

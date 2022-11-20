@@ -39,55 +39,66 @@
 			<form method="POST" action="{{ route('realisasi-progres.store') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 col-form-label">Nama Pemesan</label>
+                        <div class="col-md-12">
+                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror">
+                                <option value="">Pilih Pemesanan</option>
+                                @foreach($pemesanan as $p)
+                                    <option value="{{ $p->id }}" {{ old('pemesanan_id') == $p->id ? 'selected' : null }}>Pelanggan : <b>{{ $p->nama_pelanggan }}</b> | Tanggal: <b>{{ $p->tanggal }}</b></option>
+                                @endforeach
+                            </select>
+                            @error('pemesanan_id')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail_pemesanan_model_id" class="col-md-4 col-form-label">Pemesan Detail</label>
+                        <div class="col-md-12">
+                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror">
+                                <option value="">Pilih Pemesanan Detail</option>
+                            </select>
+                            @error('detail_pemesanan_model_id')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="perencanaan_produksi_id" class="col-md-4 col-form-label">Perencanaan Produksi</label>
+                        <div class="col-md-12">
+                            <select name="perencanaan_produksi_id" id="perencanaan_produksi_id" data-with="100%" class="form-control @error('perencanaan_produksi_id') is-invalid @enderror">
+                                <option value="">Pilih Perencanaan Produksi</option>
+                            </select>
+                            @error('detail_pemesanan_model_id')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_mulai">Tanggal Mulai</label>
+                        <div>
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_selesai">Tanggal Selesai</label>
+                        <div>
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+						<label for="deskripsi_model">Keterangan</label>
+						<textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" placeholder="Isikan deskripsi Realisasi Progres" rows="3">{{ old('keterangan') }}</textarea>
+					</div><br>
                     <div class="mb-3">
-						<label for="foto_model" class="form-label">Gambar</label>
-						<input class="form-control" type="file" id="foto_model" name="foto_model" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
-						@error('foto_model')
+						<label for="foto" class="form-label">Gambar</label>
+						<input class="form-control" type="file" id="foto" name="foto" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+						@error('foto')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 						<img class="img-fluid" id="img-preview" style="max-height:400px">
 					</div><br>
-                    <div class="form-group">
-						<label for="nama_model">ID Pesanan</label>
-						<input type="text" class="form-control @error('nama_model') is-invalid @enderror" name="nama_model" value="{{ old('nama_model') }}" placeholder="Isikan nama Realisasi Progres">
-						@error('nama_model')
-							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
-						@enderror
-					</div><br>
-					<div class="form-group">
-						<label for="ongkos_jahit">Pelanggan</label>
-						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit') }}"  placeholder="Isikan harga Realisasi Progres" min="0">
-						@error('ongkos_jahit')
-							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
-						@enderror
-					</div><br>
-					<div class="form-group">
-						<label for="deskripsi_model">Deskripsi</label>
-						<textarea class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi Realisasi Progres" rows="3">{{ old('deskripsi_model') }}</textarea>
-					</div><br>
-                    <!-- <div class="form-group">
-                        <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>
-                    	<div class="form-check">
-							<label><input type="radio" name="tampilModel" id="tampilModel" value="tampilkan" checked="checked"/>Ya</label>
-                        </div>
-						<div class="form-check">
-							<label><input type="radio" name="tampilModel" id="tampilModel" value="sembunyikan"/>Tidak</label>
-                        </div>
-                	</div><br> -->
-                    <div class="form-group row">
-						<label for="jenis_model" class="col-md-4 col-form-label">Jenis Model</label>
-						<div class="col-md-12">
-							<select name="jenis_model" id="jenis_model" class="form-control @error('jenis_model') is-invalid @enderror">
-								<option value="">== Pilih Jenis Model ==</option>
-								@foreach($jenismodel as $key => $jm)
-									<option value="{{ $key }}">{{ $jm }}</option>
-								@endforeach
-							</select>
-							@error('jenis_model')
-								<div class="invalid-feedback" style="color:red">{{ $message }}</div>
-							@enderror
-						</div>
-					</div>
 				</div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Simpan</button>
@@ -104,5 +115,51 @@
 $(document).ready(function() {
     $('#nmBahanBaku').select2();
 });
+</script>
+
+<script type="text/javascript">
+
+    $('#pemesanan_id').change(function(e){
+        let id=$(this).val();
+        $.ajax({
+            url : "{{ url('/produksi/realisasi-progres/get-ajax-pemesanan-to-pemesanan-detail') }}"+"/"+id,
+            method : "GET",
+            async : true,
+            dataType : 'json',
+            success: function(data){
+                let html = '<option value=0>Pilih Pemesanan Detail</option>';
+                let i;
+                $('#detail_pemesanan_model_id').html(html);
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
+                }
+                $('#detail_pemesanan_model_id').html(html);
+
+            }
+        });
+        return false;
+    });
+
+    $('#detail_pemesanan_model_id').change(function(e){
+        let id=$(this).val();
+        $.ajax({
+            url : "{{ url('/produksi/realisasi-progres/get-ajax-pemesanan-detail-to-perencanaan-produksi') }}"+"/"+id,
+            method : "GET",
+            async : true,
+            dataType : 'json',
+            success: function(data){
+                let html = '<option value=0>Pilih Perencanaan Produksi</option>';
+                let i;
+                $('#perencanaan_produksi_id').html(html);
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].id+'>'+data[i].nama_prosesproduksi+'</option>';
+                }
+                $('#perencanaan_produksi_id').html(html);
+
+            }
+        });
+        return false;
+    });
+
 </script>
 @stop
