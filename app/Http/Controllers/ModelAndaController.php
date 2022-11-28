@@ -39,7 +39,7 @@ class ModelAndaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'foto_model' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_model' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = $request->all();
@@ -90,7 +90,7 @@ class ModelAndaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'foto_model' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_model' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = request()->except(['_token', '_method']);

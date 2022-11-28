@@ -35,7 +35,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Pelanggan</label>
                         <div class="col-md-12">
-                            <select name="pelanggan_id" id="pelanggan_id" data-with="100%" class="form-control @error('pelanggan_id') is-invalid @enderror">
+                            <select name="pelanggan_id" id="pelanggan_id" data-with="100%" class="form-control @error('pelanggan_id') is-invalid @enderror" required>
                                 <option value="">== Pilih Nama Pelanggan ==</option>
                                 @foreach($datapelanggan as $dp)
                                     <option value="{{ $dp->id }}" {{ old('pelanggan_id') == $dp->id ? 'selected' : null }}>{{ $dp->nama_pelanggan }}</option>
@@ -50,7 +50,7 @@
                         <label for="name" class="col-md-4 col-form-label">Nama Penjahit</label>
                         <div class="col-md-12">
                             <select name="penjahit_id" id="penjahit_id" data-with="100%" class="form-control @error('penjahit_id') is-invalid @enderror">
-                                <option value="">== Pilih Nama Penjahit ==</option>
+                                {{-- <option value="">== Pilih Nama Penjahit ==</option> --}}
                                 @foreach($datapenjahit as $dp)
                                     <option value="{{ $dp->id }}" {{ old('penjahit_id') == $dp->id ? 'selected' : null }}>{{ $dp->nama_penjahit }}</option>
                                 @endforeach
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="tanggal">Estimasi Selesai</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                         </div>
                     </div><br>
                     {{-- <div class="card-body">

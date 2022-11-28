@@ -35,9 +35,9 @@
     <div class="portlet-body form">
         <div class="form-body">
             <a href="{{ route('transaksi.detail.create', $data->id )}}" class="btn btn-success btn-sm">+ Tambah Detail Model</a>
-            <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="#basic">
+            {{-- <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="#basic">
                 + Tambah Bahan Baku
-            </a>
+            </a> --}}
             <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="{{ route('transaksi.invoice', $data->id )}}">
                 + Invoice
             </a>
@@ -82,7 +82,7 @@
     @php
         $total = 0;
     @endphp
-    <div class="portlet-body form">
+    {{-- <div class="portlet-body form">
         <div class="form-body">
             <div class="card-body">
                 <table class="table table-bordered table-hover" id="products_table">
@@ -105,7 +105,8 @@
                             <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
                             <td>{{ $model->deskripsi_pemesanan }}</td>
                             <td>
-                                <a href="{{ route('transaksi.detail.edit', $model->id) }}">Edit</a>
+                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model->id) }}">Edit</a>
+                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model->id) }}">Tambah Ukuran</a>
                             </td>
                             @php
                                 $total += $model->ongkos_jahit;
@@ -129,8 +130,101 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="portlet-body form">
+        <div class="form-body">
+            <div class="card-body">
+                <table class="table table-bordered table-hover" id="products_table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Qty</th>
+                            <th>Jenis</th>
+                            <th>Ongkos Jahit</th>
+                            <th>Deksripsi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($dataParam as $model)
+                        <tr class="success">
+                            <td>{{ $model['nama_model'] }}</td>
+                            <td>{{ $model['banyaknya'] }}</td>
+                            <td>{{ $model['nama_jenismodel'] }}</td>
+                            <td>Rp. {{ number_format($model['ongkos_jahit'] ,2,',','.')}}</td>
+                            <td>{{ $model['deskripsi_pemesanan'] }}</td>
+                            <td>
+                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
+                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a>
+                            </td>
+                            @php
+                                $total += $model['ongkos_jahit'];
+                            @endphp
+                        </tr>
+                        @foreach ($model['details'] as $detail)
+                        <tr class="active">
+                            <td>
+                                +
+                            </td>
+                            <td>
+                                    <li>
+                                        Tinggi Badan : {{ $detail->tinggi_badan }}
+                                    </li>
+                                    <li>
+                                        Berat Badan : {{ $detail->berat_badan }}
+                                    </li>
+                                    <li>
+                                        Ukuran Baju : {{ $detail->ukuran_baju }}
+                                    </li>
+                            </td>
+                            <td>
+                                <li>Panjang Atasan : {{ $detail->panjang_atasan }}</li>
+                                <li>Lingkar Dada : {{ $detail->lingkar_dada }}</li>
+                                <li>Lingkar Perut Atasan : {{ $detail->lingkar_perut_atasan }}</li>
+                                <li>Lingkar Pinggul Atasan : {{ $detail->lingkar_pinggul_atasan }}</li>
+                                <li>Panjang Tangan : {{ $detail->panjang_tangan }}</li>
+                                <li>Lingkar Siku : {{ $detail->lingkar_siku }}</li>
+                                <li>Lingkar Pergelangan : {{ $detail->lingkar_pergelangan }}</li>
+                                <li>Kerah : {{ $detail->kerah }}</li>
+                            </td>
+                            <td>
+                                <li>Ukuran Celana : {{ $detail->ukuran_celana }}</li>
+                                <li>Panjang Celana : {{ $detail->panjang_celana }}</li>
+                                <li>Lingkar Perut Celana : {{ $detail->lingkar_perut_celana }}</li>
+                                <li>Pesak : {{ $detail->pesak }}</li>
+                                <li>Lingkar Pinggul Celana : {{ $detail->lingkar_pinggul_celana }}</li>
+                                <li>Lingkar Lutut : {{ $detail->lingkar_lutut }}</li>
+                                <li>Lingkar Bawah : {{ $detail->lingkar_bawah }}</li>
+                            </td>
+                            <td>
+                                Deskripsi : {{ $detail->deskripsi_ukuran }}
+                            </td>
+                            <td>
+                                {{-- <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
+                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a> --}}
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="modal fade" id="edit_modal">
+                    <div class="modal-dialog">
+                       <form id="dataDetailPemesanan">
+                            <div class="modal-content">
+                            <input type="hidden" id="color_id" name="color_id" value="">
+                            <div class="modal-body">
+                                <input type="text" name="name" id="name" value="" class="form-control">
+                            </div>
+                            <input type="submit" value="Submit" id="submit" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                        </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="portlet-body form">
         <div class="form-body">
             <div class="card-body">
                 <table class="table table-bordered table-hover" id="products_table">
@@ -173,7 +267,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 <div class="portlet-body form">
     <!-- BEGIN FORM-->

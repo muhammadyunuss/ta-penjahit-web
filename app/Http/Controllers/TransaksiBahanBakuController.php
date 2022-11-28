@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BahanBaku;
+use App\Models\DetailPemesananBahanBaku;
 use App\Models\DetailTransaksiBahanBaku;
 use App\Models\ModelAnda;
 use App\Models\Pelanggan;
@@ -86,6 +87,20 @@ class TransaksiBahanBakuController extends Controller
     public function saveDetail(Request $request)
     {
         PembelianBahanBakuDetail::create($request->all());
+
+        $bahanBaku = DB::table('bahan_baku')
+        ->where('id', $request->bahan_baku_id)
+        ->first();
+
+        $pemakaian_old = $bahanBaku->stok;
+        $pemakaian_new = floatval($request->jumlah);
+        $laststock = ($pemakaian_old + $pemakaian_new);
+
+        $bahanBaku = BahanBaku::findOrFail($bahanBaku->id);
+        $bahanBaku->update([
+            'stok'     => $laststock
+        ]);
+
         if($request){
             return redirect()->route('transaksi-bahanbaku.show', $request->pembelian_bahanbaku_id)->with(['success' => 'Data Berhasil Disimpan!']);
         }else{

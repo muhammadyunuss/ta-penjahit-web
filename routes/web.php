@@ -6,6 +6,7 @@ use App\Http\Controllers\ModelBajuPelangganController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DaftarProgresController;
+use App\Http\Controllers\InformasiUkuranController;
 use App\Http\Controllers\JadwalProgresController;
 use App\Http\Controllers\PengunaanBahanBakuController;
 use App\Http\Controllers\RealisasiProgresController;
@@ -56,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('modelpelanggan', ModelBajuPelangganController::class);
         Route::resource('ukuranpria', UkuranPriaController::class);
         Route::resource('ukuranwanita', UkuranWanitaController::class);
+        Route::resource('informasiukuran', InformasiUkuranController::class);
 
         Route::resource('transaksi', TransaksiController::class);
         Route::prefix('transaksi')->group(function () {
@@ -63,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('save-detail-transaksi', [TransaksiController::class, 'saveDetail'])->name('transaksi.save.detail');
             Route::get('edit-detail-transaksi/{id}', [TransaksiController::class, 'editDetailTransaksi'])->name('transaksi.detail.edit');
             Route::post('update-detail-transaksi', [TransaksiController::class, 'updateDetailTransaksi'])->name('transaksi.update.detail');
+            Route::get('tambah-detail-transaksi-ukuran/{id}', [TransaksiController::class, 'createDetailTransaksiUkuran'])->name('transaksi.detail.ukuran.create');
+            Route::post('save-detail-transaksi-ukuran', [TransaksiController::class, 'saveDetailUkuran'])->name('transaksi.save.detail.ukuran');
 
             Route::post('save-bahan-baku', [TransaksiController::class, 'saveBahanBaku'])->name('transaksi.save.bahanbaku');
             Route::put('update-total-transaksi/{id}', [TransaksiController::class, 'updateTotalTransaksi'])->name('transaksi.update.total');
@@ -71,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
             // AJAX
             Route::get('get-ajax-bahan-baku/{id}', [TransaksiController::class, 'getAjaxBahanBaku']);
             Route::get('get-ajax-model-to-jenismodel/{id}', [TransaksiController::class, 'getAjaxModelToJenisModel']);
+            Route::get('get-ajax-jenismodel-ongkos/{id}', [TransaksiController::class, 'getAjaxModelOngkos']);
         });
     });
 

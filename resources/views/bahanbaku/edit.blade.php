@@ -47,21 +47,21 @@
             <div class="form-body">
                     <div class="form-group">
 						<label for="nama_bahanbaku">Nama</label>
-						<input type="text" class="form-control @error('nama_bahanbaku') is-invalid @enderror" name="nama_bahanbaku" value="{{ old('nama_bahanbaku', $bahanBaku->nama_bahanbaku) }}" placeholder="Isikan nama bahan baku Anda">
+						<input type="text" class="form-control @error('nama_bahanbaku') is-invalid @enderror" name="nama_bahanbaku" value="{{ old('nama_bahanbaku', $bahanBaku->nama_bahanbaku) }}" placeholder="Isikan nama bahan baku Anda" required>
 						@error('nama_bahanbaku')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
 					<div class="form-group">
 						<label for="letak_bahanbaku">Letak</label>
-						<input type="text" class="form-control @error('letak_bahanbaku') is-invalid @enderror" name="letak_bahanbaku" value="{{ old('letak_bahanbaku', $bahanBaku->letak_bahanbaku) }}" placeholder="Isikan letak bahan baku Anda">
+						<input type="text" class="form-control @error('letak_bahanbaku') is-invalid @enderror" name="letak_bahanbaku" value="{{ old('letak_bahanbaku', $bahanBaku->letak_bahanbaku) }}" placeholder="Isikan letak bahan baku Anda" required>
 						@error('letak_bahanbaku')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
                     <div class="form-group">
 						<label for="harga_beli">Harga Beli</label> (Rp)
-						<input type="number" class="form-control @error('harga_beli') is-invalid @enderror" name="harga_beli" value="{{ old('harga_beli', $bahanBaku->harga_beli) }}" placeholder="Isikan harga beli bahan baku Anda">
+						<input type="number" class="form-control @error('harga_beli') is-invalid @enderror" name="harga_beli" value="{{ old('harga_beli', $bahanBaku->harga_beli) }}" placeholder="Isikan harga beli bahan baku Anda" required>
 						@error('harga_beli')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
@@ -75,14 +75,14 @@
 					</div><br>
 					<div class="form-group">
 						<label for="stok">Stok</label>
-						<input type="number" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok', $bahanBaku->stok) }}"  placeholder="Isikan stok bahan baku Anda" min="0">
+						<input type="number" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok', $bahanBaku->stok) }}"  placeholder="Isikan stok bahan baku Anda" min="0" required>
 						@error('stok')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
                     <div class="form-group">
                             <label for="satuan">Satuan</label>
-                            <input type="text" class="form-control @error('satuan') is-invalid @enderror" name="satuan" value="{{ old('satuan', $bahanBaku->satuan) }}" placeholder="Isikan satuan bahan baku Anda">
+                            <input type="text" class="form-control @error('satuan') is-invalid @enderror" name="satuan" value="{{ old('satuan', $bahanBaku->satuan) }}" placeholder="Isikan satuan bahan baku Anda" required>
                             @error('satuan')
                                 <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                             @enderror
@@ -90,7 +90,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Supplier</label>
                         <div class="col-md-12">
-                            <select name="supplier_id" id="supplier_id" class="form-control @error('supplier_id') is-invalid @enderror">
+                            <select name="supplier_id" id="supplier_id" class="form-control @error('supplier_id') is-invalid @enderror" required>
                                 <option value="">== Pilih Nama Supplier ==</option>
                                 @foreach($datasupplier as $ds)
                                     <option value="{{ $ds->id }}" {{ old('supplier_id', $bahanBaku->supplier_id) == $ds->id ? 'selected' : null }}>{{ $ds->nama_supplier }}</option>
@@ -113,10 +113,10 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#supplier_id').select2();
+    // $('#supplier_id').select2();
 });
 </script>
 @stop

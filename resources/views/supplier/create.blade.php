@@ -41,14 +41,14 @@
 				<div class="form-body">
                     <div class="form-group">
 						<label for="nama_supplier">Nama</label>
-						<input type="text" class="form-control @error('nama_supplier') is-invalid @enderror" name="nama_supplier" value="{{ old('nama_supplier') }}" placeholder="Isikan nama supplier Anda">
+						<input type="text" class="form-control @error('nama_supplier') is-invalid @enderror" name="nama_supplier" value="{{ old('nama_supplier') }}" placeholder="Isikan nama supplier Anda" required>
 						@error('nama_supplier')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
                     <div class="form-group">
 						<label for="alamat">Alamat</label>
-						<input type="text" class="form-control" name="alamat" value="{{ old('alamat') }}" placeholder="Isikan alamat supplier Anda">
+						<input type="text" class="form-control" name="alamat" value="{{ old('alamat') }}" placeholder="Isikan alamat supplier Anda" required>
 					</div><br>
 					<div class="form-group">
 						<label for="email">Email</label>
@@ -56,7 +56,7 @@
 					</div><br>
 					<div class="form-group">
 						<label for="nomor_telepon">Nomor Telepon</label>
-						<input type="text" class="form-control @error('nomor_telepon') is-invalid @enderror" name="nomor_telepon" value="{{ old('nomor_telepon') }}" placeholder="Isikan nomor telepon supplier Anda">
+						<input type="text" class="form-control @error('nomor_telepon') is-invalid @enderror" name="nomor_telepon" value="{{ old('nomor_telepon') }}" placeholder="Isikan nomor telepon supplier Anda" required>
 					</div><br>
 				</div>
 				<div class="form-actions">

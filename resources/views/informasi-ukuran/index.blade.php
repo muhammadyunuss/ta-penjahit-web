@@ -3,10 +3,10 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Sediaan Bahan Baku &nbsp;&nbsp;
-    <a type= "button" href="{{route('bahanbaku.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH SEDIAAN BAHAN BAKU
-    </a>
+    Informasi Ukuran &nbsp;&nbsp;
+    {{-- <a type= "button" href="{{route('informasiukuran.create')}}" class="btn btn-primary btn-sm">
+        + TAMBAH PELANGGAN
+    </a> --}}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -16,64 +16,60 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('bahanbaku.index')}}">Bahan Baku</a>
+            <a href="{{route('informasiukuran.index')}}">Pemesanan</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('bahanbaku.index')}}">Sediaan Bahan Baku</a>
+            <a href="{{route('informasiukuran.index')}}">Informasi Ukuran</a>
         </li>
     </ul>
 </div>
 <!-- END PAGE HEADER-->
 
-@if(session('success'))
+@if(session('status'))
 <div class="alert alert-success">
-    {{ session('success') }}
+    {{ session('status') }}
 </div>
 @endif
 
-@if (session('error'))
+@if (session('statushapus'))
 <div class="alert alert-danger">
-    {{ session('error') }}
+    {{ session('statushapus') }}
 </div>
 @endif
 
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
-<table class="table" id="sample_1">
+<table class="table"  id="sample_1">
 <thead>
     <tr>
     <!-- <th>ID</th> -->
-    <th>Nama</th>
-    <th>Letak</th>
-    <th>Harga Beli</th>
-    {{-- <th>Harga Jual</th> --}}
-    <th>Stok</th>
-    <th>Supplier</th>
+    <th>Nama Model</th>
+    <th>Nama Pelanggan</th>
+    <th>Ongkos Jahit</th>
+    <th>Deskripsi</th>
     <th>Aksi</th>
     </tr>
 </thead>
 <tbody>
     @foreach($data as $d)
     <tr>
-    <td>{{ $d->nama_bahanbaku }}</td>
-    <td>{{ $d->letak_bahanbaku }}</td>
-    <td>{{ $d->harga_beli }}</td>
-    {{-- <td>{{ $d->harga_jual }}</td> --}}
-    <td>{{ $d->stok }} {{ $d->satuan }}</td>
-    <td>{{ $d->nama_supplier }}</td>
+    <td>{{ $d->nama_model }}</td>
+    <td>{{ $d->nama_pelanggan }}</td>
+    <td>{{ $d->ongkos_jahit }}</td>
+    <td>{{ $d->deskripsi_model }}</td>
     <td>
         <ul class="nav nav-pills">
             <li >
-                <button onclick="window.location='{{ route('bahanbaku.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
+                <button onclick="window.location='{{ route('informasiukuran.show', $d->id) }}'" type="button" class="btn btn-light">Lihat</button>
             </li>
-            <li>
-                <form method="POST" action="{{route('bahanbaku.destroy' , $d->id)}}">
+            {{-- <li>
+                <form method="POST" action="{{route('informasiukuran.destroy' , $d->id)}}">
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
                     onclick="if(!confirm('Apakah Anda yakin?')) {return false;}">
                 </form>
-            </li>
+            </li> --}}
         </ul>
     </td>
     </tr>

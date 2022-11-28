@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 172.17.0.3
--- Generation Time: Nov 20, 2022 at 04:17 AM
+-- Host: 172.17.0.2
+-- Generation Time: Nov 28, 2022 at 04:09 PM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -45,9 +45,10 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id`, `nama_bahanbaku`, `letak_bahanbaku`, `harga_beli`, `harga_jual`, `stok`, `satuan`, `supplier_id`, `created_at`, `updated_at`) VALUES
-(1, 'Batik', 'Kanan', 12000, 15000, 110, 'Lembar', 1, '2022-10-10 12:46:40', '2022-11-16 07:50:13'),
+(1, 'Batik', 'Kanan', 12000, 15000, 140, 'Lembar', 1, '2022-10-10 12:46:40', '2022-11-28 16:07:21'),
 (2, 'Kancing', '-', 0, 0, 800, 'Pcs', 1, '2022-10-15 06:02:52', '2022-10-15 06:02:52'),
-(3, 'Kain Satin', '-', 500000, 650000, 5, 'Meter', 1, '2022-11-12 13:50:39', '2022-11-12 13:50:39');
+(3, 'Kain Satin', '-', 500000, 650000, 15, 'Meter', 1, '2022-11-12 13:50:39', '2022-11-28 16:07:43'),
+(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-27 03:45:01', '2022-11-27 03:45:01');
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,14 @@ CREATE TABLE `detail_pembelian_bahanbaku` (
 
 INSERT INTO `detail_pembelian_bahanbaku` (`id`, `bahan_baku_id`, `pembelian_bahanbaku_id`, `jumlah`, `harga_beli`, `subtotal`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 10, 2500, 25000, '2022-11-12 14:04:21', '2022-11-14 08:48:52'),
-(2, 2, 2, 40, 3000, 120000, '2022-11-14 07:45:27', '2022-11-14 11:18:23');
+(2, 2, 2, 40, 3000, 120000, '2022-11-14 07:45:27', '2022-11-14 11:18:23'),
+(3, 1, 1, 10, 10000, 100000, '2022-11-28 15:59:06', '2022-11-28 15:59:06'),
+(4, 1, 1, 10, 200, 2000, '2022-11-28 16:00:04', '2022-11-28 16:00:04'),
+(5, 1, 1, 20, 20000, 400000, '2022-11-28 16:00:40', '2022-11-28 16:00:40'),
+(6, 1, 1, 20, 20000, 400000, '2022-11-28 16:03:10', '2022-11-28 16:03:10'),
+(7, 1, 1, 20, 20000, 400000, '2022-11-28 16:06:44', '2022-11-28 16:06:44'),
+(8, 1, 1, 10, 10000, 100000, '2022-11-28 16:07:21', '2022-11-28 16:07:21'),
+(9, 3, 1, 10, 25000, 250000, '2022-11-28 16:07:43', '2022-11-28 16:07:43');
 
 -- --------------------------------------------------------
 
@@ -111,36 +119,6 @@ CREATE TABLE `detail_pemesanan_model` (
   `jenis_model_id` bigint(20) DEFAULT NULL,
   `banyaknya` double DEFAULT NULL,
   `ongkos_jahit` double DEFAULT NULL,
-  `tinggi_badan` double DEFAULT NULL,
-  `berat_badan` double DEFAULT NULL,
-  `ukuran_baju` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `panjang_jas` double DEFAULT NULL,
-  `lingkar_dada` double DEFAULT NULL,
-  `lingkar_pinggang` double DEFAULT NULL,
-  `lingkar_pinggul` double DEFAULT NULL,
-  `lebar_bahu` double DEFAULT NULL,
-  `lebar_punggung` double DEFAULT NULL,
-  `panjang_lengan` double DEFAULT NULL,
-  `lingkar_siku` double DEFAULT NULL,
-  `lingkar_ujung_lengan` double DEFAULT NULL,
-  `lingkar_kerong_lengan` double DEFAULT NULL,
-  `ukuran_celana` double DEFAULT NULL,
-  `panjang_celana` double DEFAULT NULL,
-  `lingkar_parut` double DEFAULT NULL,
-  `pesak` double DEFAULT NULL,
-  `lingkar_paha` double DEFAULT NULL,
-  `lingkar_lutut` double DEFAULT NULL,
-  `lingkar_kaki` double DEFAULT NULL,
-  `panjang_kebaya` double DEFAULT NULL,
-  `panjang_dress` double DEFAULT NULL,
-  `panjang_muka` double DEFAULT NULL,
-  `panjang_belakang` double DEFAULT NULL,
-  `bawah_tangan` double DEFAULT NULL,
-  `lingkar_leher` double DEFAULT NULL,
-  `cup_dada` double DEFAULT NULL,
-  `turun_dada` double DEFAULT NULL,
-  `panjang_rok` double DEFAULT NULL,
-  `panjang_bawah` double DEFAULT NULL,
   `deskripsi_pemesanan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -150,12 +128,62 @@ CREATE TABLE `detail_pemesanan_model` (
 -- Dumping data for table `detail_pemesanan_model`
 --
 
-INSERT INTO `detail_pemesanan_model` (`id`, `model_id`, `pemesanan_id`, `jenis_model_id`, `banyaknya`, `ongkos_jahit`, `tinggi_badan`, `berat_badan`, `ukuran_baju`, `panjang_jas`, `lingkar_dada`, `lingkar_pinggang`, `lingkar_pinggul`, `lebar_bahu`, `lebar_punggung`, `panjang_lengan`, `lingkar_siku`, `lingkar_ujung_lengan`, `lingkar_kerong_lengan`, `ukuran_celana`, `panjang_celana`, `lingkar_parut`, `pesak`, `lingkar_paha`, `lingkar_lutut`, `lingkar_kaki`, `panjang_kebaya`, `panjang_dress`, `panjang_muka`, `panjang_belakang`, `bawah_tangan`, `lingkar_leher`, `cup_dada`, `turun_dada`, `panjang_rok`, `panjang_bawah`, `deskripsi_pemesanan`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 2, 3, 3, 23, 'S', 23, 23, 2, 32, 43, 4, 545, 45, 213, 656, 56, 56, 56, 56, 56, 5, 4544554544, 5, 4, 45, 45, 45, 45, 45, 45, 4, 55, 'Mantap Sekali', '2022-10-10 12:39:37', '2022-10-10 12:45:05'),
-(2, 1, 1, 2, 3, 54, 54, 54, 'M', 545, 45, 45, 45, 45, 4, 5, 6, 76, 7878, 76, 5, 6, 7, 87, 87, 86, 7, 43, 78, 78, 787, 67, 6, 87, 878, 79, 'Wanita', '2022-10-10 12:47:31', '2022-10-10 12:47:42'),
-(3, 1, 2, 1, 12, 454545, 45454, 545, 'L', 4545, 45, 45, 45, 45, 45, 45, 45, 45, 4, 54, 54, 54, 5, 45, 45, 45, 4, 54, 54, 54, 54, 5, 45, 45, 45, 454, NULL, '2022-10-18 10:24:55', '2022-10-18 10:24:55'),
-(4, 3, 3, 1, 2, 150000, 0, 0, 'XL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, '2022-11-12 13:48:55', '2022-11-12 13:48:55'),
-(5, 2, 3, 2, 1, 400000, 0, 0, 'M', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23');
+INSERT INTO `detail_pemesanan_model` (`id`, `model_id`, `pemesanan_id`, `jenis_model_id`, `banyaknya`, `ongkos_jahit`, `deskripsi_pemesanan`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 2, 3, 'Mantap Sekali', '2022-10-10 12:39:37', '2022-10-10 12:45:05'),
+(2, 1, 1, 2, 3, 54, 'Wanita', '2022-10-10 12:47:31', '2022-10-10 12:47:42'),
+(3, 1, 2, 1, 12, 454545, NULL, '2022-10-18 10:24:55', '2022-10-18 10:24:55'),
+(4, 3, 3, 1, 2, 150000, NULL, '2022-11-12 13:48:55', '2022-11-12 13:48:55'),
+(5, 2, 3, 2, 1, 400000, NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23'),
+(6, 2, 4, 2, 20, 500000, 'Kebaya Untuk Lamaran', '2022-11-27 07:03:52', '2022-11-27 07:19:46'),
+(7, 1, 4, 1, 15, 150000, 'Untuk Wisuda', '2022-11-27 07:04:20', '2022-11-27 07:22:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_pemesanan_model_ukuran`
+--
+
+CREATE TABLE `detail_pemesanan_model_ukuran` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `detail_pemesanan_model_id` bigint(20) DEFAULT NULL,
+  `tinggi_badan` double DEFAULT NULL,
+  `berat_badan` double DEFAULT NULL,
+  `ukuran_baju` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `panjang_atasan` double DEFAULT NULL,
+  `lingkar_dada` double DEFAULT NULL,
+  `lingkar_perut_atasan` double DEFAULT NULL,
+  `lingkar_pinggul_atasan` double DEFAULT NULL,
+  `lebar_bahu` double DEFAULT NULL,
+  `panjang_tangan` double DEFAULT NULL,
+  `lingkar_siku` double DEFAULT NULL,
+  `lingkar_pergelangan` double DEFAULT NULL,
+  `kerah` double DEFAULT NULL,
+  `ukuran_celana` double DEFAULT NULL,
+  `panjang_celana` double DEFAULT NULL,
+  `lingkar_perut_celana` double DEFAULT NULL,
+  `pesak` double DEFAULT NULL,
+  `lingkar_pinggul_celana` double DEFAULT NULL,
+  `lingkar_paha` double DEFAULT NULL,
+  `lingkar_lutut` double DEFAULT NULL,
+  `lingkar_bawah` double DEFAULT NULL,
+  `deskripsi_ukuran` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `detail_pemesanan_model_ukuran`
+--
+
+INSERT INTO `detail_pemesanan_model_ukuran` (`id`, `detail_pemesanan_model_id`, `tinggi_badan`, `berat_badan`, `ukuran_baju`, `panjang_atasan`, `lingkar_dada`, `lingkar_perut_atasan`, `lingkar_pinggul_atasan`, `lebar_bahu`, `panjang_tangan`, `lingkar_siku`, `lingkar_pergelangan`, `kerah`, `ukuran_celana`, `panjang_celana`, `lingkar_perut_celana`, `pesak`, `lingkar_pinggul_celana`, `lingkar_paha`, `lingkar_lutut`, `lingkar_bawah`, `deskripsi_ukuran`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 23, 'S', 23, 23, 2, 32, 43, 4, 45, 213, 656, 56, 56, 56, 56, 56, 5, 4544554544, 45, 'Mantap Sekali', '2022-10-10 12:39:37', '2022-10-10 12:45:05'),
+(2, 7, 54, 54, 'M', 545, 45, 45, 45, 45, 4, 6, 76, 7878, 76, 5, 6, 7, 87, 87, 86, 67, 'Wanita', '2022-10-10 12:47:31', '2022-10-10 12:47:42'),
+(3, 6, 45454, 545, 'L', 4545, 45, 45, 45, 45, 45, 45, 45, 4, 54, 54, 54, 5, 45, 45, 45, 5, NULL, '2022-10-18 10:24:55', '2022-10-18 10:24:55'),
+(4, 6, 0, 0, 'XL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, '2022-11-12 13:48:55', '2022-11-12 13:48:55'),
+(5, 7, 0, 0, 'M', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23'),
+(6, 6, 11, 11, 'M', 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 'Lamaran', '2022-11-27 10:12:32', '2022-11-27 10:12:32'),
+(7, 6, 1212, 12, 'L', 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 21, 21, 12, 12, 12, 12, 12, 'DUA SATU', '2022-11-28 12:20:45', '2022-11-28 12:20:45'),
+(8, 7, 1, 1, 'S', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'SATU', '2022-11-28 12:22:06', '2022-11-28 12:22:06');
 
 -- --------------------------------------------------------
 
@@ -258,9 +286,9 @@ CREATE TABLE `model` (
 --
 
 INSERT INTO `model` (`id`, `jenis_model`, `pelanggan_id`, `foto_model`, `nama_model`, `ongkos_jahit`, `deskripsi_model`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, '20221119122800.jpg', 'Model ITS', '20000', 'model kampus', '2022-10-10 12:38:16', '2022-11-19 12:28:00'),
+(1, 1, NULL, '20221119122800.jpg', 'Model ITS', '20000', 'Vespa', '2022-10-10 12:38:16', '2022-11-28 12:30:55'),
 (2, 2, 1, '20221018144540.jpg', 'Kebaya Wanita', '500000', 'Minion', '2022-10-18 11:49:58', '2022-10-18 14:45:40'),
-(3, 1, 1, '20221119123925.jpg', 'Jas Pria', '150000', 'Makan Jaman', '2022-10-18 14:08:55', '2022-11-19 12:39:25'),
+(3, 1, 1, '20221119123925.jpg', 'Jas Pria', '150000', 'Makan', '2022-10-18 14:08:55', '2022-11-28 12:30:36'),
 (4, 1, NULL, '20221018142822.jpg', 'Kakek', '120000', 'Kakek', '2022-10-18 14:28:22', '2022-10-18 14:37:38');
 
 -- --------------------------------------------------------
@@ -323,7 +351,8 @@ CREATE TABLE `pembelian_bahanbaku` (
 
 INSERT INTO `pembelian_bahanbaku` (`id`, `supplier_id`, `penjahit_id`, `tanggal_beli`, `bayar`, `total`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2022-10-17', NULL, NULL, '2022-10-17 12:46:07', '2022-10-17 12:46:07'),
-(2, 1, 1, '2022-11-12', 145000, 145000, '2022-11-12 14:04:09', '2022-11-14 11:32:03');
+(2, 1, 1, '2022-11-12', 145000, 145000, '2022-11-12 14:04:09', '2022-11-14 11:32:03'),
+(3, NULL, 1, '2022-11-27', NULL, NULL, '2022-11-27 03:48:33', '2022-11-27 03:48:33');
 
 -- --------------------------------------------------------
 
@@ -353,7 +382,10 @@ CREATE TABLE `pemesanan` (
 INSERT INTO `pemesanan` (`id`, `pelanggan_id`, `penjahit_id`, `proses_produksi_id`, `pengambilan_id`, `perencanaan_produksi_id`, `tanggal`, `total_ongkos`, `bayar`, `status_pembayaran`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, NULL, NULL, NULL, '2022-10-10', 15000, NULL, NULL, '2022-10-10 12:37:14', '2022-10-10 12:47:01'),
 (2, 2, 1, NULL, NULL, NULL, '2022-10-18', NULL, NULL, NULL, '2022-10-18 10:24:27', '2022-10-18 10:24:27'),
-(3, 3, 1, NULL, NULL, NULL, '2022-11-18', 1230000, 1230000, 'Lunas', '2022-11-12 13:46:05', '2022-11-13 08:03:36');
+(3, 3, 1, NULL, NULL, NULL, '2022-11-18', 1230000, 1230000, 'Lunas', '2022-11-12 13:46:05', '2022-11-13 08:03:36'),
+(4, 3, 1, NULL, NULL, NULL, '2022-12-27', NULL, NULL, NULL, '2022-11-27 03:13:18', '2022-11-27 03:13:18'),
+(5, 3, 1, NULL, NULL, NULL, '2022-12-08', NULL, NULL, NULL, '2022-11-27 03:25:46', '2022-11-27 03:25:46'),
+(6, 3, 1, NULL, NULL, NULL, '2022-11-29', NULL, NULL, NULL, '2022-11-27 03:38:44', '2022-11-27 03:38:44');
 
 -- --------------------------------------------------------
 
@@ -555,6 +587,8 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `previledge` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Penjahit, Pemilik',
+  `id_penjahit` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -563,8 +597,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@admin.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, '2022-10-10 10:20:19', '2022-10-10 10:20:19');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `previledge`, `id_penjahit`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@admin.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Penjahit', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
+(2, 'owner', 'owner@owner.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Pemilik', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19');
 
 -- --------------------------------------------------------
 
@@ -621,6 +656,12 @@ ALTER TABLE `detail_pemesanan_bahanbaku`
 -- Indexes for table `detail_pemesanan_model`
 --
 ALTER TABLE `detail_pemesanan_model`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `detail_pemesanan_model_ukuran`
+--
+ALTER TABLE `detail_pemesanan_model_ukuran`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -743,13 +784,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detail_pembelian_bahanbaku`
 --
 ALTER TABLE `detail_pembelian_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_bahanbaku`
@@ -761,7 +802,13 @@ ALTER TABLE `detail_pemesanan_bahanbaku`
 -- AUTO_INCREMENT for table `detail_pemesanan_model`
 --
 ALTER TABLE `detail_pemesanan_model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `detail_pemesanan_model_ukuran`
+--
+ALTER TABLE `detail_pemesanan_model_ukuran`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -797,13 +844,13 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembelian_bahanbaku`
 --
 ALTER TABLE `pembelian_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pengambilan`
@@ -863,7 +910,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

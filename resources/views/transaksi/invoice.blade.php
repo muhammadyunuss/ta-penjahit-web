@@ -96,7 +96,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-12">
+        {{-- <div class="col-xs-12">
             <table class="table table-bordered table-hover" id="products_table">
                 <thead>
                     <tr>
@@ -118,7 +118,7 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </div> --}}
     </div>
     <div class="row">
         {{-- <div class="col-xs-4"> --}}
