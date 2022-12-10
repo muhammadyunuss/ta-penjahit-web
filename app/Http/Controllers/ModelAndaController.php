@@ -116,8 +116,9 @@ class ModelAndaController extends Controller
      * @param  \App\Models\ModelAnda  $modelAnda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ModelAnda $modelAnda)
+    public function destroy($id)
     {
-        //
+        ModelAnda::where('id', $id)->delete();
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

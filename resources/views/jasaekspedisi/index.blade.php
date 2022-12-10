@@ -3,10 +3,10 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Informasi Ukuran &nbsp;&nbsp;
-    {{-- <a type= "button" href="{{route('informasiukuran.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH PELANGGAN
-    </a> --}}
+    Jasa Ekspedisi &nbsp;&nbsp;
+    <a type= "button" href="{{route('jasaekspedisi.create')}}" class="btn btn-primary btn-sm">
+        + TAMBAH JASA EKSPEDISI
+    </a>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -16,60 +16,50 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('informasiukuran.index')}}">Pemesanan</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="{{route('informasiukuran.index')}}">Informasi Ukuran</a>
+            <a href="{{route('jasaekspedisi.index')}}">Jasa Ekspedisi</a>
         </li>
     </ul>
 </div>
 <!-- END PAGE HEADER-->
 
-@if(session('status'))
+@if(session('success'))
 <div class="alert alert-success">
-    {{ session('status') }}
+    {{ session('success') }}
 </div>
 @endif
 
-@if (session('statushapus'))
+@if (session('error'))
 <div class="alert alert-danger">
-    {{ session('statushapus') }}
+    {{ session('error') }}
 </div>
 @endif
 
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
-<table class="table"  id="sample_1">
+<table class="table" id="sample_1">
 <thead>
     <tr>
     <!-- <th>ID</th> -->
-    <th>Nama Model</th>
-    <th>Nama Pelanggan</th>
-    <th>Ukuran Baju</th>
-    <th>Deskripsi</th>
+    <th>Nama Ekspedisi</th>
     <th>Aksi</th>
     </tr>
 </thead>
 <tbody>
     @foreach($data as $d)
     <tr>
-    <td>{{ $d->nama_model }}</td>
-    <td>{{ $d->nama_pelanggan }}</td>
-    <td>{{ $d->ukuran_baju }}</td>
-    <td>{{ $d->deskripsi_ukuran }}</td>
+    <td>{{ $d->jasa_ekspedisi }}</td>
     <td>
         <ul class="nav nav-pills">
             <li >
-                <button onclick="window.location='{{ route('informasiukuran.show', $d->id_ukuran) }}'" type="button" class="btn btn-light">Lihat</button>
+                <button onclick="window.location='{{ route('jasaekspedisi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
             </li>
-            {{-- <li>
-                <form method="POST" action="{{route('informasiukuran.destroy' , $d->id)}}">
+            <li>
+                <form method="POST" action="{{route('jasaekspedisi.destroy' , $d->id)}}">
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data jasaekspedisi dan data sediaan bahan baku yang berkaitan?')) {return false;}">
                 </form>
-            </li> --}}
+            </li>
         </ul>
     </td>
     </tr>

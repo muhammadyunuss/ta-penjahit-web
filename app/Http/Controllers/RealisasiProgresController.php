@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ModelAnda;
 use App\Models\ProsesProduksi;
 use App\Models\RealisasiProgres;
+use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +14,7 @@ class RealisasiProgresController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
+            $pemesanan_id = $request->pemesanan_id ?? null;
             $data = RealisasiProgres::join('pemesanan', 'realisasi_produksi.pemesanan_id', 'pemesanan.id')
             ->join('proses_produksi', 'realisasi_produksi.proses_produksi_id', 'proses_produksi.id')
             ->join('perencanaan_produksi', 'realisasi_produksi.perencanaan_produksi_id', 'perencanaan_produksi.id')
@@ -20,7 +22,7 @@ class RealisasiProgresController extends Controller
             ->join('penjahit', 'pemesanan.penjahit_id', 'penjahit.id')
             ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
             ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
-            // ->join('proses_produksi', 'perencanaan_produksi.proses_produksi_id', 'perencanaan_produksi.id')
+            ->where('realisasi_produksi.pemesanan_id', 'LIKE', '%'.$pemesanan_id.'%')
             ->select(
                 'realisasi_produksi.*',
                 'proses_produksi.nama_prosesproduksi',
@@ -31,30 +33,10 @@ class RealisasiProgresController extends Controller
             ->get();
 
             return DataTables()->of($data)
-            // ->addColumn('action', function ($request) {
-            //     return '<ion-icon name="checkmark-circle"></ion-icon>';
-            // })
             ->make(true);
-
-            // return response()->json($data);
         }
-        // $data = RealisasiProgres::join('pemesanan', 'realisasi_produksi.pemesanan_id', 'pemesanan.id')
-        //     ->join('proses_produksi', 'realisasi_produksi.proses_produksi_id', 'proses_produksi.id')
-        //     ->join('perencanaan_produksi', 'realisasi_produksi.perencanaan_produksi_id', 'perencanaan_produksi.id')
-        //     ->join('detail_pemesanan_model', 'perencanaan_produksi.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
-        //     // ->join('pemesanan', 'detail_pemesanan_model.pemesanan_id', 'pemesanan.id')
-        //     ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
-        //     ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
-        //     // ->join('proses_produksi', 'perencanaan_produksi.proses_produksi_id', 'perencanaan_produksi.id')
-        //     ->select(
-        //         'realisasi_produksi.*',
-        //         'proses_produksi.nama_prosesproduksi',
-        //         'jenis_model.nama_jenismodel',
-        //     )
-        //     ->get();
-        // dd($data);
-        // return view('realisasi-progres.index', compact('data'));
-        return view('realisasi-progres.index');
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
+        return view('realisasi-progres.index', compact('viewTransaksiPemesanan'));
     }
 
     public function create()

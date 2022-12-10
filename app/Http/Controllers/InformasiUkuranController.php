@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelAnda;
+use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,12 +16,14 @@ class InformasiUkuranController extends Controller
      */
     public function index()
     {
-        $data = ModelAnda::join('pelanggan', 'model.pelanggan_id', 'pelanggan.id')
-        ->select(
-            'model.*',
-            'pelanggan.nama_pelanggan'
-        )
-        ->get();
+        // $data = ModelAnda::join('pelanggan', 'model.pelanggan_id', 'pelanggan.id')
+        // ->select(
+        //     'model.*',
+        //     'pelanggan.nama_pelanggan'
+        // )
+        // ->get();
+
+        $data = ViewRepository::view_ukuran();
 
         return view('informasi-ukuran.index',compact('data'));
     }
@@ -57,8 +60,6 @@ class InformasiUkuranController extends Controller
         $dataModelDetailUkuran = DB::table('detail_pemesanan_model_ukuran')
         ->where('id', $id)
         ->first();
-
-        // dd($dataModelDetailUkuran);
 
         $dataModelDetail = DB::table('detail_pemesanan_model')
         ->join('model', 'detail_pemesanan_model.model_id', 'model.id')

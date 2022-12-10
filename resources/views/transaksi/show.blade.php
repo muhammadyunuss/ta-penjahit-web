@@ -35,9 +35,9 @@
     <div class="portlet-body form">
         <div class="form-body">
             <a href="{{ route('transaksi.detail.create', $data->id )}}" class="btn btn-success btn-sm">+ Tambah Detail Model</a>
-            {{-- <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="#basic">
+            <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="#basic">
                 + Tambah Bahan Baku
-            </a> --}}
+            </a>
             <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="{{ route('transaksi.invoice', $data->id )}}">
                 + Invoice
             </a>
@@ -158,7 +158,7 @@
                                 <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a>
                             </td>
                             @php
-                                $total += $model['ongkos_jahit'];
+                                $total += ($model['ongkos_jahit'] * $model['banyaknya']);
                             @endphp
                         </tr>
                         @foreach ($model['details'] as $detail)

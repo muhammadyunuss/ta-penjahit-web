@@ -220,14 +220,6 @@
                     </tr>
                     <tr>
                         <td>
-                            Lebar Bahu
-                        </td>
-                        <td>
-                            {{ $dataModelDetailUkuran->lebar_bahu }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             Panjang Tangan
                         </td>
                         <td>

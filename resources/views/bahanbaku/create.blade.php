@@ -60,13 +60,13 @@
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
 						<label for="harga_jual">Harga Jual</label> (Rp)
 						<input type="number" class="form-control @error('harga_jual') is-invalid @enderror" name="harga_jual" value="{{ old('harga_jual') }}" placeholder="Isikan harga jual bahan baku Anda" min="0">
 						@error('harga_jual')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
-					</div><br>
+					</div><br> --}}
 					<div class="form-group">
 						<label for="stok">Stok</label>
 						<input type="number" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok') }}"  placeholder="Isikan stok bahan baku Anda" min="0" required>

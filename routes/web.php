@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BahanBakuController;
+use App\Http\Controllers\DaftarPengirimanController;
 use App\Http\Controllers\ModelAndaController;
 use App\Http\Controllers\ModelBajuPelangganController;
 use App\Http\Controllers\PelangganController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DaftarProgresController;
 use App\Http\Controllers\InformasiUkuranController;
 use App\Http\Controllers\JadwalProgresController;
+use App\Http\Controllers\JasaEkspedisiController;
 use App\Http\Controllers\PengunaanBahanBakuController;
 use App\Http\Controllers\RealisasiProgresController;
 use App\Http\Controllers\TransaksiBahanBakuController;
@@ -100,6 +102,12 @@ Route::middleware(['auth'])->group(function () {
         });
 
     });
+
+    Route::prefix('pengiriman')->group(function () {
+        Route::resource('jasaekspedisi', JasaEkspedisiController::class);
+        Route::resource('daftar-pengiriman', DaftarPengirimanController::class);
+    });
+
 
 });
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Generation Time: Nov 28, 2022 at 04:09 PM
+-- Generation Time: Dec 10, 2022 at 03:59 AM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -48,7 +48,7 @@ INSERT INTO `bahan_baku` (`id`, `nama_bahanbaku`, `letak_bahanbaku`, `harga_beli
 (1, 'Batik', 'Kanan', 12000, 15000, 140, 'Lembar', 1, '2022-10-10 12:46:40', '2022-11-28 16:07:21'),
 (2, 'Kancing', '-', 0, 0, 800, 'Pcs', 1, '2022-10-15 06:02:52', '2022-10-15 06:02:52'),
 (3, 'Kain Satin', '-', 500000, 650000, 15, 'Meter', 1, '2022-11-12 13:50:39', '2022-11-28 16:07:43'),
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-27 03:45:01', '2022-11-27 03:45:01');
+(4, 'Benang', 'Diatas', 1000, 1400, 20, 'Meter', 1, '2022-11-27 03:45:01', '2022-12-08 10:06:39');
 
 -- --------------------------------------------------------
 
@@ -104,7 +104,8 @@ CREATE TABLE `detail_pemesanan_bahanbaku` (
 --
 
 INSERT INTO `detail_pemesanan_bahanbaku` (`id`, `pemesanan_id`, `bahan_baku_id`, `detail_pemesanan_model_id`, `ongkos_jahit`, `jumlah_terpakai`, `created_at`, `updated_at`) VALUES
-(3, 3, 1, 5, NULL, 10, '2022-11-16 07:49:53', '2022-11-16 07:50:13');
+(3, 3, 1, 5, NULL, 10, '2022-11-16 07:49:53', '2022-11-16 07:50:13'),
+(4, 7, 1, NULL, 15000, NULL, '2022-12-07 14:10:02', '2022-12-07 14:10:02');
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,8 @@ INSERT INTO `detail_pemesanan_model` (`id`, `model_id`, `pemesanan_id`, `jenis_m
 (4, 3, 3, 1, 2, 150000, NULL, '2022-11-12 13:48:55', '2022-11-12 13:48:55'),
 (5, 2, 3, 2, 1, 400000, NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23'),
 (6, 2, 4, 2, 20, 500000, 'Kebaya Untuk Lamaran', '2022-11-27 07:03:52', '2022-11-27 07:19:46'),
-(7, 1, 4, 1, 15, 150000, 'Untuk Wisuda', '2022-11-27 07:04:20', '2022-11-27 07:22:26');
+(7, 1, 4, 1, 15, 150000, 'Untuk Wisuda', '2022-11-27 07:04:20', '2022-11-27 07:22:26'),
+(8, 3, 7, 1, 5, 150000, NULL, '2022-12-07 12:06:49', '2022-12-07 12:06:49');
 
 -- --------------------------------------------------------
 
@@ -183,7 +185,9 @@ INSERT INTO `detail_pemesanan_model_ukuran` (`id`, `detail_pemesanan_model_id`, 
 (5, 7, 0, 0, 'M', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23'),
 (6, 6, 11, 11, 'M', 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 'Lamaran', '2022-11-27 10:12:32', '2022-11-27 10:12:32'),
 (7, 6, 1212, 12, 'L', 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 21, 21, 12, 12, 12, 12, 12, 'DUA SATU', '2022-11-28 12:20:45', '2022-11-28 12:20:45'),
-(8, 7, 1, 1, 'S', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'SATU', '2022-11-28 12:22:06', '2022-11-28 12:22:06');
+(8, 7, 1, 1, 'S', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'SATU', '2022-11-28 12:22:06', '2022-11-28 12:22:06'),
+(9, 8, 0, 0, 'S', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Pak Budi Ukuran \"S\"', '2022-12-07 12:07:28', '2022-12-07 12:07:28'),
+(10, 8, 0, 0, 'M', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Pak Andi Ukuran \"M\"', '2022-12-07 12:08:00', '2022-12-07 12:08:00');
 
 -- --------------------------------------------------------
 
@@ -200,6 +204,26 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jasa_ekspedisi`
+--
+
+CREATE TABLE `jasa_ekspedisi` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `jasa_ekspedisi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jasa_ekspedisi`
+--
+
+INSERT INTO `jasa_ekspedisi` (`id`, `jasa_ekspedisi`, `created_at`, `updated_at`) VALUES
+(1, 'JMO', '2022-12-08 13:17:18', '2022-12-08 13:18:19');
 
 -- --------------------------------------------------------
 
@@ -382,10 +406,11 @@ CREATE TABLE `pemesanan` (
 INSERT INTO `pemesanan` (`id`, `pelanggan_id`, `penjahit_id`, `proses_produksi_id`, `pengambilan_id`, `perencanaan_produksi_id`, `tanggal`, `total_ongkos`, `bayar`, `status_pembayaran`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, NULL, NULL, NULL, '2022-10-10', 15000, NULL, NULL, '2022-10-10 12:37:14', '2022-10-10 12:47:01'),
 (2, 2, 1, NULL, NULL, NULL, '2022-10-18', NULL, NULL, NULL, '2022-10-18 10:24:27', '2022-10-18 10:24:27'),
-(3, 3, 1, NULL, NULL, NULL, '2022-11-18', 1230000, 1230000, 'Lunas', '2022-11-12 13:46:05', '2022-11-13 08:03:36'),
+(3, 3, 1, NULL, NULL, NULL, '2022-11-18', 700000, 700000, 'Lunas', '2022-11-12 13:46:05', '2022-12-07 14:26:29'),
 (4, 3, 1, NULL, NULL, NULL, '2022-12-27', NULL, NULL, NULL, '2022-11-27 03:13:18', '2022-11-27 03:13:18'),
 (5, 3, 1, NULL, NULL, NULL, '2022-12-08', NULL, NULL, NULL, '2022-11-27 03:25:46', '2022-11-27 03:25:46'),
-(6, 3, 1, NULL, NULL, NULL, '2022-11-29', NULL, NULL, NULL, '2022-11-27 03:38:44', '2022-11-27 03:38:44');
+(6, 3, 1, NULL, NULL, NULL, '2022-11-29', NULL, NULL, NULL, '2022-11-27 03:38:44', '2022-11-27 03:38:44'),
+(7, 2, 1, NULL, NULL, NULL, '2022-12-10', NULL, NULL, NULL, '2022-12-07 12:04:45', '2022-12-07 12:04:45');
 
 -- --------------------------------------------------------
 
@@ -395,6 +420,8 @@ INSERT INTO `pemesanan` (`id`, `pelanggan_id`, `penjahit_id`, `proses_produksi_i
 
 CREATE TABLE `pengambilan` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `pemesanan_id` bigint(20) NOT NULL,
+  `jasa_ekspedisi_id` bigint(20) NOT NULL,
   `opsi_pengambilan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `alamat_pengiriman` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -403,6 +430,14 @@ CREATE TABLE `pengambilan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pengambilan`
+--
+
+INSERT INTO `pengambilan` (`id`, `pemesanan_id`, `jasa_ekspedisi_id`, `opsi_pengambilan`, `tanggal`, `alamat_pengiriman`, `biaya_pengiriman`, `no_resi`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Ambil', '2022-12-10', 'JL', 123, '123', '2022-12-10 01:20:38', '2022-12-10 01:20:38'),
+(2, 3, 1, 'Kirim', '2022-12-10', NULL, NULL, '1000', '2022-12-10 03:56:29', '2022-12-10 03:56:29');
 
 -- --------------------------------------------------------
 
@@ -672,6 +707,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `jasa_ekspedisi`
+--
+ALTER TABLE `jasa_ekspedisi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jenis_model`
 --
 ALTER TABLE `jenis_model`
@@ -796,25 +837,31 @@ ALTER TABLE `detail_pembelian_bahanbaku`
 -- AUTO_INCREMENT for table `detail_pemesanan_bahanbaku`
 --
 ALTER TABLE `detail_pemesanan_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_model`
 --
 ALTER TABLE `detail_pemesanan_model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_model_ukuran`
 --
 ALTER TABLE `detail_pemesanan_model_ukuran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jasa_ekspedisi`
+--
+ALTER TABLE `jasa_ekspedisi`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jenis_model`
@@ -850,13 +897,13 @@ ALTER TABLE `pembelian_bahanbaku`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pengambilan`
 --
 ALTER TABLE `pengambilan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `penjahit`

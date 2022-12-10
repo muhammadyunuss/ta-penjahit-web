@@ -110,5 +110,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="{{ (request()->segment(1) == 'pengiriman') ? 'active' : '' }}">
+                    <a href="javascript:;">
+                    <i class="icon-present"></i>
+                    <span class="title">Pengiriman</span>
+                    <span class="selected"></span>
+                    <span class="arrow {{ (request()->segment(1) == 'pengiriman') ? 'open' : '' }}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                         <li class="{{ (request()->segment(2) == 'jasaekspedisi') ? 'active' : '' }}">
+                            <a href="{{ route('jasaekspedisi.index') }}">
+                            Jasa Ekspedisi</a>
+                        </li>
+                        <li class="{{ (request()->segment(2) == 'daftar-pengiriman') ? 'active' : '' }}">
+                           <a href="{{ route('daftar-pengiriman.index') }}">
+                           Pengiriman</a>
+                       </li>
+                    </ul>
+                </li>
 			</ul>
 			<!-- END SIDEBAR MENU -->

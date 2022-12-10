@@ -13,5 +13,23 @@ class ViewRepository
         ");
         return $data;
     }
+
+    public static function view_ukuran()
+    {
+        $data = DB::select("
+        SELECT uk.id as id_ukuran, plg.nama_pelanggan, p.tanggal, m.nama_model, uk.ukuran_baju, uk.deskripsi_ukuran
+        FROM pemesanan as p
+        JOIN detail_pemesanan_model as pm
+        ON p.id=pm.pemesanan_id
+        JOIN detail_pemesanan_model_ukuran as uk
+        ON pm.id=uk.detail_pemesanan_model_id
+        JOIN pelanggan as plg
+        ON p.pelanggan_id=plg.id
+        JOIN model as m
+        ON pm.model_id=m.id
+        ");
+
+        return $data;
+    }
 }
 

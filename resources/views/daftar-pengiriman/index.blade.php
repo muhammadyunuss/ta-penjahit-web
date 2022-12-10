@@ -9,9 +9,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Realisasi Progres &nbsp;&nbsp;
-    <a href="{{route('realisasi-progres.create')}}" class="btn btn-primary btn-sm">
-      + TAMBAH REALISASI PROGRES
+    Daftar Pengiriman &nbsp;&nbsp;
+    <a href="{{route('daftar-pengiriman.create')}}" class="btn btn-primary btn-sm">
+      + TAMBAH DAFTAR PENGIRIMAN
     </a>
 </h3>
 <div class="page-bar">
@@ -22,11 +22,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('realisasi-progres.index')}}">Produksi</a>
+            <a href="{{route('daftar-pengiriman.index')}}">Pengiriman</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('realisasi-progres.index')}}">Realisasi Progres</a>
+            <a href="{{route('daftar-pengiriman.index')}}">Daftar Pengiriman</a>
         </li>
     </ul>
 </div>
@@ -52,8 +52,8 @@
             <div class="col-md-10">
                 <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
-                    @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }} | Jenis Model : {{ $p->jenis_model }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                    @foreach($pemesanan as $p)
+                        <option value="{{ $p->id }}">Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -61,7 +61,7 @@
                 @enderror
             </div>
             <div class="col-md-2">
-                {{-- <a href="{{ route('realisasi-progres.search') }}" id="btn-search" class="btn btn-info">Search</a> --}}
+                {{-- <a href="{{ route('daftar-pengiriman.search') }}" id="btn-search" class="btn btn-info">Search</a> --}}
                 {{-- <button type="submit" class="btn btn-info">Search</button> --}}
             </div>
         </div>
@@ -71,7 +71,7 @@
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-globe"></i>Realisasi Progres List
+                <i class="fa fa-globe"></i>Realisasi Progres
             </div>
             <div class="tools">
                 <a href="javascript:;" class="reload">
@@ -87,9 +87,9 @@
                     <th>
                         Action
                     </th>
-                    <th>
-                        Realisasi Progres
-                    </th>
+                    <th>Nama Pelanggan</th>
+                    <th>Nama Model</th>
+                    <th>Jenis Model</th>
                 </tr>
             </thead>
             </table>
@@ -114,32 +114,28 @@
     /* Formatting function for row details - modify as you need */
     function format(d) {
         // `d` is the original data object for the row
-        var flagsUrl = '{{ URL::asset('/upload_image/foto_realisasi/') }}';
+        // var flagsUrl = '{{ URL::asset('/upload_image/foto_realisasi/') }}';
         return (
             '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
             '<tr>' +
-            '<td>Nama Penjahit : </td>' +
-            '<td>' + d.nama_penjahit + '</td>' +
+            '<td>Opsi : </td>' +
+            '<td>' + d.opsi_pengambilan + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<td>Tanggal Mulai : </td>' +
-            '<td>'+ d.tanggal_mulai +'</td>' +
+            '<td>Tanggal : </td>' +
+            '<td>'+ d.tanggal +'</td>' +
             '</tr>' +
             '<tr>' +
-            '<td>Tanggal Selesai : </td>' +
-            '<td>' + d.tanggal_selesai +'</td>' +
+            '<td>Alamat Pengiriman : </td>' +
+            '<td>' + d.alamat_pengiriman +'</td>' +
             '</tr>' +
             '<tr>' +
-            '<td>Keterangan : </td>' +
-            '<td>' + d.keterangan +'</td>' +
+            '<td>Biaya Pengiriman : </td>' +
+            '<td>' + d.biaya_pengiriman +'</td>' +
             '</tr>' +
             '<tr>' +
-            '<td>Gambar : </td>' +
-            '<td>' +
-                '<div class="modal-body">' +
-                    '<img src="'+flagsUrl+'/' +d.foto + '" width="500px" style="display: block; margin-left: auto; margin-right: auto;">' +
-                '</div>' +
-            '</td>' +
+            '<td>No. Resi : </td>' +
+            '<td>' + d.no_resi +'</td>' +
             '</tr>' +
             '</table>'
         );
@@ -147,7 +143,7 @@
 
     var table = $('#sample_3').DataTable({
             ajax:{
-                url: "{{ route('realisasi-progres.index') }}"
+                url: "{{ route('daftar-pengiriman.index') }}"
             },
             columns: [
                 {
@@ -156,7 +152,9 @@
                     data: null,
                     defaultContent: '',
                 },
-                { data: 'nama_prosesproduksi' },
+                {data: 'nama_pelanggan', name: 'nama_pelanggan'},
+                {data: 'nama_model', name: 'nama_model'},
+                {data: 'nama_jenismodel', name: 'nama_jenismodel'},
             ],
             order: [[1, 'asc']],
         });
@@ -189,7 +187,7 @@ $('#s_pemesanan_id').change(function(){
 
     var table = $('#sample_3').DataTable({
             ajax:{
-                url: "{{ route('realisasi-progres.index') }}",
+                url: "{{ route('daftar-pengiriman.index') }}",
                 data: function(d)  {
                     d.pemesanan_id = pemesanan_id
                 }
@@ -201,7 +199,9 @@ $('#s_pemesanan_id').change(function(){
                     data: null,
                     defaultContent: '',
                 },
-                { data: 'nama_prosesproduksi' },
+                {data: 'nama_pelanggan', name: 'nama_pelanggan'},
+                {data: 'nama_model', name: 'nama_model'},
+                {data: 'nama_jenismodel', name: 'nama_jenismodel'},
             ],
             order: [[1, 'asc']],
         });

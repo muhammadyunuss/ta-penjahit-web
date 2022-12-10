@@ -89,20 +89,20 @@
                         <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
                         {{-- <td>{{ $model->deskripsi_pemesanan }}</td> --}}
                         @php
-                            $total += $model->ongkos_jahit;
+                            $total += ($model->ongkos_jahit * $model->banyaknya);
                         @endphp
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        {{-- <div class="col-xs-12">
+        <div class="col-xs-12">
             <table class="table table-bordered table-hover" id="products_table">
                 <thead>
                     <tr>
                         <th>Nama Bahan Baku</th>
                         <th>Qty</th>
-                        <th>Ongkos</th>
+                        {{-- <th>Ongkos</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -110,15 +110,15 @@
                     <tr>
                         <td>{{ $model->nama_bahanbaku }}</td>
                         <td>{{ $model->jumlah_terpakai }}</td>
-                        <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
+                        {{-- <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
                         @php
                             $total += $model->ongkos_jahit;
-                        @endphp
+                        @endphp --}}
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div> --}}
+        </div>
     </div>
     <div class="row">
         {{-- <div class="col-xs-4"> --}}
@@ -137,8 +137,25 @@
         {{-- </div> --}}
         <div class="col-xs-12 invoice-block">
             <div class="well">
-                <strong>Total : </strong>
-                <span class="">Rp. {{ number_format($total ,2,',','.') }}</span>
+                <li style="list-style-type:none;">
+                    <strong>Total Ongkos : </strong>
+                    <span class="">Rp. {{ number_format($total ,2,',','.') }}</span>
+                </li>
+                <li style="list-style-type:none;">
+                    <strong>Total Bayar : </strong>
+                    <span class="">Rp. {{ number_format($data->bayar ,2,',','.') }}</span>
+                </li>
+                <li style="list-style-type:none;">
+                    <strong>Sisa Pembayaran : </strong>
+                    @php
+                        $sisa_bayar = $total - $data->bayar;
+                    @endphp
+                    <span class="">{{ number_format($sisa_bayar ,2,',','.') }}</span>
+                </li>
+                <li style="list-style-type:none;">
+                    <strong>Status Pembayaran : </strong>
+                    <span class="">{{ $data->status_pembayaran }}</span>
+                </li>
                 {{-- <li>
                     <strong>Discount:</strong> 12.9%
                 </li>
