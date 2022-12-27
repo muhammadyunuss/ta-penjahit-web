@@ -40,18 +40,30 @@
 			@csrf
 				<div class="form-body">
                     <div class="form-group">
+						<label for="kode_bahan_baku">Kode Bahan Baku</label>
+						<input type="text" class="form-control @error('kode_bahan_baku') is-invalid @enderror" name="kode_bahan_baku" value="{{ old('kode_bahan_baku') }}" placeholder="Isikan Kode Bahan Baku bahan baku Anda" required>
+						@error('kode_bahan_baku')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+					</div><br>
+                    <div class="form-group">
 						<label for="nama_bahanbaku">Nama</label>
 						<input type="text" class="form-control @error('nama_bahanbaku') is-invalid @enderror" name="nama_bahanbaku" value="{{ old('nama_bahanbaku') }}" placeholder="Isikan nama bahan baku Anda" required>
 						@error('nama_bahanbaku')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
-					<div class="form-group">
+                    <div class="form-group">
 						<label for="letak_bahanbaku">Letak</label>
-						<input type="text" class="form-control @error('letak_bahanbaku') is-invalid @enderror" name="letak_bahanbaku" value="{{ old('letak_bahanbaku') }}" placeholder="Isikan letak bahan baku Anda" required>
-						@error('letak_bahanbaku')
-							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
-						@enderror
+						<select name="letak_bahanbaku" id="letak_bahanbaku" data-with="100%" class="form-control @error('letak_bahanbaku') is-invalid @enderror" required>
+                            <option value="">Pilih Letak</option>
+                            @foreach($letakBahanBaku as $dp)
+                                <option value="{{ $dp->nama_letak }}" {{ old('letak_bahanbaku') == $dp->nama_letak ? 'selected' : null }}>{{ $dp->nama_letak }}</option>
+                            @endforeach
+                        </select>
+                        @error('supplier_id')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
 					</div><br>
                     <div class="form-group">
 						<label for="harga_beli">Harga Beli</label> (Rp)
@@ -67,13 +79,13 @@
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br> --}}
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label for="stok">Stok</label>
 						<input type="number" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok') }}"  placeholder="Isikan stok bahan baku Anda" min="0" required>
 						@error('stok')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
-					</div><br>
+					</div><br> --}}
                     <div class="form-group">
 						<label for="satuan">Satuan</label>
 						<input type="text" class="form-control @error('satuan') is-invalid @enderror" name="satuan" value="{{ old('satuan') }}" placeholder="Isikan satuan bahan baku Anda" required>

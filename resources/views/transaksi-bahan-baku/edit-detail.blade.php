@@ -84,6 +84,12 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Satuan</label>
+                            <input type="text" id="satuan" class="form-control" placeholder="{{ $dataDetail->satuan }}" readonly>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -120,6 +126,22 @@
 
 @section('scripts')
 <script>
+    $('#bahan_baku_id').change(function(e){
+            let id=$(this).val();
+            // let detail_pemesanan_model_id = "{{-- $perencanaanProduksi->detail_pemesanan_model_id --}}";
+            $.ajax({
+                url : "{{ url('bahan-baku/get-ajax-bahan-baku') }}" + '/' + id,
+                method : "GET",
+                async : true,
+                dataType : 'json',
+                success: function(data){
+                    document.getElementById("harga_beli").value = data[0].harga_beli;
+                    document.getElementById("satuan").value = data[0].satuan;
+                }
+            });
+            return false;
+        });
+
     $( "#jumlah" ).keyup(function() {
         let jumlah = $(this).val();
         let harga_beli = document.getElementById("harga_beli").value;

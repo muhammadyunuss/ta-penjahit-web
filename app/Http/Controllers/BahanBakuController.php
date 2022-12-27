@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBahanBakuRequest;
 use App\Http\Requests\UpdateBahanBakuRequest;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BahanBakuController extends Controller
 {
@@ -29,8 +30,9 @@ class BahanBakuController extends Controller
      */
     public function create()
     {
+        $letakBahanBaku = DB::table('letak_bahan_baku')->get();
         $dataSupplier = Supplier::all();
-        return view('bahanbaku.create',compact('dataSupplier'));
+        return view('bahanbaku.create',compact('dataSupplier', 'letakBahanBaku'));
     }
 
     /**
@@ -71,7 +73,8 @@ class BahanBakuController extends Controller
     {
         $bahanBaku = BahanBaku::find($id);
         $datasupplier = Supplier::get();
-        return view('bahanbaku.edit',compact('bahanBaku', 'datasupplier'));
+        $letakBahanBaku = DB::table('letak_bahan_baku')->get();
+        return view('bahanbaku.edit',compact('bahanBaku', 'datasupplier', 'letakBahanBaku'));
     }
 
     /**

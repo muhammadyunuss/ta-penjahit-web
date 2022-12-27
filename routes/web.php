@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('edit-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'editDetailTransaksi'])->name('transaksi.bahanbaku.detail.edit');
         Route::put('update-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'updateDetailTransaksi'])->name('transaksi.bahanbaku.update.detail');
         Route::put('update-transaksi-totalbayar/{id}/update', [TransaksiBahanBakuController::class, 'updateTransaksiTotalbayar'])->name('transaksi.update.totalbayar');
-
+        Route::get('get-ajax-bahan-baku/{id}', [TransaksiBahanBakuController::class, 'getAjaxBahanBaku'])->name('get-ajax-bahan-baku');
 
     });
 

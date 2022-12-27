@@ -12,6 +12,7 @@ class BahanBaku extends Model
     protected $table = 'bahan_baku';
     protected $primaryKey = 'id';
     protected $fillable = [
+        'kode_bahan_baku',
         'nama_bahanbaku',
         'letak_bahanbaku',
         'harga_beli',

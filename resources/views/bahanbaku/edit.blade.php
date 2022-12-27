@@ -46,6 +46,13 @@
             @method("PUT")
             <div class="form-body">
                     <div class="form-group">
+                        <label for="kode_bahan_baku">Kode Bahan Baku</label>
+                        <input type="text" class="form-control @error('kode_bahan_baku') is-invalid @enderror" name="kode_bahan_baku" value="{{ old('kode_bahan_baku', $bahanBaku->kode_bahan_baku) }}" placeholder="Isikan Kode bahan baku Anda" required>
+                        @error('kode_bahan_baku')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+                    </div><br>
+                    <div class="form-group">
 						<label for="nama_bahanbaku">Nama</label>
 						<input type="text" class="form-control @error('nama_bahanbaku') is-invalid @enderror" name="nama_bahanbaku" value="{{ old('nama_bahanbaku', $bahanBaku->nama_bahanbaku) }}" placeholder="Isikan nama bahan baku Anda" required>
 						@error('nama_bahanbaku')
@@ -54,10 +61,15 @@
 					</div><br>
 					<div class="form-group">
 						<label for="letak_bahanbaku">Letak</label>
-						<input type="text" class="form-control @error('letak_bahanbaku') is-invalid @enderror" name="letak_bahanbaku" value="{{ old('letak_bahanbaku', $bahanBaku->letak_bahanbaku) }}" placeholder="Isikan letak bahan baku Anda" required>
-						@error('letak_bahanbaku')
-							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
-						@enderror
+						<select name="letak_bahanbaku" id="letak_bahanbaku" data-with="100%" class="form-control @error('letak_bahanbaku') is-invalid @enderror" required>
+                            <option value="">Pilih Letak</option>
+                            @foreach($letakBahanBaku as $dp)
+                                <option value="{{ $dp->nama_letak }}" {{ old('letak_bahanbaku', $bahanBaku->letak_bahanbaku) == $dp->nama_letak ? 'selected' : null }}>{{ $dp->nama_letak }}</option>
+                            @endforeach
+                        </select>
+                        @error('supplier_id')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
 					</div><br>
                     <div class="form-group">
 						<label for="harga_beli">Harga Beli</label> (Rp)

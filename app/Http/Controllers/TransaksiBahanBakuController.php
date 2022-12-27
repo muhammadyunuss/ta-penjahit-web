@@ -40,7 +40,8 @@ class TransaksiBahanBakuController extends Controller
      */
     public function create()
     {
-        $datapenjahit = Penjahit::all();
+        $id_penjahit = auth()->user()->id_penjahit;
+        $datapenjahit = Penjahit::where('id', $id_penjahit)->get();
         $datasupplier = Supplier::all();
 
         return view('transaksi-bahan-baku.create', compact('datapenjahit', 'datasupplier'));
@@ -62,9 +63,17 @@ class TransaksiBahanBakuController extends Controller
             )
         ->first();
 
-        $dataBahanBaku = BahanBaku::get();
+        $dataBahanBaku = BahanBaku::where('supplier_id', $data->supplier_id)->get();
 
         return view('transaksi-bahan-baku.create-detail', compact('data', 'dataBahanBaku'));
+    }
+
+    public function getAjaxBahanBaku($id)
+    {
+        $bahanbaku = DB::table('bahan_baku')
+        ->where('id', $id)
+        ->get();
+        return response()->json($bahanbaku);
     }
 
     /**
@@ -87,6 +96,7 @@ class TransaksiBahanBakuController extends Controller
     public function saveDetail(Request $request)
     {
         PembelianBahanBakuDetail::create($request->all());
+        BahanBaku::where('id', $request->bahan_baku_id)->update(request()->except(['_token','subtotal','jumlah', 'pembelian_bahanbaku_id', 'bahan_baku_id']));
 
         $bahanBaku = DB::table('bahan_baku')
         ->where('id', $request->bahan_baku_id)
@@ -153,14 +163,13 @@ class TransaksiBahanBakuController extends Controller
 
     public function editDetailTransaksi($id)
     {
-        // $pembelianBahanBaku = PembelianBahanBaku::where('id', $id)->first();
-        // dd($pembelianBahanBaku);
         $dataDetail = DB::table('detail_pembelian_bahanbaku')
         ->join('bahan_baku', 'detail_pembelian_bahanbaku.bahan_baku_id', 'bahan_baku.id')
         ->where('detail_pembelian_bahanbaku.id', $id)
         ->select(
             'detail_pembelian_bahanbaku.*',
             'bahan_baku.nama_bahanbaku as nama_bahan_baku',
+            'bahan_baku.satuan',
         )
         ->first();
         $dataBahanBaku = BahanBaku::get();
@@ -177,7 +186,7 @@ class TransaksiBahanBakuController extends Controller
             'penjahit.nama_penjahit',
             )
         ->first();
-        // dd($data);
+
         return view('transaksi-bahan-baku.edit-detail', compact('data', 'dataDetail','id', 'dataBahanBaku'));
     }
 
@@ -198,7 +207,7 @@ class TransaksiBahanBakuController extends Controller
     {
         DetailTransaksiBahanBaku::where('id', $id)->update(request()->except(['_token','pembelian_bahanbaku_id','_method']));
 
-        return redirect()->route('transaksi-bahanbaku.show', $request->pembelian_bahanbaku_id )->with(['success' => 'Data Gagal Diupdate!']);
+        return redirect()->route('transaksi-bahanbaku.show', $request->pembelian_bahanbaku_id )->with(['success' => 'Data Berhasil Diupdate!']);
     }
 
     public function updateTransaksiTotalbayar(Request $request, $id)

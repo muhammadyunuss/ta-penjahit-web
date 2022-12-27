@@ -5,7 +5,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Daftar Transaksi Bahan Baku &nbsp;&nbsp;
+    Daftar Pembelian Bahan Baku &nbsp;&nbsp;
     <a type= "button" href="{{route('transaksi-bahanbaku.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH TRANSAKSI
     </a>
@@ -18,7 +18,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('transaksi-bahanbaku.index')}}">Daftar Transaksi Bahan Baku</a>
+            <a href="{{route('transaksi-bahanbaku.index')}}">Daftar Pembelian Bahan Baku</a>
         </li>
     </ul>
 </div>
