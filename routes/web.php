@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BahanBakuController;
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DaftarPengirimanController;
 use App\Http\Controllers\ModelAndaController;
 use App\Http\Controllers\ModelBajuPelangganController;
@@ -33,11 +34,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('beranda');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('beranda');
+// })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', [BerandaController::class, 'dashboard'])->name('dashboard');
 
     Route::prefix('bahan-baku')->group(function () {
         Route::resource('supplier', SupplierController::class);
