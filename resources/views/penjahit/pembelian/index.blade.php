@@ -41,7 +41,7 @@
         </li>
         <li class = "active">
             <a href="{{route('pembelians.index')}}">
-            Transaksi Bahan Baku</a>
+            Daftar Pembelian Bahan Baku</a>
         </li>
     </ul>
 </li>
@@ -108,7 +108,7 @@
 @section('konten')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Transaksi Bahan Baku &nbsp;&nbsp;
+    Daftar Pembelian Bahan Baku &nbsp;&nbsp;
     <a type= "button" href="{{route('bahanbakus.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH TRANSAKSI
     </a>

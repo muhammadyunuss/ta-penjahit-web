@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Generation Time: Dec 30, 2022 at 04:06 AM
+-- Generation Time: Jan 03, 2023 at 02:36 PM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -48,7 +48,7 @@ CREATE TABLE `bahan_baku` (
 INSERT INTO `bahan_baku` (`id`, `kode_bahan_baku`, `nama_bahanbaku`, `letak_bahanbaku`, `harga_beli`, `harga_jual`, `stok`, `satuan`, `supplier_id`, `created_at`, `updated_at`) VALUES
 (1, 'B0001', 'Batik', 'Rak 1', 12000, 15000, 140, 'Lembar', 1, '2022-10-10 12:46:40', '2022-12-27 13:00:00'),
 (2, '', 'Kancing', '-', 1200, 0, 810, 'Pcs', 1, '2022-10-15 06:02:52', '2022-12-27 15:01:11'),
-(3, '', 'Kain Satin', '-', 500000, 650000, 15, 'Meter', 1, '2022-11-12 13:50:39', '2022-11-28 16:07:43'),
+(3, '', 'Kain Satin', '-', 500000, 650000, 1, 'Meter', 1, '2022-11-12 13:50:39', '2022-11-28 16:07:43'),
 (4, '', 'Benang', 'Diatas', 1000, 1400, 20, 'Meter', 1, '2022-11-27 03:45:01', '2022-12-08 10:06:39');
 
 -- --------------------------------------------------------
@@ -667,6 +667,20 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `view_tanggungan_pesanan`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_tanggungan_pesanan` (
+`id` bigint(20) unsigned
+,`penjahit_id` bigint(20)
+,`nama_pelanggan` varchar(255)
+,`nama_model` varchar(255)
+,`tanggal_selesai` date
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `view_transaksi_pemesanan_model`
 -- (See below for the actual view)
 --
@@ -683,6 +697,15 @@ CREATE TABLE `view_transaksi_pemesanan_model` (
 ,`jumlah` double
 ,`satuan` varchar(3)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_tanggungan_pesanan`
+--
+DROP TABLE IF EXISTS `view_tanggungan_pesanan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_tanggungan_pesanan`  AS   (select `pemesanan`.`id` AS `id`,`pemesanan`.`penjahit_id` AS `penjahit_id`,`pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`model`.`nama_model` AS `nama_model`,`realisasi_produksi`.`tanggal_selesai` AS `tanggal_selesai` from ((((((`pemesanan` join `pelanggan` on(`pemesanan`.`pelanggan_id` = `pelanggan`.`id`)) join `detail_pemesanan_model` on(`pemesanan`.`id` = `detail_pemesanan_model`.`pemesanan_id`)) join `model` on(`detail_pemesanan_model`.`model_id` = `model`.`id`)) join `perencanaan_produksi` on(`detail_pemesanan_model`.`id` = `perencanaan_produksi`.`id`)) join `realisasi_produksi` on(`perencanaan_produksi`.`id` = `realisasi_produksi`.`perencanaan_produksi_id`)) join `proses_produksi` on(`realisasi_produksi`.`proses_produksi_id` = `proses_produksi`.`id`)) where `proses_produksi`.`id` < 8) union all (select `pemesanan`.`id` AS `id`,`pemesanan`.`penjahit_id` AS `penjahit_id`,`pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`model`.`nama_model` AS `nama_model`,`pemesanan`.`tanggal` AS `tanggal_selesai` from (((`pemesanan` join `pelanggan` on(`pemesanan`.`pelanggan_id` = `pelanggan`.`id`)) join `detail_pemesanan_model` on(`pemesanan`.`id` = `detail_pemesanan_model`.`pemesanan_id`)) join `model` on(`detail_pemesanan_model`.`model_id` = `model`.`id`)) where `pemesanan`.`pengambilan_id` is null)  ;
 
 -- --------------------------------------------------------
 

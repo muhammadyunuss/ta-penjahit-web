@@ -9,6 +9,7 @@ use App\Models\ModelAnda;
 use App\Models\Pelanggan;
 use App\Models\Pemesanan;
 use App\Models\Penjahit;
+use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +22,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
+        $id_penjahit = auth()->user()->id_penjahit;
         $data = DB::table('pemesanan')
         ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
         ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
@@ -32,7 +34,8 @@ class TransaksiController extends Controller
         ->get();
 
         $bahanBaku = DB::table('bahan_baku')->get();
-        return view('transaksi.index',compact('data','bahanBaku'));
+        $viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit);
+        return view('transaksi.index',compact('data','bahanBaku', 'viewTanggunanPesanan'));
     }
 
     /**

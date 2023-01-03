@@ -31,5 +31,12 @@ class ViewRepository
 
         return $data;
     }
+
+    public static function view_tanggungan_pesanan()
+    {
+        $data = DB::table('view_tanggungan_pesanan')->get();
+
+        return $data;
+    }
 }
 

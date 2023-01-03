@@ -42,7 +42,7 @@
         </li>
         <li>
             <a href="{{route('pembelians.index')}}">
-            Transaksi Bahan Baku</a>
+            Daftar Pembelian Bahan Baku</a>
         </li>
     </ul>
 </li>

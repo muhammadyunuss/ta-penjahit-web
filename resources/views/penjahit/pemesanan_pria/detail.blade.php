@@ -41,7 +41,7 @@
         </li>
         <li>
             <a href="{{route('pembelians.index')}}">
-            Transaksi Bahan Baku</a>
+            Daftar Pembelian Bahan Baku</a>
         </li>
     </ul>
 </li>
@@ -136,7 +136,7 @@
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> {{ $data->modelBaju->nama_model }} ( {{ $data->pelanggan->nama_pelanggan }} )     
+				<i class="fa fa-reorder"></i> {{ $data->modelBaju->nama_model }} ( {{ $data->pelanggan->nama_pelanggan }} )
 			</div>
 		</div>
 		<div class="portlet-body form">
@@ -270,7 +270,7 @@
                         <th>Deskripsi Tambahan</th>
                         <td>{{ $data->deskripsi_pesanan }}</td>
                     </tr>
-                    
+
                 </table>
             </form>
 		</div>

@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Transaksi Bahan Baku
+    Daftar Pembelian Bahan Baku
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{ route('transaksi-bahanbaku.create') }}">Tambah Transaksi Bahan Baku</a>
+            <a href="{{ route('transaksi-bahanbaku.create') }}">Tambah Daftar Pembelian Bahan Baku</a>
         </li>
     </ul>
 </div>
@@ -25,7 +25,7 @@
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Tambah Transaksi Bahan Baku
+				<i class="fa fa-reorder"></i> Tambah Daftar Pembelian Bahan Baku
 			</div>
 		</div>
 		<div class="portlet-body form">

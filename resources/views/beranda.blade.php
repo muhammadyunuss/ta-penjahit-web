@@ -101,11 +101,11 @@ Dashboard <small>statistics and more</small>
             <a href="#">Dashboard</a>
         </li>
     </ul>
-    <div class="page-toolbar">
+    {{-- <div class="page-toolbar">
         <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height btn-primary" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
             <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
         </div>
-    </div>
+    </div> --}}
 </div>
 <!-- END PAGE HEADER-->
 <!-- BEGIN OVERVIEW STATISTIC BARS-->
@@ -174,48 +174,22 @@ Dashboard <small>statistics and more</small>
 <!-- END OVERVIEW STATISTIC BARS-->
 <div class="clearfix">
 </div>
-<div class="row">
+<div class="col-md-6 col-sm-4">
     <table class="table" id="example" class="display">
         <thead>
             <tr>
-            <!-- <th>ID</th> -->
-            <th>Tanggal</th>
-            <th>Supplier</th>
-            <th>Total Harga</th>
-            <th>Aksi</th>
+            <th>Nama Bahan Baku</th>
+            <th>Stok</th>
             </tr>
         </thead>
-        {{-- <tbody>
-            @foreach($data as $d)
-            <?php $total=0 ?>
+        <tbody>
+            @foreach($stock_bahan_baku as $d)
             <tr>
-                <td>{{ $d->tanggal_beli }}</td>
-                <td>{{ $d->nama_supplier }}</td>
-                <td>{{ $d->total }}</td>
-                <td>
-                <ul class="nav nav-pills">
-                    <li >
-                        <button onclick="window.location='{{ route('transaksi-bahanbaku.show', $d->id) }}'" type="button" class="btn btn-default">Lihat</button>
-                    </li>
-                    <li >
-                        <button onclick="window.location='{{ route('transaksi-bahanbaku.detail.create', $d->id) }}'" type="button" class="btn btn-info">Tambah Pemesanan</button>
-                    </li>
-                    <li >
-                        <button onclick="window.location='{{ route('transaksi-bahanbaku.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
-                    </li>
-                    <li>
-                        <form method="POST" action="{{route('transaksi-bahanbaku.destroy' , $d->id)}}">
-                            @method('DELETE')
-                            @csrf
-                            <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                            onclick="if(!confirm('Apakah Anda yakin?')) {return false;}">
-                        </form>
-                    </li>
-                </ul>
-                </td>
+                <td>{{ $d->nama_bahanbaku }}</td>
+                <td>{{ $d->stok }}</td>
             </tr>
             @endforeach
-        </tbody> --}}
+        </tbody>
         </table>
 </div>
 <div class="clearfix">

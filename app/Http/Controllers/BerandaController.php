@@ -13,6 +13,7 @@ class BerandaController extends Controller
         $transaksi_belum_dibayar = DB::select("SELECT COUNT(CASE WHEN total>bayar THEN 1 END) as total FROM pembelian_bahanbaku");
         $transaksi_belum_dibayar = $transaksi_belum_dibayar[0]->total;
         $transaksi_pemesanan = DB::table('pemesanan')->count();
-        return view('beranda',compact('transaksi_pembelian','transaksi_belum_dibayar','transaksi_pemesanan'));
+        $stock_bahan_baku = DB::table('bahan_baku')->where('stok', '<=', '5')->get();
+        return view('beranda',compact('transaksi_pembelian','transaksi_belum_dibayar','transaksi_pemesanan', 'stock_bahan_baku'));
     }
 }

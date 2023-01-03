@@ -42,7 +42,7 @@
                         </li>
                        <li class= "{{ (request()->segment(2) == 'transaksi-bahanbaku') ? 'active' : '' }}">
                             <a href="{{ route('transaksi-bahanbaku.index') }}">
-                            Transaksi Bahan Baku</a>
+                            Daftar Pembelian Bahan Baku</a>
                         </li>
                     </ul>
                 </li>
@@ -62,10 +62,10 @@
                             <a href="{{ route('modelanda.index') }}">
                             Model Anda</a>
                         </li>
-                        <li class="{{ (request()->segment(2) == 'modelpelanggan') ? 'active' : '' }}">
+                        {{-- <li class="{{ (request()->segment(2) == 'modelpelanggan') ? 'active' : '' }}">
                             <a href="{{ route('modelpelanggan.index') }}">
                             Model Pelanggan</a>
-                        </li>
+                        </li> --}}
                         <li class="{{ (request()->segment(2) == 'transaksi') ? 'active' : '' }}">
                             <a href="{{ route('transaksi.index') }}">
                             Transaksi Pemesanan</a>
