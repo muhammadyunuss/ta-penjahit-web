@@ -43,6 +43,7 @@
 <thead>
     <tr>
     <!-- <th>ID</th> -->
+    <th>Kode</th>
     <th>Nama</th>
     <th>Letak</th>
     <th>Harga Beli</th>
@@ -55,6 +56,7 @@
 <tbody>
     @foreach($data as $d)
     <tr>
+    <td>{{ $d->kode_bahan_baku }}</td>
     <td>{{ $d->nama_bahanbaku }}</td>
     <td>{{ $d->letak_bahanbaku }}</td>
     <td>{{ $d->harga_beli }}</td>

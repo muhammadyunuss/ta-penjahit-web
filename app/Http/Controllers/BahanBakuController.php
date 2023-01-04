@@ -18,7 +18,12 @@ class BahanBakuController extends Controller
      */
     public function index()
     {
-        $data = BahanBaku::all();
+        $data = BahanBaku::join('supplier', 'bahan_baku.supplier_id','supplier.id')
+        ->select(
+            'bahan_baku.*',
+            'supplier.nama_supplier'
+        )
+        ->get();
 
         return view('bahanbaku.index',compact('data'));
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Generation Time: Jan 03, 2023 at 02:36 PM
+-- Generation Time: Jan 04, 2023 at 02:18 PM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -107,7 +107,8 @@ CREATE TABLE `detail_pemesanan_bahanbaku` (
 
 INSERT INTO `detail_pemesanan_bahanbaku` (`id`, `pemesanan_id`, `bahan_baku_id`, `detail_pemesanan_model_id`, `ongkos_jahit`, `jumlah_terpakai`, `created_at`, `updated_at`) VALUES
 (3, 3, 1, 5, NULL, 10, '2022-11-16 07:49:53', '2022-11-16 07:50:13'),
-(4, 7, 1, NULL, 15000, NULL, '2022-12-07 14:10:02', '2022-12-07 14:10:02');
+(4, 7, 1, NULL, 15000, NULL, '2022-12-07 14:10:02', '2022-12-07 14:10:02'),
+(5, 1, 4, NULL, 1400, NULL, '2023-01-04 14:07:38', '2023-01-04 14:07:38');
 
 -- --------------------------------------------------------
 
@@ -122,6 +123,8 @@ CREATE TABLE `detail_pemesanan_model` (
   `jenis_model_id` bigint(20) DEFAULT NULL,
   `banyaknya` double DEFAULT NULL,
   `ongkos_jahit` double DEFAULT NULL,
+  `nama_model_detail` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_gambar` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deskripsi_pemesanan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -131,15 +134,17 @@ CREATE TABLE `detail_pemesanan_model` (
 -- Dumping data for table `detail_pemesanan_model`
 --
 
-INSERT INTO `detail_pemesanan_model` (`id`, `model_id`, `pemesanan_id`, `jenis_model_id`, `banyaknya`, `ongkos_jahit`, `deskripsi_pemesanan`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 2, 3, 'Mantap Sekali', '2022-10-10 12:39:37', '2022-10-10 12:45:05'),
-(2, 1, 1, 2, 3, 54, 'Wanita', '2022-10-10 12:47:31', '2022-10-10 12:47:42'),
-(3, 1, 2, 1, 12, 454545, NULL, '2022-10-18 10:24:55', '2022-10-18 10:24:55'),
-(4, 3, 3, 1, 2, 150000, NULL, '2022-11-12 13:48:55', '2022-11-12 13:48:55'),
-(5, 2, 3, 2, 1, 400000, NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23'),
-(6, 2, 4, 2, 20, 500000, 'Kebaya Untuk Lamaran', '2022-11-27 07:03:52', '2022-11-27 07:19:46'),
-(7, 1, 4, 1, 15, 150000, 'Untuk Wisuda', '2022-11-27 07:04:20', '2022-11-27 07:22:26'),
-(8, 3, 7, 1, 5, 150000, NULL, '2022-12-07 12:06:49', '2022-12-07 12:06:49');
+INSERT INTO `detail_pemesanan_model` (`id`, `model_id`, `pemesanan_id`, `jenis_model_id`, `banyaknya`, `ongkos_jahit`, `nama_model_detail`, `file_gambar`, `deskripsi_pemesanan`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 2, 3, 'MOBIL', '20230104140242.jpg', 'Mantap Sekali', '2022-10-10 12:39:37', '2023-01-04 14:02:42'),
+(2, 1, 1, 2, 3, 54, '', '', 'Wanita', '2022-10-10 12:47:31', '2022-10-10 12:47:42'),
+(3, 1, 2, 1, 12, 454545, '', '', NULL, '2022-10-18 10:24:55', '2022-10-18 10:24:55'),
+(4, 3, 3, 1, 2, 150000, '', '', NULL, '2022-11-12 13:48:55', '2022-11-12 13:48:55'),
+(5, 2, 3, 2, 1, 400000, '', '', NULL, '2022-11-12 13:54:23', '2022-11-12 13:54:23'),
+(6, 2, 4, 2, 20, 500000, '', '', 'Kebaya Untuk Lamaran', '2022-11-27 07:03:52', '2022-11-27 07:19:46'),
+(7, 1, 4, 1, 15, 150000, '', '', 'Untuk Wisuda', '2022-11-27 07:04:20', '2022-11-27 07:22:26'),
+(8, 3, 7, 1, 5, 150000, '', '', NULL, '2022-12-07 12:06:49', '2022-12-07 12:06:49'),
+(9, 6, 9, 2, 10, 100000, NULL, NULL, 'sss', '2023-01-04 11:03:11', '2023-01-04 11:03:11'),
+(10, 4, 1, 1, 111, 15000, '123123', '20230104115452.jpg', 'Kebaya Untuk Lamaran', '2023-01-04 11:54:52', '2023-01-04 11:54:52');
 
 -- --------------------------------------------------------
 
@@ -335,7 +340,9 @@ INSERT INTO `model` (`id`, `jenis_model`, `pelanggan_id`, `foto_model`, `nama_mo
 (1, 1, NULL, '20221119122800.jpg', 'Model ITS', '20000', 'Vespa', '2022-10-10 12:38:16', '2022-11-28 12:30:55'),
 (2, 2, 1, '20221018144540.jpg', 'Kebaya Wanita', '30000', 'Minion', '2022-10-18 11:49:58', '2022-12-27 10:07:49'),
 (3, 1, 1, '20221119123925.jpg', 'Jas Pria', '150000', 'Makan', '2022-10-18 14:08:55', '2022-11-28 12:30:36'),
-(4, 1, NULL, '20221018142822.jpg', 'Kakek', '120000', 'Kakek', '2022-10-18 14:28:22', '2022-10-18 14:37:38');
+(4, 1, NULL, '20221018142822.jpg', 'Kakek', '120000', 'Kakek', '2022-10-18 14:28:22', '2022-10-18 14:37:38'),
+(5, 1, NULL, '', 'Model Pelanggan', '20000', '', '2022-10-10 12:38:16', '2022-11-28 12:30:55'),
+(6, 2, NULL, '', 'Model Pelanggan', '20000', '', '2022-10-10 12:38:16', '2022-11-28 12:30:55');
 
 -- --------------------------------------------------------
 
@@ -400,7 +407,8 @@ INSERT INTO `pembelian_bahanbaku` (`id`, `supplier_id`, `penjahit_id`, `tanggal_
 (2, 1, 1, '2022-11-12', 145000, 145000, '2022-11-12 14:04:09', '2022-11-14 11:32:03'),
 (3, NULL, 1, '2022-11-27', 50, 100, '2022-11-27 03:48:33', '2022-11-27 03:48:33'),
 (4, 1, 1, '2022-12-27', 50, 100, '2022-12-27 09:39:34', '2022-12-27 09:39:34'),
-(5, 1, 1, '2022-12-27', NULL, NULL, '2022-12-27 09:44:36', '2022-12-27 09:44:36');
+(5, 1, 1, '2022-12-27', NULL, NULL, '2022-12-27 09:44:36', '2022-12-27 09:44:36'),
+(6, 1, 1, '2023-01-04', NULL, NULL, '2023-01-04 11:06:05', '2023-01-04 11:06:05');
 
 -- --------------------------------------------------------
 
@@ -435,7 +443,8 @@ INSERT INTO `pemesanan` (`id`, `pelanggan_id`, `penjahit_id`, `proses_produksi_i
 (5, 3, 1, NULL, NULL, NULL, '2022-12-08', NULL, NULL, NULL, '2022-11-27 03:25:46', '2022-11-27 03:25:46'),
 (6, 3, 1, NULL, NULL, NULL, '2022-11-29', NULL, NULL, NULL, '2022-11-27 03:38:44', '2022-11-27 03:38:44'),
 (7, 2, 1, NULL, NULL, NULL, '2022-12-10', NULL, NULL, NULL, '2022-12-07 12:04:45', '2022-12-07 12:04:45'),
-(8, 3, 1, NULL, NULL, NULL, '2022-12-31', NULL, NULL, NULL, '2022-12-27 09:57:27', '2022-12-27 09:57:27');
+(8, 3, 1, NULL, NULL, NULL, '2022-12-31', NULL, NULL, NULL, '2022-12-27 09:57:27', '2022-12-27 09:57:27'),
+(9, 1, 1, NULL, NULL, NULL, '2023-01-31', NULL, NULL, NULL, '2023-01-04 10:59:19', '2023-01-04 10:59:19');
 
 -- --------------------------------------------------------
 
@@ -894,13 +903,13 @@ ALTER TABLE `detail_pembelian_bahanbaku`
 -- AUTO_INCREMENT for table `detail_pemesanan_bahanbaku`
 --
 ALTER TABLE `detail_pemesanan_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_model`
 --
 ALTER TABLE `detail_pemesanan_model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_model_ukuran`
@@ -936,7 +945,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `model`
 --
 ALTER TABLE `model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -948,13 +957,13 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembelian_bahanbaku`
 --
 ALTER TABLE `pembelian_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pengambilan`

@@ -21,7 +21,8 @@
     </ul>
 </div>
 
-<div >
+<a class="btn btn-default" data-toggle="modal" href="#basic">Cek Pesanan Tertanggung</a>
+<br><br>
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
@@ -109,6 +110,44 @@
 			</form>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Cek Pesanan Tertanggung</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table" id="example" class="display">
+                    <thead>
+                        <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Pelanggan</th>
+                        <th>Model</th>
+                        <th>Tanggal Selesai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($viewTanggunanPesanan as $d)
+                        <?php $total=0 ?>
+                        <tr>
+                            <td>{{ $d->nama_pelanggan }}</td>
+                            <td>{{ $d->nama_model }}</td>
+                            <td>{{ $d->tanggal_selesai }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 @endsection
 

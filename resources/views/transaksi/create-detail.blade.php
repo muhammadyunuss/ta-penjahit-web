@@ -113,6 +113,22 @@
                     <!--/span-->
                 </div>
                 <div class="row">
+                    <div class="col-md-6">
+                        <label for="file_gambar" class="form-label">Gambar</label>
+                        <input class="form-control" type="file" id="file_gambar" name="file_gambar" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+                        @error('file_gambar')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+                        <img class="img-fluid" id="img-preview" style="max-height:400px">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Nama Model</label>
+                            <input type="input" id="nama_model_detail" name="nama_model_detail" class="form-control" placeholder="Nama Model" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Deskripsi</label>

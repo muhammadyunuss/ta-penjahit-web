@@ -9,7 +9,7 @@
     <a type= "button" href="{{route('transaksi.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH TRANSAKSI
     </a>
-    <a class="btn btn-default" data-toggle="modal" href="#basic">Cek Pesanan Tertanggung</a>
+    {{-- <a class="btn btn-default" data-toggle="modal" href="#basic">Cek Pesanan Tertanggung</a> --}}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">

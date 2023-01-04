@@ -18,6 +18,8 @@ class DetailPemesanan extends Model
         'jenis_model_id',
         'banyaknya',
         'ongkos_jahit',
+        'nama_model_detail',
+        'file_gambar',
         'deskripsi_pemesanan'
     ];
 }

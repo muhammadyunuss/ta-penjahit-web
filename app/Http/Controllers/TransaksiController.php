@@ -49,8 +49,9 @@ class TransaksiController extends Controller
         $datapelanggan = Pelanggan::all();
         $datamodel = ModelAnda::all();
         $datapenjahit = Penjahit::where('id', $id_penjahit)->get();
+        $viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit);
 
-        return view('transaksi.create', compact('datapelanggan', 'datamodel', 'datapenjahit'));
+        return view('transaksi.create', compact('datapelanggan', 'datamodel', 'datapenjahit', 'viewTanggunanPesanan'));
     }
 
     public function createDetailTransaksi($id)
@@ -188,7 +189,7 @@ class TransaksiController extends Controller
         ->get();
 
         $paramDataModelDetail = json_decode($dataModelDetail, true);
-
+            // dd($paramDataModelDetail);
         $dataParam = [];
         foreach($paramDataModelDetail as $dmd){
             $detailPemesananModelUkuran = DB::table('detail_pemesanan_model_ukuran')
@@ -202,6 +203,8 @@ class TransaksiController extends Controller
                 'nama_model' => $dmd['nama_model'],
                 'nama_jenismodel' => $dmd['nama_jenismodel'],
                 'ongkos_jahit' => $dmd['ongkos_jahit'],
+                'nama_model_detail' => $dmd['nama_model_detail'],
+                'file_gambar' => $dmd['file_gambar'],
                 'deskripsi_pemesanan' => $dmd['deskripsi_pemesanan'],
                 'details' => $detailPemesananModelUkuran
             ];
@@ -251,8 +254,23 @@ class TransaksiController extends Controller
 
     public function updateDetailTransaksi(Request $request)
     {
-        $data = new DetailPemesanan();
-        $data->where('id', $request->detail_pemesanan_id)->update(request()->except(['_token','detail_pemesanan_id']));
+        $request->validate([
+            'file_gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = request()->except(['_token', '_method', 'detail_pemesanan_id']);
+
+        if ($image = $request->file('file_gambar')) {
+            $destinationPath = 'upload_image/file_gambar/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['file_gambar'] = "$profileImage";
+        }
+        else{
+            unset($data['file_gambar']);
+        }
+
+        DetailPemesanan::where('id', $request->detail_pemesanan_id)->update($data);
 
         if($request){
             return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['success' => 'Data Berhasil Diupdate!']);
@@ -263,7 +281,20 @@ class TransaksiController extends Controller
 
     public function saveDetail(Request $request)
     {
-        DetailPemesanan::create($request->all());
+        $request->validate([
+            'file_gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+
+        if ($image = $request->file('file_gambar')) {
+            $destinationPath = 'upload_image/file_gambar/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['file_gambar'] = "$profileImage";
+        }
+
+        DetailPemesanan::create($data);
 
         if($request){
             return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['success' => 'Data Berhasil Disimpan!']);

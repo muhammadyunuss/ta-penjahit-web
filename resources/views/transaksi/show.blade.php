@@ -138,9 +138,11 @@
                     <thead>
                         <tr>
                             <th>Model</th>
+                            <th>Model Detail</th>
                             <th>Qty</th>
                             <th>Jenis</th>
                             <th>Ongkos Jahit</th>
+                            <th>Gambar</th>
                             <th>Deksripsi</th>
                             <th>Aksi</th>
                         </tr>
@@ -149,9 +151,33 @@
                         @foreach ($dataParam as $model)
                         <tr class="success">
                             <td>{{ $model['nama_model'] }}</td>
+                            <td>{{ $model['nama_model_detail'] }}</td>
                             <td>{{ $model['banyaknya'] }}</td>
                             <td>{{ $model['nama_jenismodel'] }}</td>
                             <td>Rp. {{ number_format($model['ongkos_jahit'] ,2,',','.')}}</td>
+                            <td>
+                                @if ($model['file_gambar'])
+                                <button type = "button" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                    <img src="{{ asset('upload_image/file_gambar/'.$model['file_gambar']) }}" width="100px" alt="" data-toggle="modal" href="#detail_{{$model['id']}}">
+                                @endif
+                                </button>
+                                <div class="modal fade" id="detail_{{$model['id']}}" tabindex="-1" role="basic" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h4 class="modal-title">{{ $model['nama_model'] }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{ asset('upload_image/file_gambar/'.$model['file_gambar']) }}" width="500px" style="display: block; margin-left: auto; margin-right: auto;">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                             <td>{{ $model['deskripsi_pemesanan'] }}</td>
                             <td>
                                 <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
@@ -178,6 +204,9 @@
                                     </li>
                             </td>
                             <td>
+                                +
+                            </td>
+                            <td>
                                 <li>Panjang Atasan : {{ $detail->panjang_atasan }}</li>
                                 <li>Lingkar Dada : {{ $detail->lingkar_dada }}</li>
                                 <li>Lingkar Perut Atasan : {{ $detail->lingkar_perut_atasan }}</li>
@@ -186,6 +215,9 @@
                                 <li>Lingkar Siku : {{ $detail->lingkar_siku }}</li>
                                 <li>Lingkar Pergelangan : {{ $detail->lingkar_pergelangan }}</li>
                                 <li>Kerah : {{ $detail->kerah }}</li>
+                            </td>
+                            <td>
+                                +
                             </td>
                             <td>
                                 <li>Ukuran Celana : {{ $detail->ukuran_celana }}</li>

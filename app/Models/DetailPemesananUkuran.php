@@ -18,6 +18,7 @@ class DetailPemesananUkuran extends Model
     'berat_badan',
     'ukuran_baju',
     'panjang_atasan',
+    'jumlah_baju_dengan_ukuran_yg_sama',
     'lingkar_dada',
     'lingkar_perut_atasan',
     'lingkar_pinggul_atasan',

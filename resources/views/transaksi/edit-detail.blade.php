@@ -117,6 +117,27 @@
                     <!--/span-->
                 </div>
                 <div class="row">
+                    <div class="col-md-6">
+						<label for="file_gambar" class="form-label">Gambar</label>
+						{{-- <input type="hidden" name="oldfoto_model" value="{{ $data->file_gambar }}"> --}}
+						<input class="form-control" type="file" id="file_gambar" name="file_gambar" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+						@if($dataModelDetail->file_gambar)
+							<img src="{{ asset('upload_image/file_gambar/'.$dataModelDetail->file_gambar) }}" class="img-fluid" id="img-preview" style="max-height:400px">
+						@else
+                            <img class="img-fluid" id="img-preview" style="max-height:400px">
+                            @error('file_gambar')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+						@endif
+					</div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Nama Model</label>
+                            <input type="input" id="nama_model_detail" name="nama_model_detail" class="form-control" placeholder="Nama Model" value="{{ $dataModelDetail->nama_model_detail }}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Deskripsi</label>

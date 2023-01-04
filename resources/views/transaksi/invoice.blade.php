@@ -69,7 +69,7 @@
         $total = 0;
     @endphp
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-6">
             <table class="table table-bordered table-hover" id="products_table">
                 <thead>
                     <tr>
@@ -78,6 +78,9 @@
                         <th>Jenis</th>
                         <th>Ongkos Jahit</th>
                         {{-- <th>Deksripsi</th> --}}
+                    </tr>
+                    <tr>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -96,20 +99,18 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-6">
             <table class="table table-bordered table-hover" id="products_table">
                 <thead>
                     <tr>
                         <th>Nama Bahan Baku</th>
-                        <th>Qty</th>
-                        {{-- <th>Ongkos</th> --}}
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($detailBahanBaku as $model)
                     <tr>
                         <td>{{ $model->nama_bahanbaku }}</td>
-                        <td>{{ $model->jumlah_terpakai }}</td>
+                        {{-- <td>{{ $model->jumlah_terpakai }}</td> --}}
                         {{-- <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
                         @php
                             $total += $model->ongkos_jahit;

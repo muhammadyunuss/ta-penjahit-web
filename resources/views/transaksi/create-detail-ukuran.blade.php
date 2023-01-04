@@ -135,8 +135,8 @@
                     <!--/span-->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Panjang Atasan</label>
-                            <input type="number" id="panjang_atasan" name="panjang_atasan" class="form-control" placeholder="Panjang Atasan">
+                            <label class="control-label">Jumlah Baju Dengan Ukuran Yang Sama</label>
+                            <input type="number" id="jumlah_baju_dengan_ukuran_yg_sama" name="jumlah_baju_dengan_ukuran_yg_sama" class="form-control" placeholder="Panjang Atasan">
                         </div>
                     </div>
                     <!--/span-->
@@ -181,6 +181,12 @@
                         <div class="form-group">
                             <label class="control-label">Panjang Tangan</label>
                             <input type="number" id="panjang_tangan" name="panjang_tangan" class="form-control" placeholder="Panjang Tangan">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Panjang Atasan</label>
+                            <input type="number" id="panjang_atasan" name="panjang_atasan" class="form-control" placeholder="Panjang Atasan">
                         </div>
                     </div>
                     <!--/span-->
