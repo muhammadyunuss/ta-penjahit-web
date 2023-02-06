@@ -11,6 +11,7 @@ use App\Http\Controllers\DaftarProgresController;
 use App\Http\Controllers\InformasiUkuranController;
 use App\Http\Controllers\JadwalProgresController;
 use App\Http\Controllers\JasaEkspedisiController;
+use App\Http\Controllers\KolomRakController;
 use App\Http\Controllers\PengunaanBahanBakuController;
 use App\Http\Controllers\RealisasiProgresController;
 use App\Http\Controllers\TransaksiBahanBakuController;
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('bahan-baku')->group(function () {
         Route::resource('supplier', SupplierController::class);
         Route::resource('bahanbaku', BahanBakuController::class);
+        Route::resource('kolomrak', KolomRakController::class);
 
         Route::resource('transaksi-bahanbaku', TransaksiBahanBakuController::class);
         Route::get('tambah-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'createDetail'])->name('transaksi.bahanbaku.detail.create');

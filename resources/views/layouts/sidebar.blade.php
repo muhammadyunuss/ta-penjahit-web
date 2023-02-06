@@ -32,6 +32,10 @@
                     <span class="arrow {{ (request()->segment(1) == 'bahan-baku') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'kolomrak') ? 'active' : '' }}">
+                            <a href="{{ route('kolomrak.index') }}">
+                            Kolom Rak</a>
+                        </li>
                         <li class= "{{ (request()->segment(2) == 'supplier') ? 'active' : '' }}">
                             <a href="{{ route('supplier.index') }}">
                             Supplier</a>
@@ -107,6 +111,10 @@
                          <li class="{{ (request()->segment(2) == 'realisasi-progres') ? 'active' : '' }}">
                             <a href="{{ route('realisasi-progres.index') }}">
                             Realisasi Progres</a>
+                        </li>
+                        <li class="{{ (request()->segment(2) == 'realisasi-progres') ? 'active' : '' }}">
+                            <a href="{{ route('realisasi-progres.index') }}">
+                            Laporan Tanggungan</a>
                         </li>
                     </ul>
                 </li>
