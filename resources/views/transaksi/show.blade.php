@@ -180,8 +180,8 @@
                             </td>
                             <td>{{ $model['deskripsi_pemesanan'] }}</td>
                             <td>
-                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
-                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a>
+                                <a class="btn btn-success btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a>
+                                <a class="btn btn-primary btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
                             </td>
                             @php
                                 $total += ($model['ongkos_jahit'] * $model['banyaknya']);
@@ -232,8 +232,7 @@
                                 Deskripsi : {{ $detail->deskripsi_ukuran }}
                             </td>
                             <td>
-                                {{-- <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
-                                <a class="btn btn-default btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a> --}}
+                                <a class="btn btn-primary btn-xs green-stripe" href="{{ route('transaksi.edit.detail.ukuran', $detail->id) }}">Edit</a>
                             </td>
                         </tr>
                         @endforeach

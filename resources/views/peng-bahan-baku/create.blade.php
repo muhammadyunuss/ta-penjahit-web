@@ -1,9 +1,9 @@
-@extends('layouts.layout')jadwal-progres
+@extends('layouts.layout')
 
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Jadwal Progres <br>
+    Pengunaan Bahan Baku <br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -17,11 +17,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('peng-bahan-baku.index')}}">Jadwal Progress</a>
+            <a href="{{route('peng-bahan-baku.index')}}">Pengunaan Bahan Baku</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('peng-bahan-baku.create')}}">Tambah Jadwal Progress</a>
+            <a href="{{route('peng-bahan-baku.create')}}">Tambah Pengunaan Bahan Baku</a>
         </li>
     </ul>
 </div>
@@ -32,7 +32,7 @@
     <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Tambah Jadwal Progress
+				<i class="fa fa-reorder"></i> Tambah Penggunaan Bahan Baku
 			</div>
 		</div>
 		<div class="portlet-body form">
@@ -84,6 +84,9 @@
                             <input type="number" class="form-control @error('jumlah_terpakai') is-invalid @enderror" id="jumlah_terpakai" name="jumlah_terpakai" placeholder="Jumlah Pemakaian" value="{{ old('jumlah_terpakai') }}">
                         </div>
                     </div>
+                    <div id="notification" style="display: none;">
+                        <span class="dismiss"><a title="dismiss this notification">x</a></span>
+                      </div>
 				</div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Simpan</button>
@@ -111,6 +114,29 @@
                         html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
                     }
                     $('#detail_pemesanan_model_id').html(html);
+
+                }
+            });
+            return false;
+        });
+
+        $('#bahan_baku_id').change(function(e){
+            let id=$(this).val();
+            $.ajax({
+                url : "{{ url('/produksi/peng-bahan-baku/get-ajax-bahan-baku-first') }}"+"/"+id,
+                method : "GET",
+                async : true,
+                dataType : 'json',
+                success: function(data){
+                    console.log(data.stok);
+                    $( "#jumlah_terpakai" ).keyup(function() {
+                        let jumlah=$(this).val();
+                        if(jumlah > data.stok){
+                            $("#notification").fadeIn("slow").html('<p style="color:red;">Mohon maaf pemakaian bahan baku melebihi jumlah <b>'+data.stok+'</b> stok sediaan bahan baku dan tidak bisa tersimpan, stok anda akan minus</p>');
+                        }else{
+                            $("#notification").fadeOut("slow").html('<p style="color:green;">Stok sudah aman</p>');
+                        }
+                    });
 
                 }
             });

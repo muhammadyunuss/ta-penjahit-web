@@ -47,11 +47,12 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <input type="hidden" value="{{ $datapenjahit->id }}">
+                    {{-- <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Penjahit</label>
                         <div class="col-md-12">
                             <select name="penjahit_id" id="penjahit_id" data-with="100%" class="form-control @error('penjahit_id') is-invalid @enderror">
-                                {{-- <option value="">== Pilih Nama Penjahit ==</option> --}}
+                                <option value="">== Pilih Nama Penjahit ==</option>
                                 @foreach($datapenjahit as $dp)
                                     <option value="{{ $dp->id }}" {{ old('penjahit_id') == $dp->id ? 'selected' : null }}>{{ $dp->nama_penjahit }}</option>
                                 @endforeach
@@ -60,7 +61,7 @@
                                 <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="tanggal">Estimasi Selesai</label>
                         <div>

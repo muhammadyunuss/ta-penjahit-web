@@ -72,7 +72,7 @@
                 <input type="hidden" name="pemesanan_id" id="pemesanan_id" value="{{ $data->id }}">
                 <!--/row-->
                 <div class="row">
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Jenis Model</label>
                             <select class="select2_category form-control" name="jenis_model_id" id="jenis_model_id" tabindex="1" required>
@@ -82,15 +82,15 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Model</label>
                             <select class="select2_category form-control" name="model_id" id="model_id" tabindex="1" required>
                                 <option value="">Pilih</option>
-                                {{-- @foreach ($dataModel as $model)
+                                @foreach ($dataModel as $model)
                                     <option value="{{ $model->id }}">{{ $model->nama_model }}</option>
-                                @endforeach --}}
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Ongkos Jahit</label>
-                            <input type="number" id="ongkos_jahit" name="ongkos_jahit" class="form-control" placeholder="Ongkos Jahit" required>
+                            <input type="text" id="ongkos_jahit" name="ongkos_jahit" class="form-control" placeholder="Ongkos Jahit" required>
                         </div>
                     </div>
                     <!--/span-->

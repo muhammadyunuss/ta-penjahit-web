@@ -39,7 +39,7 @@
 <table class="table" id="example" class="display">
 <thead>
     <tr>
-    <th>Kode</th>
+    {{-- <th>Kode</th> --}}
     <th>Tanggal</th>
     <th>Supplier</th>
     <th>Total Harga</th>
@@ -50,7 +50,7 @@
     @foreach($data as $d)
     <?php $total=0 ?>
     <tr>
-        <td>{{ $d->kode }}</td>
+        {{-- <td>{{ $d->kode }}</td> --}}
         <td>{{ $d->tanggal_beli }}</td>
         <td>{{ $d->nama_supplier }}</td>
         <td>{{ $d->total }}</td>

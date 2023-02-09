@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ModelAnda;
 use App\Models\ProsesProduksi;
 use App\Models\RealisasiProgres;
+use App\Models\User;
 use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ class RealisasiProgresController extends Controller
         if($request->ajax()){
             $pemesanan_id = $request->pemesanan_id ?? null;
             $data = RealisasiProgres::join('pemesanan', 'realisasi_produksi.pemesanan_id', 'pemesanan.id')
+            ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
             ->join('proses_produksi', 'realisasi_produksi.proses_produksi_id', 'proses_produksi.id')
             ->join('perencanaan_produksi', 'realisasi_produksi.perencanaan_produksi_id', 'perencanaan_produksi.id')
             ->join('detail_pemesanan_model', 'perencanaan_produksi.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
@@ -28,7 +30,8 @@ class RealisasiProgresController extends Controller
                 'proses_produksi.nama_prosesproduksi',
                 'jenis_model.nama_jenismodel',
                 'model.nama_model',
-                'penjahit.nama_penjahit'
+                'penjahit.nama_penjahit',
+                'pelanggan.no_telepon'
             )
             ->get();
 
@@ -50,7 +53,8 @@ class RealisasiProgresController extends Controller
         )
         ->get();
         $prosesProduksi = ProsesProduksi::get();
-        return view('realisasi-progres.create',compact('jenismodel', 'pemesanan'));
+        $user = User::where('previledge', 'Kepala_Penjahit')->select(['id', 'name', 'email'])->get();
+        return view('realisasi-progres.create',compact('jenismodel', 'pemesanan', 'user'));
     }
 
     function getAjaxPemesanantoPemesananDetail($id){
@@ -115,7 +119,8 @@ class RealisasiProgresController extends Controller
     {
         $jenismodel = RealisasiProgres::getJenisModel();
         $data = RealisasiProgres::find($modelAnda);
-        return view('realisasi-progres.edit',compact('data', 'jenismodel'));
+        $user = User::where('previledge', 'Kepala_Penjahit')->select(['id', 'name', 'email'])->get();
+        return view('realisasi-progres.edit',compact('data', 'jenismodel', 'user'));
     }
 
     public function update(Request $request, $id)

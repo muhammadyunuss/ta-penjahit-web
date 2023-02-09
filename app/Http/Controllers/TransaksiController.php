@@ -48,8 +48,8 @@ class TransaksiController extends Controller
         $id_penjahit = auth()->user()->id_penjahit;
         $datapelanggan = Pelanggan::all();
         $datamodel = ModelAnda::all();
-        $datapenjahit = Penjahit::where('id', $id_penjahit)->get();
-        $viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit);
+        $datapenjahit = Penjahit::where('id', $id_penjahit)->first();
+        $viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit)->where('tanggal_selesai', '>=', date('Y-m-d'));
 
         return view('transaksi.create', compact('datapelanggan', 'datamodel', 'datapenjahit', 'viewTanggunanPesanan'));
     }
@@ -314,6 +314,46 @@ class TransaksiController extends Controller
             return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['error' => 'Data Gagal Disimpan!']);
         }
 
+    }
+
+    public function editDetailUkuran($id)
+    {
+        $detailUkuran = DetailPemesananUkuran::where('id', $id)->first();
+        $dataModelDetail = DB::table('detail_pemesanan_model')
+        ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
+        ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
+        ->where('detail_pemesanan_model.id', $detailUkuran->detail_pemesanan_model_id)
+        ->select(
+            'detail_pemesanan_model.*',
+            'model.nama_model as nama_model',
+            'jenis_model.nama_jenismodel as nama_jenismodel'
+        )
+        ->first();
+        $data = DB::table('pemesanan')
+        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
+        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
+        ->where('pemesanan.id', $dataModelDetail->pemesanan_id)
+        ->select(
+            'pemesanan.*',
+            'pelanggan.nama_pelanggan as nama_pelanggan',
+            'pelanggan.email as email_pelanggan',
+            'pelanggan.no_telepon as no_telepon_pelanggan',
+            'pelanggan.alamat as alamat_pelanggan',
+            'penjahit.nama_penjahit as nama_penjahit'
+        )
+        ->first();
+        return view('transaksi.edit-detail-ukuran', compact('detailUkuran', 'dataModelDetail', 'data'));
+    }
+
+    public function updateDetailUkuran(Request $request)
+    {
+        DetailPemesananUkuran::where('id', $request->detail_pemesanan_model_id)->update($request->except(['_token', 'pemesanan_id']));
+
+        if($request){
+            return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**

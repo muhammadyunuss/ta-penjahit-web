@@ -37,6 +37,11 @@ class PengunaanBahanBakuController extends Controller
         return view('peng-bahan-baku.index', compact('data', 'viewTransaksiPemesanan','id'));
     }
 
+    function getAjaxBahanBaku($id){
+        $dataBahanBaku = BahanBaku::where('id', $id)->first();
+        return response()->json($dataBahanBaku);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -3,9 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Model Anda &nbsp;&nbsp;
+    Model Pakaian &nbsp;&nbsp;
     <a href="{{route('modelanda.create')}}" class="btn btn-primary btn-sm">
-      + TAMBAH MODEL ANDA
+      + TAMBAH MODEL PAKAIAN
     </a>
 </h3>
 <div class="page-bar">
@@ -20,7 +20,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('modelanda.index')}}">Model Anda</a>
+            <a href="{{route('modelanda.index')}}">Model Pakaian</a>
         </li>
     </ul>
 </div>

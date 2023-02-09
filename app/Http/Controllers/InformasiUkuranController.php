@@ -14,18 +14,18 @@ class InformasiUkuranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $data = ModelAnda::join('pelanggan', 'model.pelanggan_id', 'pelanggan.id')
-        // ->select(
-        //     'model.*',
-        //     'pelanggan.nama_pelanggan'
-        // )
-        // ->get();
+        $id = $request->id;
+        if($id){
+            $data = ViewRepository::view_ukuran2($id);
+        }else{
+            $data = ViewRepository::view_ukuran();
+        }
 
-        $data = ViewRepository::view_ukuran();
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
 
-        return view('informasi-ukuran.index',compact('data'));
+        return view('informasi-ukuran.index',compact('data', 'viewTransaksiPemesanan', 'id'));
     }
 
     /**

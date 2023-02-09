@@ -64,7 +64,7 @@
                         </li>
                         <li class="{{ (request()->segment(2) == 'modelanda') ? 'active' : '' }}">
                             <a href="{{ route('modelanda.index') }}">
-                            Model Anda</a>
+                            Model Pakaian</a>
                         </li>
                         {{-- <li class="{{ (request()->segment(2) == 'modelpelanggan') ? 'active' : '' }}">
                             <a href="{{ route('modelpelanggan.index') }}">

@@ -122,6 +122,10 @@
             '<td>' + d.nama_penjahit + '</td>' +
             '</tr>' +
             '<tr>' +
+            '<td>Kepala Penjahit : </td>' +
+            '<td>' + d.kepala_penjahit + '</td>' +
+            '</tr>' +
+            '<tr>' +
             '<td>Tanggal Mulai : </td>' +
             '<td>'+ d.tanggal_mulai +'</td>' +
             '</tr>' +
@@ -140,6 +144,10 @@
                     '<img src="'+flagsUrl+'/' +d.foto + '" width="500px" style="display: block; margin-left: auto; margin-right: auto;">' +
                 '</div>' +
             '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>Hubungi Pelanggan : </td>' +
+            `<td> <a href="https://wa.me/62${d.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${d.nama_prosesproduksi}" class="btn btn-primary">Pemberitahuan</a>` +
             '</tr>' +
             '</table>'
         );

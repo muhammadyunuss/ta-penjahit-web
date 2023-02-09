@@ -75,6 +75,20 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="kepala_penjahit" class="col-md-4 col-form-label">Nama Kepala Penjahit</label>
+                        <div class="col-md-12">
+                            <select name="kepala_penjahit" id="kepala_penjahit" data-with="100%" class="form-control @error('kepala_penjahit') is-invalid @enderror">
+                                <option value="">Pilih Kepala Penjahit</option>
+                                @foreach($user as $p)
+                                    <option value="{{ $p->name }}" {{ old('kepala_penjahit') == $p->name ? 'selected' : null }}><b>{{ $p->name }}</b></option>
+                                @endforeach
+                            </select>
+                            @error('kepala_penjahit')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
                         <div>

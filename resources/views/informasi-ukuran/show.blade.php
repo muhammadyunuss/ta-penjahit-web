@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Stok
+                            Jumlah Pakaian dengan ukuran yang sama
                         </td>
                         <td>
                             {{ $dataModelDetail->banyaknya }}

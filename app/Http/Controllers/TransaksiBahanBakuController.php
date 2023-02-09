@@ -41,7 +41,7 @@ class TransaksiBahanBakuController extends Controller
     public function create()
     {
         $id_penjahit = auth()->user()->id_penjahit;
-        $datapenjahit = Penjahit::where('id', $id_penjahit)->get();
+        $datapenjahit = Penjahit::where('id', $id_penjahit)->first();
         $datasupplier = Supplier::all();
 
         return view('transaksi-bahan-baku.create', compact('datapenjahit', 'datasupplier'));

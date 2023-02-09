@@ -29,7 +29,8 @@ class JadwalProgresController extends Controller
         )
         ->get();
 
-        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
+        $viewTransaksiPemesanan = ViewRepository::view_pemesanan_belum_finish();
+
         return view('jadwal-progres.index', compact('data', 'viewTransaksiPemesanan', 'id'));
     }
 
