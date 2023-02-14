@@ -56,6 +56,7 @@ class TransaksiController extends Controller
 
     public function createDetailTransaksi($id)
     {
+
         $data = DB::table('pemesanan')
         ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
         ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
@@ -69,6 +70,7 @@ class TransaksiController extends Controller
             'penjahit.nama_penjahit as nama_penjahit'
         )
         ->first();
+
         $dataModel = DB::table('model')->get();
         $dataJenisModel = DB::table('jenis_model')->get();
         $dataModelDetail = DB::table('detail_pemesanan_model')
