@@ -90,7 +90,7 @@ class TransaksiController extends Controller
     {
         $dataModelDetail = DB::table('detail_pemesanan_model')
         ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
-        ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
+        ->leftjoin('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
         ->where('detail_pemesanan_model.id', $id)
         ->select(
             'detail_pemesanan_model.*',
