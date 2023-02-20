@@ -64,9 +64,9 @@
                 {{-- <li >
                     <button onclick="window.location='{{ route('transaksi.detail.create', $d->id) }}'" type="button" class="btn btn-info">Tambah Pemesanan</button>
                 </li> --}}
-                <li >
+                {{-- <li >
                     <button onclick="window.location='{{ route('transaksi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
-                </li>
+                </li> --}}
                 <li>
                     <form method="POST" action="{{route('transaksi.destroy' , $d->id)}}">
                         @method('DELETE')

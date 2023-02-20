@@ -66,6 +66,18 @@
                         @enderror
 					</div><br>
                     <div class="form-group">
+						<label for="letak_bahanbaku">Letak</label>
+						<select name="letak_bahanbaku" id="letak_bahanbaku" data-with="100%" class="form-control @error('letak_bahanbaku') is-invalid @enderror" required>
+                            <option value="">Pilih Letak</option>
+                            @foreach($letakBahanBaku as $dp)
+                                <option value="{{ $dp->nama_letak }}" {{ old('letak_bahanbaku') == $dp->nama_letak ? 'selected' : null }}>{{ $dp->nama_letak }}</option>
+                            @endforeach
+                        </select>
+                        @error('supplier_id')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+					</div><br>
+                    <div class="form-group">
 						<label for="harga_beli">Harga Beli</label> (Rp)
 						<input type="number" class="form-control @error('harga_beli') is-invalid @enderror" name="harga_beli" value="{{ old('harga_beli') }}" placeholder="Isikan harga beli bahan baku Anda" min="0" required>
 						@error('harga_beli')

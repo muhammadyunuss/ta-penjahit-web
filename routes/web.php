@@ -12,6 +12,7 @@ use App\Http\Controllers\InformasiUkuranController;
 use App\Http\Controllers\JadwalProgresController;
 use App\Http\Controllers\JasaEkspedisiController;
 use App\Http\Controllers\KolomRakController;
+use App\Http\Controllers\LaporanTertanggungController;
 use App\Http\Controllers\PengunaanBahanBakuController;
 use App\Http\Controllers\RealisasiProgresController;
 use App\Http\Controllers\TransaksiBahanBakuController;
@@ -107,6 +108,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('jadwal-progres', JadwalProgresController::class);
         Route::resource('peng-bahan-baku', PengunaanBahanBakuController::class);
         Route::resource('realisasi-progres', RealisasiProgresController::class);
+        Route::resource('laporan-tertanggung', LaporanTertanggungController::class);
     });
 
     Route::prefix('pengiriman')->group(function () {

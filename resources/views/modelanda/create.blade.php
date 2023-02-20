@@ -74,7 +74,8 @@
 							<label><input type="radio" name="tampilModel" id="tampilModel" value="sembunyikan"/>Tidak</label>
                         </div>
                 	</div><br> -->
-                    <div class="form-group row">
+                    <input type="hidden" value="1" name="jenis_model">
+                    {{-- <div class="form-group row">
 						<label for="jenis_model" class="col-md-4 col-form-label">Jenis Model</label>
 						<div class="col-md-12">
 							<select name="jenis_model" id="jenis_model" class="form-control @error('jenis_model') is-invalid @enderror">
@@ -87,7 +88,7 @@
 								<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 							@enderror
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Simpan</button>

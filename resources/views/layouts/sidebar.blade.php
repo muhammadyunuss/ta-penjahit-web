@@ -112,8 +112,8 @@
                             <a href="{{ route('realisasi-progres.index') }}">
                             Realisasi Progres</a>
                         </li>
-                        <li class="{{ (request()->segment(2) == 'realisasi-progres') ? 'active' : '' }}">
-                            <a href="{{ route('realisasi-progres.index') }}">
+                        <li class="{{ (request()->segment(2) == 'laporan-tertanggung') ? 'active' : '' }}">
+                            <a href="{{ route('laporan-tertanggung.index') }}">
                             Laporan Tanggungan</a>
                         </li>
                     </ul>

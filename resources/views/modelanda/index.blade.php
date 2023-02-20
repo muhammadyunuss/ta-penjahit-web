@@ -46,7 +46,7 @@
     <th>Nama</th>
     <th>Ongkos Jahit</th>
     <th>Deskripsi</th>
-    <th>Jenis</th>
+    {{-- <th>Jenis</th> --}}
     <th>Aksi</th>
     </tr>
 </thead>
@@ -79,13 +79,13 @@
     <td>{{ $d->nama_model }}</td>
     <td>{{ $d->ongkos_jahit }}</td>
     <td>{{ $d->deskripsi_model }}</td>
-    <td>
+    {{-- <td>
         @if($d->jenis_model == 1)
             Pria
         @else
             Wanita
         @endif
-    </td>
+    </td> --}}
     <td>
         <ul class="nav nav-pills">
             <li >

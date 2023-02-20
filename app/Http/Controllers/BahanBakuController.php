@@ -36,8 +36,9 @@ class BahanBakuController extends Controller
     public function create()
     {
         $letakBahanBaku = DB::table('letak_bahan_baku')->get();
+        $kolom_rak = DB::table('kolom_rak')->get();
         $dataSupplier = Supplier::all();
-        return view('bahanbaku.create',compact('dataSupplier', 'letakBahanBaku'));
+        return view('bahanbaku.create',compact('dataSupplier', 'letakBahanBaku', 'kolom_rak'));
     }
 
     /**
