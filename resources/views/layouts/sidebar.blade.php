@@ -58,13 +58,13 @@
                     <span class="arrow {{ (request()->segment(1) == 'pemesanan') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="{{ (request()->segment(2) == 'pelanggan') ? 'active' : '' }}">
-                            <a href="{{ route('pelanggan.index') }}">
-                            Pelanggan</a>
-                        </li>
                         <li class="{{ (request()->segment(2) == 'modelanda') ? 'active' : '' }}">
                             <a href="{{ route('modelanda.index') }}">
                             Model Pakaian</a>
+                        </li>
+                        <li class="{{ (request()->segment(2) == 'pelanggan') ? 'active' : '' }}">
+                            <a href="{{ route('pelanggan.index') }}">
+                            Pelanggan</a>
                         </li>
                         {{-- <li class="{{ (request()->segment(2) == 'modelpelanggan') ? 'active' : '' }}">
                             <a href="{{ route('modelpelanggan.index') }}">
@@ -134,6 +134,20 @@
                            <a href="{{ route('daftar-pengiriman.index') }}">
                            Pengiriman</a>
                        </li>
+                    </ul>
+                </li>
+                <li class="{{ (request()->segment(1) == 'admin') ? 'active' : '' }}">
+                    <a href="javascript:;">
+                    <i class="icon-present"></i>
+                    <span class="title">Setting</span>
+                    <span class="selected"></span>
+                    <span class="arrow {{ (request()->segment(1) == 'admin') ? 'open' : '' }}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                         <li class="{{ (request()->segment(2) == 'users') ? 'active' : '' }}">
+                            <a href="{{ route('admin.users') }}">
+                            Tambah User</a>
+                        </li>
                     </ul>
                 </li>
 			</ul>

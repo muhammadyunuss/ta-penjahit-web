@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\BahanBaku;
+use App\Models\DetailPemesanan;
 use App\Models\DetailPemesananBahanBaku;
+use App\Models\Pemesanan;
 use App\Models\ProsesProduksi;
 use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
@@ -35,6 +37,19 @@ class PengunaanBahanBakuController extends Controller
 
         $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
         return view('peng-bahan-baku.index', compact('data', 'viewTransaksiPemesanan','id'));
+    }
+
+    function getAllAjaxBahanBaku($id){
+        $detail_pemesanan_bahan_baku = DetailPemesananBahanBaku::where('detail_pemesanan_model_id', $id)->first();
+        // dd($detail_pemesanan_bahan_baku->bahan_baku_id);
+        if($detail_pemesanan_bahan_baku == null){
+            $dataBahanBaku = null;
+        }else{
+            $dataBahanBaku = BahanBaku::where('id', $detail_pemesanan_bahan_baku->bahan_baku_id)->get();
+
+        }
+        // dd($dataBahanBaku);
+        return response()->json($dataBahanBaku);
     }
 
     function getAjaxBahanBaku($id){
@@ -103,7 +118,7 @@ class PengunaanBahanBakuController extends Controller
 
             $data = new DetailPemesananBahanBaku();
             $data->where('id', $pengBahanBakuId->id)->update(request()->except(['_token', '_method']));
-
+            // dd($laststock);
             $bahanBaku = BahanBaku::findOrFail($pengBahanBaku->bahan_baku_id);
             $bahanBaku->update([
                 'stok'     => $laststock
@@ -182,6 +197,7 @@ class PengunaanBahanBakuController extends Controller
             'detail_pemesanan_model.pemesanan_id'
         )
         ->first();
+
         $pemesanan = DB::table('pemesanan')
         ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
         ->select(
@@ -189,6 +205,7 @@ class PengunaanBahanBakuController extends Controller
             'pelanggan.nama_pelanggan'
         )
         ->get();
+
         $prosesProduksi = ProsesProduksi::get();
         $bahanBaku = BahanBaku::get();
 
@@ -205,6 +222,25 @@ class PengunaanBahanBakuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
+        $bahan_baku = BahanBaku::where('id', $request->bahan_baku_id)->first();
+        $peng_bahan_baku = DB::table('detail_pemesanan_bahanbaku')
+            ->where('id', $id)
+            ->first();
+
+            // dd($peng_bahan_baku);
+
+        $pemakaian_old = $bahan_baku->stok;
+        $pemakaian_new = floatval($request->jumlah_terpakai);
+        $peng_bahan_baku_stock = $peng_bahan_baku->jumlah_terpakai;
+        $laststock = ($pemakaian_new + $pemakaian_old) - $peng_bahan_baku_stock;
+        // a = 80 + 140 - 100
+
+        $bahanBaku = BahanBaku::findOrFail($request->bahan_baku_id);
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
+
         $data = new DetailPemesananBahanBaku();
         $data->where('id', $id)->update(request()->except(['_token', '_method','pemesanan_id']));
 

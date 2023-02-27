@@ -6,9 +6,11 @@
 @section('content')
 <h3 class="page-title">
     Daftar Transaksi Pemesanan &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin")
     <a type= "button" href="{{route('transaksi.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH TRANSAKSI
     </a>
+    @endif
     {{-- <a class="btn btn-default" data-toggle="modal" href="#basic">Cek Pesanan Tertanggung</a> --}}
 </h3>
 <div class="page-bar">
@@ -67,6 +69,7 @@
                 {{-- <li >
                     <button onclick="window.location='{{ route('transaksi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
                 </li> --}}
+                @if (auth()->user()->previledge == "Admin")
                 <li>
                     <form method="POST" action="{{route('transaksi.destroy' , $d->id)}}">
                         @method('DELETE')
@@ -75,6 +78,7 @@
                         onclick="if(!confirm('Apakah Anda yakin?')) {return false;}">
                     </form>
                 </li>
+                @endif
             </ul>
             </td>
         </tr>

@@ -4,9 +4,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Pengunaan Bahan Baku &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin" || auth()->user()->previledge == "Kepala" || auth()->user()->previledge == "Finishing")
     <a type= "button" href="{{route('peng-bahan-baku.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH PENGGUNAAN BAHAN BAKU
     </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -42,7 +44,7 @@
                 <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }} | Jenis Model : {{ $p->jenis_model }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -64,7 +66,9 @@
     <th>Nama Bahan Baku</th>
     <th>Jumlah Terpakai</th>
     {{-- <th>Stock</th> --}}
+    @if (auth()->user()->previledge == "Admin" || auth()->user()->previledge == "Kepala" || auth()->user()->previledge == "Finishing")
     <th>Aksi</th>
+    @endif
     </tr>
 </thead>
 <tbody>
@@ -73,6 +77,7 @@
     <td>{{ $d->nama_bahanbaku }}</td>
     <td>{{ $d->jumlah_terpakai }}</td>
     {{-- <td>{{ $d->stok }} {{ $d->satuan }}</td> --}}
+    @if (auth()->user()->previledge == "Admin" || auth()->user()->previledge == "Kepala" || auth()->user()->previledge == "Finishing")
     <td>
         <ul class="nav nav-pills">
             <li >
@@ -88,6 +93,7 @@
             </li>
         </ul>
     </td>
+    @endif
     </tr>
     @endforeach
 </tbody>

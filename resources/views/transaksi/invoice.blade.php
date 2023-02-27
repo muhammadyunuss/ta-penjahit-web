@@ -73,9 +73,9 @@
             <table class="table table-bordered table-hover" id="products_table">
                 <thead>
                     <tr>
-                        <th>Model</th>
                         <th>Qty</th>
-                        <th>Jenis</th>
+                        <th>Model</th>
+                        {{-- <th>Jenis</th> --}}
                         <th>Ongkos Jahit</th>
                         {{-- <th>Deksripsi</th> --}}
                     </tr>
@@ -86,9 +86,9 @@
                 <tbody>
                     @foreach ($dataModelDetail as $model)
                     <tr>
-                        <td>{{ $model->nama_model }}</td>
                         <td>{{ $model->banyaknya }}</td>
-                        <td>{{ $model->nama_jenismodel }}</td>
+                        <td>{{ $model->nama_model }}</td>
+                        {{-- <td>{{ $model->nama_jenismodel }}</td> --}}
                         <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>
                         {{-- <td>{{ $model->deskripsi_pemesanan }}</td> --}}
                         @php
@@ -103,12 +103,14 @@
             <table class="table table-bordered table-hover" id="products_table">
                 <thead>
                     <tr>
+                        <th>Kode Bahan Baku</th>
                         <th>Nama Bahan Baku</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($detailBahanBaku as $model)
                     <tr>
+                        <td>{{ $model->kode_bahan_baku }}</td>
                         <td>{{ $model->nama_bahanbaku }}</td>
                         {{-- <td>{{ $model->jumlah_terpakai }}</td> --}}
                         {{-- <td>Rp. {{ number_format($model->ongkos_jahit ,2,',','.')}}</td>

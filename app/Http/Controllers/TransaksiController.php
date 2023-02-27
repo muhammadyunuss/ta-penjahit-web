@@ -95,10 +95,11 @@ class TransaksiController extends Controller
         ->select(
             'detail_pemesanan_model.*',
             'model.nama_model as nama_model',
+            'model.deskripsi_model as deskripsi_model',
             'jenis_model.nama_jenismodel as nama_jenismodel'
         )
         ->first();
-        // dd($dataModelDetail);
+
         $data = DB::table('pemesanan')
         ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
         ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
@@ -455,8 +456,9 @@ class TransaksiController extends Controller
         $detailBahanBaku = DB::table('detail_pemesanan_bahanbaku')
         ->join('bahan_baku', 'detail_pemesanan_bahanbaku.bahan_baku_id', 'bahan_baku.id')
         ->where('pemesanan_id', $id)
-        ->select('detail_pemesanan_bahanbaku.*', 'bahan_baku.nama_bahanbaku')
+        ->select('detail_pemesanan_bahanbaku.*', 'bahan_baku.nama_bahanbaku', 'bahan_baku.kode_bahan_baku')
         ->get();
+        // dd($detailBahanBaku);
         return view('transaksi.invoice', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail','id','bahanBaku', 'detailBahanBaku'));
     }
 
@@ -497,8 +499,7 @@ class TransaksiController extends Controller
 
     public function getAjaxModelOngkos($id)
     {
-        $model = DB::table('model')->where('jenis_model', $id)->first();
-
+        $model = ModelAnda::where('id', $id)->first();
         return response()->json($model);
     }
 }

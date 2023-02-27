@@ -4,9 +4,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Model Pakaian &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin")
     <a href="{{route('modelanda.create')}}" class="btn btn-primary btn-sm">
       + TAMBAH MODEL PAKAIAN
     </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -47,7 +49,9 @@
     <th>Ongkos Jahit</th>
     <th>Deskripsi</th>
     {{-- <th>Jenis</th> --}}
+    @if (auth()->user()->previledge == "Admin")
     <th>Aksi</th>
+    @endif
     </tr>
 </thead>
 <tbody>
@@ -86,6 +90,7 @@
             Wanita
         @endif
     </td> --}}
+    @if (auth()->user()->previledge == "Admin")
     <td>
         <ul class="nav nav-pills">
             <li >
@@ -101,6 +106,7 @@
             </li>
         </ul>
     </td>
+    @endif
     </tr>
     @endforeach
 </tbody>

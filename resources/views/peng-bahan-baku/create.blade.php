@@ -42,10 +42,10 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Pemesan</label>
                         <div class="col-md-12">
-                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror">
+                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan</option>
                                 @foreach($pemesanan as $p)
-                                    <option value="{{ $p->id }}" {{ old('pemesanan_id') == $p->id ? 'selected' : null }}>Pelanggan : <b>{{ $p->nama_pelanggan }}</b> | Tanggal: <b>{{ $p->tanggal }}</b></option>
+                                    <option value="{{ $p->id }}" {{ old('pemesanan_id') == $p->id ? 'selected' : null }}>Pelanggan : <b>{{ $p->nama_pelanggan }}</b> | Estimasi Selesai: <b>{{ $p->tanggal }}</b></option>
                                 @endforeach
                             </select>
                             @error('pemesanan_id')
@@ -56,7 +56,7 @@
                     <div class="form-group row">
                         <label for="detail_pemesanan_model_id" class="col-md-4 col-form-label">Pemesan Detail</label>
                         <div class="col-md-12">
-                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror">
+                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan Detail</option>
                             </select>
                             @error('detail_pemesanan_model_id')
@@ -67,7 +67,7 @@
                     <div class="form-group row">
                         <label for="bahan_baku_id" class="col-md-4 col-form-label">Bahan Baku</label>
                         <div class="col-md-12">
-                            <select name="bahan_baku_id" id="bahan_baku_id" data-with="100%" class="form-control @error('bahan_baku_id') is-invalid @enderror">
+                            <select name="bahan_baku_id" id="bahan_baku_id" data-with="100%" class="form-control @error('bahan_baku_id') is-invalid @enderror" required>
                                 <option value="">Pilih Bahan Baku</option>
                                 @foreach($bahanBaku as $p)
                                     <option value="{{ $p->id }}" {{ old('bahan_baku_id') == $p->id ? 'selected' : null }}>{{ $p->nama_bahanbaku }}</option>
@@ -81,7 +81,8 @@
                     <div class="form-group">
                         <label for="jumlah_terpakai">Jumlah Pemakaian</label>
                         <div>
-                            <input type="number" class="form-control @error('jumlah_terpakai') is-invalid @enderror" id="jumlah_terpakai" name="jumlah_terpakai" placeholder="Jumlah Pemakaian" value="{{ old('jumlah_terpakai') }}">
+                            <input type="number" class="form-control @error('jumlah_terpakai') is-invalid @enderror" id="jumlah_terpakai" name="jumlah_terpakai" placeholder="Jumlah Pemakaian" value="{{ old('jumlah_terpakai') }}" required min="0">
+                            <div id="keterangan_jumlah"></div>
                         </div>
                     </div>
                     <div id="notification" style="display: none;">
@@ -89,7 +90,7 @@
                       </div>
 				</div>
 				<div class="form-actions">
-					<button type="submit" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary tombolsimpan">Simpan</button>
 				</div>
 			</form>
 		</div>
@@ -111,7 +112,7 @@
                     let i;
                     $('#detail_pemesanan_model_id').html(html);
                     for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
+                        html += '<option value='+data[i].id+'>'+'Model: '+data[i].nama_model+'| Detail Model: '+data[i].nama_model_detail+'| Jumlah: '+data[i].banyaknya+' Pcs'+'</option>';
                     }
                     $('#detail_pemesanan_model_id').html(html);
 
@@ -129,14 +130,39 @@
                 dataType : 'json',
                 success: function(data){
                     console.log(data.stok);
+                    $('#keterangan_jumlah').append('<p>'+data.satuan+'</p>');
                     $( "#jumlah_terpakai" ).keyup(function() {
                         let jumlah=$(this).val();
                         if(jumlah > data.stok){
                             $("#notification").fadeIn("slow").html('<p style="color:red;">Mohon maaf pemakaian bahan baku melebihi jumlah <b>'+data.stok+'</b> stok sediaan bahan baku dan tidak bisa tersimpan, stok anda akan minus</p>');
+                            $(".tombolsimpan").prop('disabled', true);
                         }else{
                             $("#notification").fadeOut("slow").html('<p style="color:green;">Stok sudah aman</p>');
+                            $(".tombolsimpan").prop('disabled', false);
                         }
                     });
+
+                }
+            });
+            return false;
+        });
+
+        $('#detail_pemesanan_model_id').change(function(e){
+            let id=$(this).val();
+            $.ajax({
+                url : "{{ url('/produksi/peng-bahan-baku/get-all-ajax-bahan-baku-first') }}"+"/"+id,
+                method : "GET",
+                async : true,
+                dataType : 'json',
+                success: function(data){
+                    console.log(data)
+                    let html = '<option value=0>Pilih Bahan Baku</option>';
+                    let i;
+                    $('#bahan_baku_id').html(html);
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].id+'>'+data[i].nama_bahanbaku+'</option>';
+                    }
+                    $('#bahan_baku_id').html(html);
 
                 }
             });

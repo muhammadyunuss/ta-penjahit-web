@@ -41,7 +41,7 @@
 				<div class="form-body">
                     <div class="form-group">
 						<label for="nama_prosesproduksi">Nama Proses Produksi</label>
-						<input type="text" class="form-control @error('nama_prosesproduksi') is-invalid @enderror" name="nama_prosesproduksi" value="{{ old('nama_prosesproduksi') }}" placeholder="Daftar Progres">
+						<input type="text" class="form-control @error('nama_prosesproduksi') is-invalid @enderror" name="nama_prosesproduksi" value="{{ old('nama_prosesproduksi') }}" placeholder="Daftar Progres" required>
 						@error('nama_prosesproduksi')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror

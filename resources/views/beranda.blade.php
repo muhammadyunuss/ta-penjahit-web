@@ -114,7 +114,7 @@ Dashboard <small>statistics and more</small>
         <div class="stats-overview stat-block">
             <div class="details">
                 <div class="title">
-                     Total Transaksi Pembelian
+                    Total Transaksi Pembelian Bahan Baku
                 </div>
                 <div class="numbers">
                     {{ $transaksi_pembelian }}
@@ -126,7 +126,7 @@ Dashboard <small>statistics and more</small>
         <div class="stats-overview stat-block">
             <div class="details">
                 <div class="title">
-                     Pembelian Belum Di Bayar
+                    Pembelian Bahan Baku Belum Dibayar
                 </div>
                 <div class="numbers">
                      {{ $transaksi_belum_dibayar }}
@@ -138,7 +138,7 @@ Dashboard <small>statistics and more</small>
         <div class="stats-overview stat-block">
             <div class="details">
                 <div class="title">
-                     Total Transaksi Penjualan
+                    Total Transaksi Pemesanan Jasa Jahit
                 </div>
                 <div class="numbers">
                      {{ $transaksi_pemesanan }}
@@ -150,26 +150,26 @@ Dashboard <small>statistics and more</small>
         <div class="stats-overview stat-block">
             <div class="details">
                 <div class="title">
-                     Pengiriman Telah Di Proses
+                     Pengiriman Telah Di Kirim
                 </div>
                 <div class="numbers">
-                     1360
+                    {{ $jumlah_pesanan_telah_dikirim }}
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-2 col-sm-4">
+    {{-- <div class="col-md-2 col-sm-4">
         <div class="stats-overview stat-block">
             <div class="details">
                 <div class="title">
                      Pengiriman Perlu Di Proses
                 </div>
                 <div class="numbers">
-                     1360
+
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 <!-- END OVERVIEW STATISTIC BARS-->
 <div class="clearfix">

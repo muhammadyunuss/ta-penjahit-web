@@ -4,9 +4,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Kolom Rak &nbsp;&nbsp;
-    <a type= "button" href="{{route('kolomrak.create')}}" class="btn btn-primary btn-sm">
-        + Tambah Kolom Rak
-    </a>
+    @if (auth()->user()->previledge == "Admin")
+        <a type= "button" href="{{route('kolomrak.create')}}" class="btn btn-primary btn-sm">
+            + Tambah Kolom Rak
+        </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -40,7 +42,9 @@
     <tr>
     <th>Nama Rak</th>
     <th>Nama Kolom</th>
+    @if (auth()->user()->previledge == "Admin")
     <th>Aksi</th>
+    @endif
     </tr>
 </thead>
 <tbody>
@@ -48,6 +52,7 @@
     <tr>
     <td>{{ $d->nama_rak }}</td>
     <td>{{ $d->nama_kolom }}</td>
+    @if (auth()->user()->previledge == "Admin")
     <td>
         <ul class="nav nav-pills">
             <li >
@@ -63,6 +68,7 @@
             </li>
         </ul>
     </td>
+    @endif
     </tr>
     @endforeach
 </tbody>

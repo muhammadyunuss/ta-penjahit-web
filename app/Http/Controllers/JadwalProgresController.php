@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PerencanaanProduksi;
 use App\Models\ProsesProduksi;
+use App\Models\User;
 use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,9 +49,10 @@ class JadwalProgresController extends Controller
             'pelanggan.nama_pelanggan'
         )
         ->get();
+        $user = User::where('previledge', 'Kepala')->select(['id', 'name', 'email'])->get();
         $prosesProduksi = ProsesProduksi::get();
 
-        return view('jadwal-progres.create', compact('pemesanan', 'prosesProduksi'));
+        return view('jadwal-progres.create', compact('pemesanan', 'prosesProduksi', 'user'));
     }
 
     function getAjaxPemesanantoPemesananDetail($id){
@@ -60,11 +62,13 @@ class JadwalProgresController extends Controller
         ->where('pemesanan_id', $id)
         ->select(
             'detail_pemesanan_model.id',
+            'detail_pemesanan_model.nama_model_detail',
             'detail_pemesanan_model.banyaknya',
             'jenis_model.nama_jenismodel',
             'model.nama_model',
         )
         ->get();
+
         return response()->json($pemesananDetail);
     }
 
@@ -108,13 +112,13 @@ class JadwalProgresController extends Controller
         ->join('proses_produksi','perencanaan_produksi.proses_produksi_id','proses_produksi.id')
         ->join('detail_pemesanan_model','perencanaan_produksi.detail_pemesanan_model_id','detail_pemesanan_model.id')
         ->join('pemesanan','detail_pemesanan_model.pemesanan_id','pemesanan.id')
-        ->join('jenis_model','detail_pemesanan_model.pemesanan_id','jenis_model.id')
+        ->leftjoin('jenis_model','detail_pemesanan_model.pemesanan_id','jenis_model.id')
         ->where('perencanaan_produksi.id', $id)
         ->select(
             'perencanaan_produksi.*',
             'pemesanan.id as pemesanan_id'
-        )
-        ->first();
+            )
+            ->first();
         $prosesProduksi = ProsesProduksi::get();
         $pemesanan = DB::table('pemesanan')
         ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
@@ -137,6 +141,7 @@ class JadwalProgresController extends Controller
         ->select(
             'detail_pemesanan_model.id',
             'detail_pemesanan_model.banyaknya',
+            'detail_pemesanan_model.nama_model_detail',
             'jenis_model.nama_jenismodel',
             'model.nama_model'
         )

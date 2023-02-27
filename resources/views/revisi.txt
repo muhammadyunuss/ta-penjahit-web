@@ -1,0 +1,68 @@
+DASHBOARD
+V Total Transaksi Pembelian (ini kalau maksudnya menghitung transaksi pembelian bahan baku ganti jadi "Total Transaksi Pembelian Bahan Baku")
+V Total Transaksi Penjualan (ini kalau maksudnya menghitung transaksi pemesanan ganti jadi "Total Transaksi Pemesanan Jasa Jahit")
+V Pembelian belum dibayar (ini maksudnya pembelian bahan baku atau pemesanan pelanggan???). supaya tidak ambigu jika maksudnya pembelian bahan baku, maka ditulis "Pembelian Bahan Baku Belum Dibayar". Jika maksudnya pemesanan pelanggan, maka ditulis "Pemesanan Jasa Jahit Belum Dibayar"
+V Pengiriman telah diproses dan perlu diproses kalau ngga perlu ngga usah ditampilkan
+
+BAHAN BAKU
+V Halaman Tambah Supplier: Jika email kosong malah error (belum ada peringatan data wajib diisi)
+V Halaman Ubah Supplier: Ubah supplier kalo data kosong malah error (belum ada peringatan data wajib diisi)
+V Halaman Tambah Sediaan Bahan Baku: list letak tidak sesuai dengan isi halaman kolom rak. Setelah saya cek, tabel kolom_rak belum menjadi foreign key dari tabel bahan_baku. Tabel kolom_rak harus menjadi foreign key dari bahan_baku. Tabel letak_bahan_baku dihapus saja karena kolomnya tidak sesuai (hanya nama saja). Jika berhasil harusnya dapat memunculkan nama rak dan nama kolom. cth: rak 1; col no 1. Pilihan letak juga masih dobel (cukup 1 saja harusnya)
+V Halaman Ubah Sediaan Bahan Baku: list letak juga belum sesuai (sama kasusnya dengan tambah sediaan bahan baku). Selain itu, saat ubah sediaan bahan baku masih muncul stok. Stok hanya bisa diubah melalui pembelian bahan baku.
+V Halaman tambah daftar pembelian bahan baku: saat supplier dan estimasi pemesanan masih kosong malah error (belum ada peringatan data wajib diisi). tanggal pembelian seharusnya juga wajib diisi.
+V Halaman tambah detail transaksi pembelian bahan baku: jika data kosong semua malah error (belum ada peringatan data wajib diisi). Pada halaman ini, semua data wajib diisi.
+V Halaman Ubah detail transaksi bahan baku: jika stok diubah, total stok sediaan bahan baku tidak ikut berubah. misalkan stok awal 0 pembelian awal 45 terus mau diubah jadi 50, pada halaman sediaan masih tetap 45 (harusnya jadi 50).
+V Halaman Ubah detail transaksi bahan baku: jika dikosongi semua, belum ada peringatan data wajib diisi. Pada halaman ini, semua data wajib diisi.
+V Halaman Transaksi Pembelian Bahan Baku: Jika dihapus, total stok sediaan bahan baku tidak ikut berubah. misalkan stok awal 0 dan pembelian awal 45 terus mau dihapus, pada halaman sediaan masih tetap 45 (harusnya kembali ke 0).
+
+PEMESANAN
+V Sidebar model pakaian dan pelanggan ditukar (karena proses bisnisnya tambah model dulu, baru setelah ada pemesanan maka mengisi data pelanggan)
+V Halaman tambah dan ubah model pakaian: nama model wajib diisi (tidak boleh kosong)
+V Halaman ubah model pakaian: JENIS MODEL DIHIDDEN/HAPUS SAJA. Pada intinya jenis model tidak boleh terlihat.
+V Halaman tambah dan ubah  detail pemesanan: Saat Pilih model, maka harga otomatis muncul di textbox (INI SUDAH DARI SEBULAN LALU)
+V Halaman detail pemesanan: saat pilih bahan baku textbox ongkos dihidden saja (folder transaksi->show.blade.php)
+V Halaman detail pemesanan: kolom jenis dihilangkan saja
+V Halaman invoice: Invoice tidak muncul
+V Halaman invoice: KOLOM JENIS MODEL DIHIDDEN/HAPUS SAJA
+V Halaman tambah dan ubah detail ukuran: nama_jenismodel ganti nama_model dan dibawahnya tambahkan nama_model_detail
+V Halaman tambah dan ubah ukuran: ukuran baju atas malah ngacak (harusnya tetep urut kiri ke kanan seperti sebelumnya: panjang atasan, lingkar dada, lingkar perut, lingkar pinggul, lebar bahu, panjang tangan, lingkar siku, lingkar pergelangan, kerah); untuk yg celana sudah benar
+- Halaman Utama Informasi Ukuran: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan, estimasi selesai->tulisan tanggal ganti estimasi selesai, nama_model, nama_model_detail, jumlah)
+V Halaman Utama Informasi Ukuran: pada filter tulisan tanggal diganti estimasi selesai
+V Halaman Lihat Informasi Ukuran: Gambar model ditampilkan di informasi ukuran (dari tabel model jika pelanggan memilih desain dari penjahit ATAU tabel detail_pemesanan_model jika pelanggan mengajukan desain sendiri). ini bertujuan memudahkan kepala penjahit dan penjahit pelaksana saat proses produksi.
+V Halaman Lihat Informasi Ukuran: JENIS MODEL DIHIDDEN/HAPUS SAJA
+V Halaman Lihat Informasi Ukuran: Jumlah pakaian untuk ukuran yang sama tidak sesuai. Contoh kasus: jika pesan baju kemeja 5 dengan ukuran s sebanyak 3, maka jumlah pakaian untuk ukuran yang sama masih 5  (harusnya 3)
+
+PRODUKSI
+V Halaman Penggunaan Bahan Baku - bahan baku muncul sesuai dengan bahan yang di pilih oleh pemesanan detail
+V Halaman tambah dan ubah daftar progres: nama progres wajib diisi (tidak boleh kosong)
+- Halaman utama jadwal produksi: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan | estimasi selesai->tulisan "tanggal" ganti "estimasi selesai" | nama_model | nama_model_detail | jumlah)
+V Halaman utama jadwal produksi: tambahkan kolom "kepala penjahit" yang bertanggung jawab di sebelah tanggal selesai
+V Halaman tambah dan ubah jadwal progres: pada saat pilih pemesan detail, jenis model hapus saja dan diganti menjadi nama_model_detail. Contoh: "Model: Jas Pengantin | Detail model: - | Jumlah: 5 PCS"
+V Halaman tambah dan ubah jadwal progres: tambahkan kolom kepala penjahit yang bertanggung jawab (INI SUDAH DARI SEBULAN LALU)
+V Halaman ubah jadwal ERROR
+V Halaman tambah dan ubah jadwal produksi: Semua data wajib diisi (tampilkan pesan jika ada data masih kosong)
+V Halaman utama penggunaan bahan baku: jika tambah transaksi pemesanan dan memilih bahan baku tertentu, maka bahan baku yang dipilih langsung muncul pada halaman ini. hal ini tentu membingungkan kepala penjahit nantinya. harusnya data yg muncul di halaman ini yaitu data yang sudah ditambahkan jumlah penggunaan bahan bakunya.
+V Halaman utama penggunaan bahan baku: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan | estimasi selesai->tulisan "tanggal" ganti "estimasi selesai" | nama_model | nama_model_detail | jumlah)
+V Halaman tambah penggunaan bahan baku: pada saat pilih pemesan detail, jenis model hapus saja dan diganti menjadi nama_model_detail. Contoh: "Model: Jas Pengantin | Detail model: - | Jumlah: 5 PCS"
+V Halaman tambah dan ubah penggunaan bahan baku: pilih bahan baku yang muncul sesuai dengan pemesanan detail (tidak semua bahan baku muncul)
+V Halaman tambah dan ubah penggunaan bahan baku: semua data wajib diisi. (tampilkan pesan jika ada data masih kosong)
+V Halaman tambah dan ubah penggunaan bahan baku: muncul peringatan saat penggunaan bahan baku melebihi stok sudah OK. Tetapi seharusnya juga tidak bisa di save
+V Halaman utama realisasi progres: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan | estimasi selesai->tulisan "tanggal" ganti "estimasi selesai" | nama_model | nama_model_detail | jumlah)
+V Halaman tambah dan ubah realisasi progres: kepala penjahit tidak perlu seharusnya (ini sepertinya tertukar dengan jadwal karena harusnya jadwal yang ada kepala penjahitnya)
+V Halaman tambah dan ubah realisasi progres: semua data wajib diisi KECUALI KETERANGAN DAN FOTO (tampilkan pesan jika ada data masih kosong)
+V Halaman tambah dan ubah realisasi progres: pada saat pilih pemesan detail, jenis model hapus saja dan diganti menjadi nama_model_detail. Contoh: "Model: Jas Pengantin | Detail model: - | Jumlah: 5 PCS"
+V Realisasi progres bisa dishare ke pelanggan by Whatsapp (nomor otomatis berdasarkan nomor hape pelanggan)
+   "Progres pesanan anda, sampai pada Pemotongan Kain.
+    Dengan keterangan ......"
+V Realisasi progres, gimana cara ubah dan hapus datanya?
+- Laporan tanggungan: BELUM SESUAI DENGAN HASIL DISKUSI DENGAN MBAK DIANA SEBULAN LALU (SAYA KIRIM EXCEL NYA LAGI)
+
+PENGIRIMAN
+- Halaman utama pengiriman: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan | estimasi selesai->tulisan "tanggal" ganti "estimasi selesai" | nama_model | nama_model_detail | jumlah)
+- Halaman utama pengiriman: JENIS MODEL DIHIDDEN/HAPUS SAJA
+- Halaman tambah pengiriman: Untuk Opsi Pengambilan pada AMBIL, pada kolom ekspedisi, alamat, biaya kirim, dan no resi tidak wajib diisi. Jika Opsi KIRIM, maka semua data wajib diisi (DULU DISKUSI DENGAN MBAK DIANA SEHARUSNYA HASILNYA SEPERTI INI)
+- Halaman tambah pengiriman: jasa ekspedisi dan tanggal ditukar saja tempatnya
+
+PEMESANAN
+- Halaman transaksi detail pemesanan: kalau gambar sudah ada di Model Pakaian, Bisa tidak mengisi gambar
+

@@ -42,10 +42,10 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Pemesan</label>
                         <div class="col-md-12">
-                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror">
+                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan</option>
                                 @foreach($pemesanan as $p)
-                                    <option value="{{ $p->id }}" {{ old('pemesanan_id') == $p->id ? 'selected' : null }}>Pelanggan : <b>{{ $p->nama_pelanggan }}</b> | Tanggal: <b>{{ $p->tanggal }}</b></option>
+                                    <option value="{{ $p->id }}" {{ old('pemesanan_id') == $p->id ? 'selected' : null }}>Pelanggan : <b>{{ $p->nama_pelanggan }}</b> | Estimasi Selesai: <b>{{ $p->tanggal }}</b></option>
                                 @endforeach
                             </select>
                             @error('pemesanan_id')
@@ -54,9 +54,23 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="kepala_penjahit" class="col-md-4 col-form-label">Nama Kepala Penjahit</label>
+                        <div class="col-md-12">
+                            <select name="kepala_penjahit" id="kepala_penjahit" data-with="100%" class="form-control @error('kepala_penjahit') is-invalid @enderror" required>
+                                <option value="">Pilih Kepala Penjahit</option>
+                                @foreach($user as $p)
+                                    <option value="{{ $p->name }}" {{ old('kepala_penjahit') == $p->name ? 'selected' : null }}><b>{{ $p->name }}</b></option>
+                                @endforeach
+                            </select>
+                            @error('kepala_penjahit')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="detail_pemesanan_model_id" class="col-md-4 col-form-label">Pemesan Detail</label>
                         <div class="col-md-12">
-                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror">
+                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan Detail</option>
                             </select>
                             @error('detail_pemesanan_model_id')
@@ -67,7 +81,7 @@
                     <div class="form-group row">
                         <label for="proses_produksi_id" class="col-md-4 col-form-label">Proses Produksi</label>
                         <div class="col-md-12">
-                            <select name="proses_produksi_id" id="proses_produksi_id" data-with="100%" class="form-control @error('proses_produksi_id') is-invalid @enderror">
+                            <select name="proses_produksi_id" id="proses_produksi_id" data-with="100%" class="form-control @error('proses_produksi_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan Detail</option>
                                 @foreach($prosesProduksi as $p)
                                     <option value="{{ $p->id }}" {{ old('proses_produksi_id') == $p->id ? 'selected' : null }}>{{ $p->nama_prosesproduksi }}</option>
@@ -81,13 +95,13 @@
                     <div class="form-group">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="tanggal_selesai">Tanggal Selesai</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}">
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" required>
                         </div>
                     </div>
 				</div>
@@ -114,7 +128,7 @@
                     let i;
                     $('#detail_pemesanan_model_id').html(html);
                     for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
+                        html += '<option value='+data[i].id+'>'+'Model: '+data[i].nama_model+'| Detail Model: '+data[i].nama_model_detail+'| Jumlah: '+data[i].banyaknya+' Pcs'+'</option>';
                     }
                     $('#detail_pemesanan_model_id').html(html);
 

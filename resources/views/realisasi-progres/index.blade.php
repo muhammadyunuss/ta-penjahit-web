@@ -53,7 +53,7 @@
                 <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }} | Jenis Model : {{ $p->jenis_model }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->detail_pemesanan_model_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -89,6 +89,9 @@
                     </th>
                     <th>
                         Realisasi Progres
+                    </th>
+                    <th>
+                        Aksi
                     </th>
                 </tr>
             </thead>
@@ -165,6 +168,24 @@
                     defaultContent: '',
                 },
                 { data: 'nama_prosesproduksi' },
+                { "data" : "id",
+                  "render" : function(data, type, row, meta){
+                    var id = row.id;
+                    var url = "{{ route('realisasi-progres.edit', ':id') }}";
+                    var urldel = "{{ route('realisasi-progres.destroy', ':id') }}";
+                    url = url.replace(':id', id);
+                    urldel = urldel.replace(':id', id);
+                     data = `<a href="https://wa.me/62${row.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
+                     `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
+                     `<form method="POST" action="${urldel}">
+                        @method('DELETE')
+                        @csrf
+                        <input class="btn btn-danger" type="SUBMIT" value="Hapus"
+                        onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    </form>`;
+                     return data;
+                   }
+                }
             ],
             order: [[1, 'asc']],
         });

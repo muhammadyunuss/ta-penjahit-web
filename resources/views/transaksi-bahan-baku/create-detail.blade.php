@@ -74,7 +74,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Bahan Baku</label>
-                            <select class="select2_category form-control" name="bahan_baku_id" id="bahan_baku_id" tabindex="1">
+                            <select class="select2_category form-control" name="bahan_baku_id" id="bahan_baku_id" tabindex="1" required>
                                 <option value="">Pilih</option>
                                 @foreach ($dataBahanBaku as $bahan)
                                     <option value="{{ $bahan->id }}">{{ $bahan->nama_bahanbaku }}</option>
@@ -85,7 +85,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Satuan</label>
-                            <input type="text" id="satuan" class="form-control" placeholder="" readonly>
+                            <input type="text" id="satuan" class="form-control" placeholder="" readonly required>
                         </div>
                     </div>
                 </div>
@@ -93,13 +93,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Jumlah</label>
-                            <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Jumlah">
+                            <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Jumlah" min="0" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Harga Beli</label>
-                            <input type="number" id="harga_beli" name="harga_beli" class="form-control" placeholder="Harga Beli">
+                            <input type="number" id="harga_beli" name="harga_beli" class="form-control" placeholder="Harga Beli" required>
                         </div>
                     </div>
                 </div>

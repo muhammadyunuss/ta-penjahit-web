@@ -52,7 +52,7 @@
 					</div><br>
 					<div class="form-group">
 						<label for="email">Email</label>
-						<input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Isikan email supplier Anda">
+						<input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Isikan email supplier Anda" required>
 					</div><br>
 					<div class="form-group">
 						<label for="nomor_telepon">Nomor Telepon</label>

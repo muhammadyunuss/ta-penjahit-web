@@ -46,7 +46,7 @@
                 <select name="s_pemesanan_model_id" id="s_pemesanan_model_id" data-with="100%" class="form-control @error('s_pemesanan_model_id') is-invalid @enderror">
                     <option value="">Pilih Informasi Ukuran</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_model_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }} | Jenis Model : {{ $p->jenis_model }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_model_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_model_id')

@@ -55,21 +55,21 @@
 					</div>
                     <div class="form-group">
 						<label for="nama_model">Nama</label>
-						<input type="text" class="form-control @error('nama_model') is-invalid @enderror" name="nama_model" value="{{ old('nama_model', $data->nama_model) }}" placeholder="Isikan nama model Pakaian">
+						<input type="text" class="form-control @error('nama_model') is-invalid @enderror" name="nama_model" value="{{ old('nama_model', $data->nama_model) }}" placeholder="Isikan nama model Pakaian" required>
 						@error('nama_model')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div>
 					<div class="form-group">
 						<label for="ongkos_jahit">Ongkos Jahit</label> (Rp)
-						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit', $data->ongkos_jahit) }}"  placeholder="Isikan harga model Pakaian" min="0">
+						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit', $data->ongkos_jahit) }}"  placeholder="Isikan harga model Pakaian" min="0" required>
 						@error('ongkos_jahit')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div>
 					<div class="form-group">
 						<label for="deskripsi_model">Deskripsi</label>
-						<textarea class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Pakaian" rows="3">{{ old('deskripsi_model', $data->deskripsi_model) }}</textarea>
+						<textarea required class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Pakaian" rows="3">{{ old('deskripsi_model', $data->deskripsi_model) }}</textarea>
 					</div>
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>
@@ -82,7 +82,8 @@
 							<label for="tampilfalse" class="form-check-label"> Tidak  </label>
                         </div>
                 	</div><br> -->
-                    <div class="form-group row">
+                    <input type="hidden" value="{{ $data->jenis_model }}" name="jenis_model">
+                    {{-- <div class="form-group row">
 						<label for="name" class="col-md-4 col-form-label">Jenis Model</label>
 						<div class="col-md-12">
                             <select name="jenis_model" id="jenis_model" class="form-control @error('jenis_model') is-invalid @enderror">
@@ -96,7 +97,7 @@
 								<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 							@enderror
 						</div>
-                	</div>
+                	</div> --}}
 				</div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Simpan</button>

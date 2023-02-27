@@ -32,11 +32,13 @@
 </div>
 @endif
 <div class="portlet">
+    @if (auth()->user()->previledge == "Admin")
     <div class="portlet-body form">
         <div class="form-body">
             <a href="{{ route('transaksi.bahanbaku.detail.create', $data->id )}}" class="btn btn-success btn-sm">+ Tambah Daftar Pembelian Bahan Baku Detail</a>
         </div>
     </div>
+    @endif
 </div>
 <div class="portlet">
     <div class="portlet-title">
@@ -154,10 +156,12 @@
                 </div>
             </div>
         </div>
+        @if (auth()->user()->previledge == "Admin")
         <div class="form-actions right">
             <button type="button" class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> Save</button>
         </div>
+        @endif
     </form>
     <!-- END FORM-->
 </div>

@@ -4,9 +4,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Supplier &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin")
     <a type= "button" href="{{route('supplier.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH SUPPLIER
     </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -43,7 +45,9 @@
     <th>Alamat</th>
     <th>Email</th>
     <th>Nomor Telepon</th>
+    @if (auth()->user()->previledge == "Admin")
     <th>Aksi</th>
+    @endif
     </tr>
 </thead>
 <tbody>
@@ -53,6 +57,7 @@
     <td>{{ $d->alamat }}</td>
     <td>{{ $d->email }}</td>
     <td>{{ $d->nomor_telepon }}</td>
+    @if (auth()->user()->previledge == "Admin")
     <td>
         <ul class="nav nav-pills">
             <li >
@@ -68,6 +73,7 @@
             </li>
         </ul>
     </td>
+    @endif
     </tr>
     @endforeach
 </tbody>

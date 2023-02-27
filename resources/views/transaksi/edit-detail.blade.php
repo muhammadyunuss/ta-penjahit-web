@@ -77,7 +77,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Model</label>
-                            <select class="select2_category form-control" name="model_id" id="model_id" tabindex="1">
+                            <select class="select2_category form-control" name="model_id" id="model_id" tabindex="1" required>
                                 <option value="">Pilih</option>
                                 @foreach ($dataModel as $model)
 								    <option value="{{ $model->id }}" {{ old('jenis_model_id', $dataModelDetail->model_id) == $model->id ? 'selected' : null }}>{{ $model->nama_model }}</option>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Jenis Model</label>
                             <select class="select2_category form-control" name="jenis_model_id" id="jenis_model_id" tabindex="1">
@@ -96,7 +96,7 @@
 								@endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <!--/span-->
                 </div>
                 <!--/row-->
@@ -104,14 +104,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Stock</label>
-                            <input type="number" id="banyaknya" name="banyaknya" class="form-control" placeholder="Stock" value="{{ $dataModelDetail->banyaknya }}">
+                            <input type="number" id="banyaknya" name="banyaknya" class="form-control" placeholder="Stock" value="{{ $dataModelDetail->banyaknya }}" min="0" required>
                         </div>
                     </div>
                     <!--/span-->
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Ongkos Jahit</label>
-                            <input type="number" id="ongkos_jahit" name="ongkos_jahit" class="form-control" placeholder="Ongkos Jahit" value="{{ $dataModelDetail->ongkos_jahit }}">
+                            <input type="number" id="ongkos_jahit" name="ongkos_jahit" class="form-control" placeholder="Ongkos Jahit" value="{{ $dataModelDetail->ongkos_jahit }}" required min="0">
                         </div>
                     </div>
                     <!--/span-->
@@ -163,5 +163,19 @@
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script>
+    $('#model_id').change(function(){
+        let id = $(this).val();
+        $.ajax({
+            type:"GET",
+            url: "{{ url('/pemesanan/transaksi/get-ajax-jenismodel-ongkos') }}"+"/"+id,
+            dataType: 'JSON',
+            success:function(data){
+                $('#ongkos_jahit').val(data.ongkos_jahit);
+            }
+        });
+    });
+</script>
 
 @stop

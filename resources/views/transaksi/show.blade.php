@@ -31,6 +31,7 @@
     {{ session('error') }}
 </div>
 @endif
+@if (auth()->user()->previledge == "Admin")
 <div class="portlet">
     <div class="portlet-body form">
         <div class="form-body">
@@ -38,12 +39,13 @@
             <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="#basic">
                 + Tambah Bahan Baku
             </a>
-            <a type= "button" class="btn btn-primary btn-sm" data-toggle="modal" href="{{ route('transaksi.invoice', $data->id )}}">
+            <a type= "button" class="btn btn-primary btn-sm" href="{{ route('transaksi.invoice', $data->id )}}">
                 + Invoice
             </a>
         </div>
     </div>
 </div>
+@endif
 <div class="portlet">
     <div class="portlet-title">
         <div class="caption">
@@ -180,8 +182,10 @@
                             </td>
                             <td>{{ $model['deskripsi_pemesanan'] }}</td>
                             <td>
+                                @if (auth()->user()->previledge == "Admin")
                                 <a class="btn btn-success btn-xs green-stripe" href="{{ route('transaksi.detail.ukuran.create', $model['id']) }}">Tambah Ukuran</a>
                                 <a class="btn btn-primary btn-xs green-stripe" href="{{ route('transaksi.detail.edit', $model['id']) }}">Edit</a>
+                                @endif
                             </td>
                             @php
                                 $total += ($model['ongkos_jahit'] * $model['banyaknya']);
@@ -232,7 +236,9 @@
                                 Deskripsi : {{ $detail->deskripsi_ukuran }}
                             </td>
                             <td>
+                                @if (auth()->user()->previledge == "Admin")
                                 <a class="btn btn-primary btn-xs green-stripe" href="{{ route('transaksi.edit.detail.ukuran', $detail->id) }}">Edit</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -331,10 +337,12 @@
                 </div>
             </div>
         </div>
+        @if (auth()->user()->previledge == "Admin")
         <div class="form-actions right">
             <button type="button" class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> Save</button>
         </div>
+        @endif
     </form>
     <!-- END FORM-->
 </div>
@@ -362,14 +370,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-body">
+                    {{-- <div class="form-body">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Ongkos</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="ongkos_jahit" name="ongkos_jahit" placeholder="Ongkos">
-                            </div>
+                            <div class="col-md-9"> --}}
+                                <input type="hidden" class="form-control" id="ongkos_jahit" name="ongkos_jahit" placeholder="Ongkos">
+                            {{-- </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

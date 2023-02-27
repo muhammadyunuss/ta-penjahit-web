@@ -54,23 +54,11 @@
 						@enderror
 					</div><br>
                     <div class="form-group">
-						<label for="letak_bahanbaku">Letak</label>
-						<select name="letak_bahanbaku" id="letak_bahanbaku" data-with="100%" class="form-control @error('letak_bahanbaku') is-invalid @enderror" required>
+						<label for="kolom_rak_id">Letak</label>
+						<select name="kolom_rak_id" id="kolom_rak_id" data-with="100%" class="form-control @error('kolom_rak_id') is-invalid @enderror" required>
                             <option value="">Pilih Letak</option>
-                            @foreach($letakBahanBaku as $dp)
-                                <option value="{{ $dp->nama_letak }}" {{ old('letak_bahanbaku') == $dp->nama_letak ? 'selected' : null }}>{{ $dp->nama_letak }}</option>
-                            @endforeach
-                        </select>
-                        @error('supplier_id')
-                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
-                        @enderror
-					</div><br>
-                    <div class="form-group">
-						<label for="letak_bahanbaku">Letak</label>
-						<select name="letak_bahanbaku" id="letak_bahanbaku" data-with="100%" class="form-control @error('letak_bahanbaku') is-invalid @enderror" required>
-                            <option value="">Pilih Letak</option>
-                            @foreach($letakBahanBaku as $dp)
-                                <option value="{{ $dp->nama_letak }}" {{ old('letak_bahanbaku') == $dp->nama_letak ? 'selected' : null }}>{{ $dp->nama_letak }}</option>
+                            @foreach($kolomrak as $dp)
+                                <option value="{{ $dp->id }}" {{ old('kolom_rak_id') == $dp->id ? 'selected' : null }}>{{ $dp->nama_rak }} - {{  $dp->nama_kolom }}</option>
                             @endforeach
                         </select>
                         @error('supplier_id')

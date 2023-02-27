@@ -71,7 +71,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <p class="control-label">Model : {{ $dataModelDetail->nama_model }}</p>
-                        <p class="control-label">Jenis Model : {{ $dataModelDetail->nama_jenismodel }}</p>
+                        {{-- <p class="control-label">Jenis Model : {{ $dataModelDetail->nama_jenismodel }}</p> --}}
+                        <p class="control-label">Nama Detail Model : {{ $dataModelDetail->nama_model_detail }}</p>
                         <p class="control-label">Deskripsi : {{ $dataModelDetail->deskripsi_pemesanan }}</p>
                     </div>
                 </div>
@@ -150,30 +151,16 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Lingkar Perut Atasan</label>
-                        <input type="number" id="lingkar_perut_atasan" name="lingkar_perut_atasan" class="form-control" placeholder="Lingkar Pinggang">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
                         <label class="control-label">Lingkar Dada</label>
                         <input type="number" id="lingkar_dada" name="lingkar_dada" class="form-control" placeholder="Lingkar Dada">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Lebar Bahu</label>
-                        <input type="number" id="lebar_bahu" name="lebar_bahu" class="form-control" placeholder="Lebar Bahu">
-                    </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Panjang Tangan</label>
-                        <input type="number" id="panjang_tangan" name="panjang_tangan" class="form-control" placeholder="Panjang Tangan">
+                        <label class="control-label">Lingkar Perut Atasan</label>
+                        <input type="number" id="lingkar_perut_atasan" name="lingkar_perut_atasan" class="form-control" placeholder="Lingkar Pinggang">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -182,6 +169,21 @@
                         <input type="number" id="lingkar_pinggul_atasan" name="lingkar_pinggul_atasan" class="form-control" placeholder="Lingkar Pinggul">
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Lebar Bahu</label>
+                        <input type="number" id="lebar_bahu" name="lebar_bahu" class="form-control" placeholder="Lebar Bahu">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Panjang Tangan</label>
+                        <input type="number" id="panjang_tangan" name="panjang_tangan" class="form-control" placeholder="Panjang Tangan">
+                    </div>
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">

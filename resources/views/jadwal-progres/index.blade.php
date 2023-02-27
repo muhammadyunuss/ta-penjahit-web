@@ -4,9 +4,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Jadwal Progres &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin")
     <a type= "button" href="{{route('jadwal-progres.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH JADWAL PROGRES
     </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -43,7 +45,7 @@
                 <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }} | Jenis Model : {{ $p->jenis_model }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -65,7 +67,10 @@
     <th>Nama Progres</th>
     <th>Tanggal Mulai</th>
     <th>Tanggal Selesai</th>
+    <th>Kepala Penjahit</th>
+    @if (auth()->user()->previledge == "Admin")
     <th>Aksi</th>
+    @endif
     </tr>
 </thead>
 <tbody>
@@ -74,6 +79,8 @@
     <td>{{ $d->nama_prosesproduksi }}</td>
     <td>{{ $d->tanggal_mulai }}</td>
     <td>{{ $d->tanggal_selesai }}</td>
+    <td>{{ $d->kepala_penjahit }}</td>
+    @if (auth()->user()->previledge == "Admin")
     <td>
         <ul class="nav nav-pills">
             <li >
@@ -89,6 +96,7 @@
             </li>
         </ul>
     </td>
+    @endif
     </tr>
     @endforeach
 </tbody>

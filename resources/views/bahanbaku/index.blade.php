@@ -4,9 +4,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Sediaan Bahan Baku &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin")
     <a type= "button" href="{{route('bahanbaku.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH SEDIAAN BAHAN BAKU
     </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -50,7 +52,9 @@
     {{-- <th>Harga Jual</th> --}}
     <th>Stok</th>
     <th>Supplier</th>
+    @if (auth()->user()->previledge == "Admin")
     <th>Aksi</th>
+    @endif
     </tr>
 </thead>
 <tbody>
@@ -58,11 +62,12 @@
     <tr>
     <td>{{ $d->kode_bahan_baku }}</td>
     <td>{{ $d->nama_bahanbaku }}</td>
-    <td>{{ $d->letak_bahanbaku }}</td>
+    <td>{{ $d->nama_rak }} - {{ $d->nama_kolom }}</td>
     <td>{{ $d->harga_beli }}</td>
     {{-- <td>{{ $d->harga_jual }}</td> --}}
     <td>{{ $d->stok }} {{ $d->satuan }}</td>
     <td>{{ $d->nama_supplier }}</td>
+    @if (auth()->user()->previledge == "Admin")
     <td>
         <ul class="nav nav-pills">
             <li >
@@ -78,6 +83,7 @@
             </li>
         </ul>
     </td>
+    @endif
     </tr>
     @endforeach
 </tbody>

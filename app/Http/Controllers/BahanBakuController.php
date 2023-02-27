@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BahanBaku;
 use App\Http\Requests\StoreBahanBakuRequest;
 use App\Http\Requests\UpdateBahanBakuRequest;
+use App\Models\KolomRak;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +20,12 @@ class BahanBakuController extends Controller
     public function index()
     {
         $data = BahanBaku::join('supplier', 'bahan_baku.supplier_id','supplier.id')
+        ->join('kolom_rak', 'bahan_baku.kolom_rak_id', 'kolom_rak.id')
         ->select(
             'bahan_baku.*',
-            'supplier.nama_supplier'
+            'supplier.nama_supplier',
+            'kolom_rak.nama_rak',
+            'kolom_rak.nama_kolom'
         )
         ->get();
 
@@ -36,9 +40,10 @@ class BahanBakuController extends Controller
     public function create()
     {
         $letakBahanBaku = DB::table('letak_bahan_baku')->get();
-        $kolom_rak = DB::table('kolom_rak')->get();
         $dataSupplier = Supplier::all();
-        return view('bahanbaku.create',compact('dataSupplier', 'letakBahanBaku', 'kolom_rak'));
+        $kolomrak = KolomRak::get();
+
+        return view('bahanbaku.create',compact('dataSupplier', 'letakBahanBaku', 'kolomrak'));
     }
 
     /**
@@ -80,7 +85,9 @@ class BahanBakuController extends Controller
         $bahanBaku = BahanBaku::find($id);
         $datasupplier = Supplier::get();
         $letakBahanBaku = DB::table('letak_bahan_baku')->get();
-        return view('bahanbaku.edit',compact('bahanBaku', 'datasupplier', 'letakBahanBaku'));
+        $kolomrak = KolomRak::get();
+
+        return view('bahanbaku.edit',compact('bahanBaku', 'datasupplier', 'kolomrak'));
     }
 
     /**

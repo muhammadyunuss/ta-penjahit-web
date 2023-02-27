@@ -82,20 +82,20 @@
                             {{ $dataModelDetail->nama_model }}
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>
                             Jenis Model
                         </td>
                         <td>
                             {{ $dataModelDetail->nama_jenismodel }}
                         </td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td>
                             Jumlah Pakaian dengan ukuran yang sama
                         </td>
                         <td>
-                            {{ $dataModelDetail->banyaknya }}
+                            {{ $dataModelDetailUkuran->jumlah_baju_dengan_ukuran_yg_sama }}
                         </td>
                     </tr>
                     <tr>
@@ -114,6 +114,35 @@
                             {{ $dataModelDetail->deskripsi_pemesanan }}
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            Gambar
+                        </td>
+                        <td>
+                            @if ($dataModelDetail->file_gambar)
+                            <button type = "button" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <img src="{{ asset('upload_image/file_gambar/'.$dataModelDetail->file_gambar) }}" width="100px" alt="" data-toggle="modal" href="#detail_{{$dataModelDetail->id}}">
+                            @endif
+                            </button>
+                            <div class="modal fade" id="detail_{{$dataModelDetail->id}}" tabindex="-1" role="basic" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title">{{ $dataModelDetail->nama_model }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ asset('upload_image/file_gambar/'.$dataModelDetail->file_gambar) }}" width="500px" style="display: block; margin-left: auto; margin-right: auto;">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>

@@ -13,6 +13,7 @@ class PerencanaanProduksi extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'proses_produksi_id',
+        'kepala_penjahit',
         'detail_pemesanan_model_id',
         'tanggal_mulai',
         'tanggal_selesai',

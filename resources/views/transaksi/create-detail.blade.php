@@ -115,7 +115,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="file_gambar" class="form-label">Gambar</label>
-                        <input class="form-control" type="file" id="file_gambar" name="file_gambar" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+                        <input class="form-control" type="file" id="file_gambar" name="file_gambar" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])" required>
                         @error('file_gambar')
                             <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                         @enderror
@@ -123,8 +123,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Nama Model</label>
-                            <input type="input" id="nama_model_detail" name="nama_model_detail" class="form-control" placeholder="Nama Model" required>
+                            <label class="control-label">Nama Detail Model</label>
+                            <input type="input" id="nama_model_detail" name="nama_model_detail" class="form-control" placeholder="Nama Detail Model" required>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Deskripsi</label>
-                            <input type="text" id="deskripsi_pemesanan" name="deskripsi_pemesanan" class="form-control" placeholder="Deskripsi">
+                            <input type="text" id="deskripsi_pemesanan" name="deskripsi_pemesanan" class="form-control" placeholder="Deskripsi" required>
                         </div>
                     </div>
                 </div>
@@ -165,23 +165,23 @@
         }
     });
 
-    $('#jenis_model_id').change(function(){
-        let id = $(this).val();
-        $.ajax({
-            type:"GET",
-            url: "{{ url('/pemesanan/transaksi/get-ajax-model-to-jenismodel') }}"+"/"+id,
-            dataType: 'JSON',
-            success:function(data){
-                let html = '';
-                let i;
-                html += '<option value='+'>Pilih Model</option>';
-                for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].id+'>'+data[i].nama_model+'</option>';
-                }
-                $('#model_id').html(html);
-            }
-        });
-    });
+    // $('#jenis_model_id').change(function(){
+    //     let id = $(this).val();
+    //     $.ajax({
+    //         type:"GET",
+    //         url: "{{ url('/pemesanan/transaksi/get-ajax-model-to-jenismodel') }}"+"/"+id,
+    //         dataType: 'JSON',
+    //         success:function(data){
+    //             let html = '';
+    //             let i;
+    //             html += '<option value='+'>Pilih Model</option>';
+    //             for(i=0; i<data.length; i++){
+    //                 html += '<option value='+data[i].id+'>'+data[i].nama_model+'</option>';
+    //             }
+    //             $('#model_id').html(html);
+    //         }
+    //     });
+    // });
 
     $('#model_id').change(function(){
         let id = $(this).val();

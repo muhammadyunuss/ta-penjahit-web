@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BahanBakuController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DaftarPengirimanController;
@@ -45,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [BerandaController::class, 'dashboard'])->name('dashboard');
 
     Route::prefix('bahan-baku')->group(function () {
-        Route::resource('transaksi-bahanbaku', TransaksiBahanBakuController::class);
         Route::get('tambah-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'createDetail'])->name('transaksi.bahanbaku.detail.create');
         Route::post('save-detail-transaksi-bahanbaku', [TransaksiBahanBakuController::class, 'saveDetail'])->name('transaksi.bahanbaku.save.detail');
         Route::get('edit-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'editDetailTransaksi'])->name('transaksi.bahanbaku.detail.edit');
@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('update-transaksi-totalbayar/{id}/update', [TransaksiBahanBakuController::class, 'updateTransaksiTotalbayar'])->name('transaksi.update.totalbayar');
         Route::get('get-ajax-bahan-baku/{id}', [TransaksiBahanBakuController::class, 'getAjaxBahanBaku'])->name('get-ajax-bahan-baku');
 
+        Route::resource('transaksi-bahanbaku', TransaksiBahanBakuController::class);
         Route::resource('supplier', SupplierController::class);
         Route::resource('bahanbaku', BahanBakuController::class);
         Route::resource('kolomrak', KolomRakController::class);
@@ -99,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('peng-bahan-baku')->group(function () {
             Route::get('get-ajax-bahan-baku-first/{id}', [PengunaanBahanBakuController::class, 'getAjaxBahanBaku'])->name('get-ajax-bahan-baku-first');
+            Route::get('get-all-ajax-bahan-baku-first/{id}', [PengunaanBahanBakuController::class, 'getAllAjaxBahanBaku'])->name('get-all-ajax-bahan-baku-first');
         });
         Route::prefix('realisasi-progres')->group(function () {
             Route::get('get-ajax-pemesanan-to-pemesanan-detail/{id}', [RealisasiProgresController::class, 'getAjaxPemesanantoPemesananDetail'])->name('realisasi-get-ajax-pemesanan-to-pemesanan-detail');
@@ -115,6 +117,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('jasaekspedisi', JasaEkspedisiController::class);
         Route::resource('daftar-pengiriman', DaftarPengirimanController::class);
     });
+
+    Route::get('/admin/users', [AdminController::class, 'create'])->name('admin.users');
+    Route::post('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
 
 
 });

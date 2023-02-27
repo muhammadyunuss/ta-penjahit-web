@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelAnda;
+use App\Models\PerencanaanProduksi;
 use App\Models\ProsesProduksi;
 use App\Models\RealisasiProgres;
 use App\Models\User;
@@ -49,11 +50,11 @@ class RealisasiProgresController extends Controller
         ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
         ->select(
             'pemesanan.*',
-            'pelanggan.nama_pelanggan'
+            'pelanggan.nama_pelanggan',
         )
         ->get();
         $prosesProduksi = ProsesProduksi::get();
-        $user = User::where('previledge', 'Kepala_Penjahit')->select(['id', 'name', 'email'])->get();
+        $user = User::where('previledge', 'Kepala')->select(['id', 'name', 'email'])->get();
         return view('realisasi-progres.create',compact('jenismodel', 'pemesanan', 'user'));
     }
 
@@ -64,6 +65,7 @@ class RealisasiProgresController extends Controller
         ->where('pemesanan_id', $id)
         ->select(
             'detail_pemesanan_model.id',
+            'detail_pemesanan_model.nama_model_detail',
             'detail_pemesanan_model.banyaknya',
             'jenis_model.nama_jenismodel',
             'model.nama_model',
@@ -115,30 +117,47 @@ class RealisasiProgresController extends Controller
         //
     }
 
-    public function edit($modelAnda)
+    public function edit($id)
     {
-        $jenismodel = RealisasiProgres::getJenisModel();
-        $data = RealisasiProgres::find($modelAnda);
+        // dd($id);
+        $jenismodel = ModelAnda::getJenisModel();
+        $pemesanan = DB::table('pemesanan')
+        ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
+        ->select(
+            'pemesanan.*',
+            'pelanggan.nama_pelanggan'
+        )
+        ->get();
+        $data = RealisasiProgres::find($id);
+        $perencanaan_produksi = PerencanaanProduksi::join('proses_produksi','perencanaan_produksi.proses_produksi_id', 'proses_produksi.id')
+        ->select(
+            'perencanaan_produksi.*',
+            'proses_produksi.nama_prosesproduksi'
+            )
+        ->find($data->perencanaan_produksi_id);
+        // $prosesProduksi = ProsesProduksi::find($perencanaan_produksi->proses_produksi_id);
+        // $data = RealisasiProgres::join('perencanaan_produksi', 'realisasi_produksi')
+        // dd($perencanaan_produksi);
         $user = User::where('previledge', 'Kepala_Penjahit')->select(['id', 'name', 'email'])->get();
-        return view('realisasi-progres.edit',compact('data', 'jenismodel', 'user'));
+        return view('realisasi-progres.edit',compact('data', 'jenismodel', 'user', 'pemesanan', 'perencanaan_produksi'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'foto_model' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        // $request->validate([
+        //     'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
 
-        $data = request()->except(['_token', '_method']);
+        $data = request()->except(['_token', '_method', 'detail_pemesanan_model_id']);
 
-        if ($image = $request->file('foto_model')) {
+        if ($image = $request->file('foto')) {
             $destinationPath = 'upload_image/foto_realisasi/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-            $data['foto_model'] = "$profileImage";
+            $data['foto'] = "$profileImage";
         }
         else{
-            unset($data['foto_model']);
+            unset($data['foto']);
         }
 
         RealisasiProgres::where('id', $id)->update($data);
@@ -146,9 +165,9 @@ class RealisasiProgresController extends Controller
 
     }
 
-    public function destroy(RealisasiProgres $modelAnda)
+    public function destroy($realisasiProgres)
     {
-        RealisasiProgres::where('id', $modelAnda)->delete();
+        RealisasiProgres::where('id', $realisasiProgres)->delete();
         return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

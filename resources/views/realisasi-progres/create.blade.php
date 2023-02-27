@@ -75,20 +75,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="kepala_penjahit" class="col-md-4 col-form-label">Nama Kepala Penjahit</label>
-                        <div class="col-md-12">
-                            <select name="kepala_penjahit" id="kepala_penjahit" data-with="100%" class="form-control @error('kepala_penjahit') is-invalid @enderror">
-                                <option value="">Pilih Kepala Penjahit</option>
-                                @foreach($user as $p)
-                                    <option value="{{ $p->name }}" {{ old('kepala_penjahit') == $p->name ? 'selected' : null }}><b>{{ $p->name }}</b></option>
-                                @endforeach
-                            </select>
-                            @error('kepala_penjahit')
-                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
                         <div>
@@ -145,7 +132,8 @@ $(document).ready(function() {
                 let i;
                 $('#detail_pemesanan_model_id').html(html);
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
+                    // html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
+                    html += '<option value='+data[i].id+'>'+'Model: '+data[i].nama_model+'| Detail Model: '+data[i].nama_model_detail+'| Jumlah: '+data[i].banyaknya+' Pcs'+'</option>';
                 }
                 $('#detail_pemesanan_model_id').html(html);
 

@@ -147,6 +147,7 @@ class TransaksiBahanBakuController extends Controller
             'bahan_baku.nama_bahanbaku as nama_bahan_baku',
         )
         ->get();
+
         return view('transaksi-bahan-baku.show', compact('data', 'dataDetail','id'));
     }
 
@@ -205,6 +206,21 @@ class TransaksiBahanBakuController extends Controller
 
     public function updateDetailTransaksi(Request $request, $id)
     {
+        $bahan_baku = BahanBaku::where('id', $request->bahan_baku_id)->first();
+        $peng_bahan_baku = DB::table('detail_pembelian_bahanbaku')
+            ->where('id', $id)
+            ->first();
+
+        $pemakaian_old = $bahan_baku->stok;
+        $pemakaian_new = floatval($request->jumlah);
+        $peng_bahan_baku_stock = $peng_bahan_baku->jumlah;
+        $laststock = ($pemakaian_new + $pemakaian_old) - $peng_bahan_baku_stock;
+
+        $bahanBaku = BahanBaku::findOrFail($request->bahan_baku_id);
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
+
         DetailTransaksiBahanBaku::where('id', $id)->update(request()->except(['_token','pembelian_bahanbaku_id','_method']));
 
         return redirect()->route('transaksi-bahanbaku.show', $request->pembelian_bahanbaku_id )->with(['success' => 'Data Berhasil Diupdate!']);
@@ -245,6 +261,23 @@ class TransaksiBahanBakuController extends Controller
      */
     public function destroy($id)
     {
+        $dataDetail = DB::table('detail_pembelian_bahanbaku')
+        ->join('bahan_baku', 'detail_pembelian_bahanbaku.bahan_baku_id', 'bahan_baku.id')
+        ->where('detail_pembelian_bahanbaku.pembelian_bahanbaku_id', $id)
+        ->select(
+            'detail_pembelian_bahanbaku.*',
+            'bahan_baku.nama_bahanbaku as nama_bahan_baku',
+        )
+        ->get();
+
+        foreach ($dataDetail as $d){
+            $bahanBaku = BahanBaku::findOrFail($d->bahan_baku_id);
+            $laststock = $bahanBaku->stok - $d->jumlah;
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
+        }
+
         DB::table('pembelian_bahanbaku')->where('id', $id)->delete();
         DB::table('detail_pembelian_bahanbaku')->where('pembelian_bahanbaku_id', $id)->delete();
 

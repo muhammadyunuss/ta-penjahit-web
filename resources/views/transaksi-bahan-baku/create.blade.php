@@ -35,7 +35,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Supplier</label>
                         <div class="col-md-12">
-                            <select name="supplier_id" id="supplier_id" data-with="100%" class="form-control @error('supplier_id') is-invalid @enderror">
+                            <select name="supplier_id" id="supplier_id" data-with="100%" class="form-control @error('supplier_id') is-invalid @enderror" required>
                                 <option value="">Pilih Nama Supplier</option>
                                 @foreach($datasupplier as $dp)
                                     <option value="{{ $dp->id }}" {{ old('supplier_id') == $dp->id ? 'selected' : null }}>{{ $dp->nama_supplier }}</option>
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_beli') is-invalid @enderror" id="tanggal_beli" name="tanggal_beli" value="{{ old('tanggal_beli') }}">
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_beli') is-invalid @enderror" id="tanggal_beli" name="tanggal_beli" value="{{ old('tanggal_beli') }}" required>
                         </div>
                     </div><br>
 				<div class="form-actions">
