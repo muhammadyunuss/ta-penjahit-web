@@ -40,17 +40,21 @@
         <tr>
         <!-- <th>ID</th> -->
         <th>Pelanggan</th>
+        <th>Estimasi Selesai</th>
         <th>Model</th>
-        <th>Tanggal Selesai</th>
+        <th>Jumlah</th>
+        <th>Realisasi</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($viewTanggunanPesanan as $d)
+        @foreach($view_laporan_daftar_tpj as $d)
         <?php $total=0 ?>
         <tr>
             <td>{{ $d->nama_pelanggan }}</td>
+            <td>{{ $d->realisasi_tanggal_selesai }}</td>
             <td>{{ $d->nama_model }}</td>
-            <td>{{ $d->tanggal_selesai }}</td>
+            <td>{{ $d->jumlah }}</td>
+            <td>{{ $d->nama_prosesproduksi }}</td>
         </tr>
         @endforeach
     </tbody>

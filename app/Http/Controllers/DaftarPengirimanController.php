@@ -48,7 +48,9 @@ class DaftarPengirimanController extends Controller
             'pelanggan.nama_pelanggan'
         )
         ->get();
-        return view('daftar-pengiriman.index', compact('pemesanan'));
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
+        // dd($viewTransaksiPemesanan);
+        return view('daftar-pengiriman.index', compact('pemesanan', 'viewTransaksiPemesanan'));
     }
 
     /**

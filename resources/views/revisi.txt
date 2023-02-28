@@ -55,11 +55,11 @@ V Realisasi progres bisa dishare ke pelanggan by Whatsapp (nomor otomatis berdas
    "Progres pesanan anda, sampai pada Pemotongan Kain.
     Dengan keterangan ......"
 V Realisasi progres, gimana cara ubah dan hapus datanya?
-- Laporan tanggungan: BELUM SESUAI DENGAN HASIL DISKUSI DENGAN MBAK DIANA SEBULAN LALU (SAYA KIRIM EXCEL NYA LAGI)
+V Laporan tanggungan: BELUM SESUAI DENGAN HASIL DISKUSI DENGAN MBAK DIANA SEBULAN LALU (SAYA KIRIM EXCEL NYA LAGI)
 
 PENGIRIMAN
-- Halaman utama pengiriman: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan | estimasi selesai->tulisan "tanggal" ganti "estimasi selesai" | nama_model | nama_model_detail | jumlah)
-- Halaman utama pengiriman: JENIS MODEL DIHIDDEN/HAPUS SAJA
+V Halaman utama pengiriman: Filter nama_jenismodel ganti nama_model dan tambahkan nama_model_detail (urutan filter: nama pelanggan | estimasi selesai->tulisan "tanggal" ganti "estimasi selesai" | nama_model | nama_model_detail | jumlah)
+V Halaman utama pengiriman: JENIS MODEL DIHIDDEN/HAPUS SAJA
 - Halaman tambah pengiriman: Untuk Opsi Pengambilan pada AMBIL, pada kolom ekspedisi, alamat, biaya kirim, dan no resi tidak wajib diisi. Jika Opsi KIRIM, maka semua data wajib diisi (DULU DISKUSI DENGAN MBAK DIANA SEHARUSNYA HASILNYA SEPERTI INI)
 - Halaman tambah pengiriman: jasa ekspedisi dan tanggal ditukar saja tempatnya
 

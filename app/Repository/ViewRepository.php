@@ -58,5 +58,39 @@ class ViewRepository
 
         return $data;
     }
+
+    public static function view_laporan_daftar_tanggungan_produksi_jahit()
+    {
+        $data = DB::select(DB::raw("SELECT pemesanan.id, penjahit_id, pelanggan.nama_pelanggan, pemesanan.tanggal as tanggal_selesai, model.nama_model, detail_pemesanan_model.nama_model_detail, detail_pemesanan_model.banyaknya as jumlah, proses_produksi.nama_prosesproduksi, realisasi_produksi.tanggal_selesai
+        FROM pemesanan
+        INNER JOIN pelanggan ON pemesanan.pelanggan_id=pelanggan.id
+        INNER JOIN detail_pemesanan_model ON pemesanan.id=detail_pemesanan_model.pemesanan_id
+        INNER JOIN model ON detail_pemesanan_model.model_id=model.id
+        INNER JOIN perencanaan_produksi ON detail_pemesanan_model.id=perencanaan_produksi.id
+        INNER JOIN realisasi_produksi ON perencanaan_produksi.id=realisasi_produksi.perencanaan_produksi_id
+        INNER JOIN proses_produksi ON realisasi_produksi.proses_produksi_id=proses_produksi.id
+        WHERE proses_produksi.id<8
+        UNION ALL
+        (SELECT pemesanan.id, penjahit_id, pelanggan.nama_pelanggan, pemesanan.tanggal as tanggal_selesai, model.nama_model, detail_pemesanan_model.nama_model_detail, detail_pemesanan_model.banyaknya as jumlah, proses_produksi.nama_prosesproduksi, realisasi_produksi.tanggal_selesai
+        FROM pemesanan
+        INNER JOIN pelanggan ON pemesanan.pelanggan_id=pelanggan.id
+        INNER JOIN detail_pemesanan_model ON pemesanan.id=detail_pemesanan_model.pemesanan_id
+        INNER JOIN model ON detail_pemesanan_model.model_id=model.id
+        INNER JOIN perencanaan_produksi ON detail_pemesanan_model.id=perencanaan_produksi.id
+        INNER JOIN realisasi_produksi ON perencanaan_produksi.id=realisasi_produksi.perencanaan_produksi_id
+        INNER JOIN proses_produksi ON realisasi_produksi.proses_produksi_id=proses_produksi.id
+        WHERE pengambilan_id IS NULL)
+        "));
+
+        return $data;
+    }
+
+    public static function view_laporan_daftar_tanggungan_produksi_jahit2($id)
+    {
+        $data = DB::table('view_laporan_daftar_tanggungan_produksi_jahit')->where('penjahit_id', $id)->get();
+
+        return $data;
+    }
+
 }
 

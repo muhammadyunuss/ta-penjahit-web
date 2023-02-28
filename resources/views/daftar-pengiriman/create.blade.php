@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Pemesan</label>
                         <div class="col-md-12">
-                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror">
+                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror" required>
                                 <option value="">Pilih Nama Pemesanan</option>
                                 @foreach($pemesanan as $p)
                                     <option value="{{ $p->id }}">Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }}</option>
@@ -57,9 +57,15 @@
                         <label >Opsi Pengambilan</label>
                         <div class="radio-list">
                             <label class="radio-inline">
-                            <input type="radio" name="opsi_pengambilan" id="opsi_pengambilan_ambil" value="Ambil"> Ambil </label>
+                            <input type="radio" name="opsi_pengambilan" id="opsi_pengambilan_ambil" value="Ambil" required> Ambil </label>
                             <label class="radio-inline">
-                            <input type="radio" name="opsi_pengambilan" id="opsi_pengambilan_kirim" value="Kirim"> Kirim </label>
+                            <input type="radio" name="opsi_pengambilan" id="opsi_pengambilan_kirim" value="Kirim" required> Kirim </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal">Tanggal</label>
+                        <div>
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -77,28 +83,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="tanggal">Tanggal</label>
-                        <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
 						<label for="alamat_pengiriman">Alamat Pengirim</label>
-						<input type="text" class="form-control @error('alamat_pengiriman') is-invalid @enderror" name="alamat_pengiriman" value="{{ old('alamat_pengiriman') }}" placeholder="Alamat">
+						<input type="text" class="form-control @error('alamat_pengiriman') is-invalid @enderror" name="alamat_pengiriman" id="alamat_pengiriman" value="{{ old('alamat_pengiriman') }}" placeholder="Alamat">
 						@error('alamat_pengiriman')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div>
                     <div class="form-group">
 						<label for="biaya_pengiriman">Biaya Pengirim</label>
-						<input type="text" class="form-control @error('biaya_pengiriman') is-invalid @enderror" name="biaya_pengiriman" value="{{ old('biaya_pengiriman') }}" placeholder="Biaya Pengiriman">
+						<input type="text" class="form-control @error('biaya_pengiriman') is-invalid @enderror" name="biaya_pengiriman" id="biaya_pengiriman" value="{{ old('biaya_pengiriman') }}" placeholder="Biaya Pengiriman">
 						@error('biaya_pengiriman')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div>
                     <div class="form-group">
 						<label for="no_resi">No. Resi</label>
-						<input type="number" class="form-control @error('no_resi') is-invalid @enderror" name="no_resi" value="{{ old('no_resi') }}" placeholder="No. Resi">
+						<input type="number" class="form-control @error('no_resi') is-invalid @enderror" name="no_resi" id="no_resi" value="{{ old('no_resi') }}" placeholder="No. Resi">
 						@error('no_resi')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
@@ -119,6 +119,24 @@
 $(document).ready(function() {
     $('#nmBahanBaku').select2();
 });
+</script>
+
+<script>
+$('input[type=radio][name=opsi_pengambilan]').change(function() {
+    if (this.value == 'Ambil') {
+        $("#jasa_ekspedisi_id").prop('required',false);
+        $("#alamat_pengiriman").prop('required',false);
+        $("#biaya_pengiriman").prop('required',false);
+        $("#no_resi").prop('required',false);
+    }
+    else if (this.value == 'Kirim') {
+        $("#jasa_ekspedisi_id").prop('required',true);
+        $("#alamat_pengiriman").prop('required',true);
+        $("#biaya_pengiriman").prop('required',true);
+        $("#no_resi").prop('required',true);
+    }
+});
+
 </script>
 
 <script type="text/javascript">

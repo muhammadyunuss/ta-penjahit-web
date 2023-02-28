@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 172.17.0.2
--- Generation Time: Feb 09, 2023 at 12:59 PM
+-- Host: 172.17.0.3
+-- Generation Time: Feb 28, 2023 at 02:20 PM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -31,21 +31,16 @@ CREATE TABLE `bahan_baku` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `kode_bahan_baku` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_bahanbaku` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `letak_bahanbaku` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `harga_beli` double DEFAULT NULL,
   `harga_jual` double DEFAULT NULL,
   `stok` double DEFAULT NULL,
   `satuan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `supplier_id` bigint(20) DEFAULT NULL,
+  `kolom_rak_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `detail_pembelian_bahanbaku`
---
 
 CREATE TABLE `detail_pembelian_bahanbaku` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -58,11 +53,6 @@ CREATE TABLE `detail_pembelian_bahanbaku` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `detail_pemesanan_bahanbaku`
---
 
 CREATE TABLE `detail_pemesanan_bahanbaku` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -75,11 +65,6 @@ CREATE TABLE `detail_pemesanan_bahanbaku` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `detail_pemesanan_model`
---
 
 CREATE TABLE `detail_pemesanan_model` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -95,11 +80,6 @@ CREATE TABLE `detail_pemesanan_model` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `detail_pemesanan_model_ukuran`
---
 
 CREATE TABLE `detail_pemesanan_model_ukuran` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -130,11 +110,6 @@ CREATE TABLE `detail_pemesanan_model_ukuran` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `failed_jobs`
---
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -146,11 +121,6 @@ CREATE TABLE `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `jasa_ekspedisi`
---
 
 CREATE TABLE `jasa_ekspedisi` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -159,11 +129,6 @@ CREATE TABLE `jasa_ekspedisi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `jenis_model`
---
 
 CREATE TABLE `jenis_model` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -172,11 +137,8 @@ CREATE TABLE `jenis_model` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `kolom_rak`
---
+INSERT INTO `jenis_model` (`id`, `nama_jenismodel`, `created_at`, `updated_at`) VALUES
+(1, 'Unisex', NULL, NULL);
 
 CREATE TABLE `kolom_rak` (
   `id` bigint(20) NOT NULL,
@@ -186,21 +148,10 @@ CREATE TABLE `kolom_rak` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `letak_bahan_baku`
---
-
 CREATE TABLE `letak_bahan_baku` (
   `nama_letak` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `migrations`
---
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
@@ -255,11 +206,6 @@ CREATE TABLE `model` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
 
 CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -267,11 +213,6 @@ CREATE TABLE `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `pelanggan`
---
 
 CREATE TABLE `pelanggan` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -283,20 +224,6 @@ CREATE TABLE `pelanggan` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pelanggan`
---
-
-INSERT INTO `pelanggan` (`id`, `nama_pelanggan`, `email`, `no_telepon`, `alamat`, `created_at`, `updated_at`) VALUES
-(1, 'Parto', 'parto@gmail.com', '08213123123', 'JL. CIPTA MENANGGAL BLOK 67 F', '2022-10-10 10:23:19', '2022-10-10 10:23:19'),
-(2, 'Kadek', 'kadek@gmail.com', '09213002919', 'JL. Cipta Menanggal Blok 67 G', '2022-10-10 10:24:01', '2022-10-10 10:24:09'),
-(3, 'Diana', 'diana@gmail.com', '0876523456', 'surabaya', '2022-11-12 13:45:53', '2022-11-12 13:45:53');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pembelian_bahanbaku`
---
 
 CREATE TABLE `pembelian_bahanbaku` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -309,11 +236,6 @@ CREATE TABLE `pembelian_bahanbaku` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `pemesanan`
---
 
 CREATE TABLE `pemesanan` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -330,11 +252,6 @@ CREATE TABLE `pemesanan` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `pengambilan`
---
 
 CREATE TABLE `pengambilan` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -348,12 +265,6 @@ CREATE TABLE `pengambilan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `penjahit`
---
 
 CREATE TABLE `penjahit` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -372,11 +283,6 @@ CREATE TABLE `penjahit` (
 INSERT INTO `penjahit` (`id`, `email`, `no_telepon`, `nama_penjahit`, `password`, `created_at`, `updated_at`) VALUES
 (1, 'penjahit@gmail.com', '08213123', 'Penjahit', NULL, NULL, NULL);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `perencanaan_produksi`
---
 
 CREATE TABLE `perencanaan_produksi` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -390,12 +296,6 @@ CREATE TABLE `perencanaan_produksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `personal_access_tokens`
---
-
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -408,12 +308,6 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `proses_produksi`
---
-
 CREATE TABLE `proses_produksi` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama_prosesproduksi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -421,11 +315,6 @@ CREATE TABLE `proses_produksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `realisasi_penjahit`
---
 
 CREATE TABLE `realisasi_penjahit` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -434,12 +323,6 @@ CREATE TABLE `realisasi_penjahit` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `realisasi_produksi`
---
 
 CREATE TABLE `realisasi_produksi` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -450,16 +333,9 @@ CREATE TABLE `realisasi_produksi` (
   `tanggal_selesai` date DEFAULT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keterangan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kepala_penjahit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `retur_pemesanan`
---
 
 CREATE TABLE `retur_pemesanan` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -472,12 +348,6 @@ CREATE TABLE `retur_pemesanan` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `supplier`
---
-
 CREATE TABLE `supplier` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama_supplier` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -488,18 +358,8 @@ CREATE TABLE `supplier` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `supplier`
---
-
 INSERT INTO `supplier` (`id`, `nama_supplier`, `alamat`, `email`, `nomor_telepon`, `created_at`, `updated_at`) VALUES
 (1, 'Toko Batik', 'Jl Batik Nusantara', 'batik@gmail.com', '0821392010', '2022-10-10 12:46:20', '2022-10-10 12:46:20');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -509,7 +369,7 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `previledge` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Penjahit, Pemilik, Kepala_Penjahit',
-  `id_penjahit` int(11) NOT NULL,
+  `id_penjahit` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -519,16 +379,25 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `previledge`, `id_penjahit`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@admin.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Penjahit', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
-(2, 'owner', 'owner@owner.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Pemilik', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
-(3, 'kepala 1', 'kepala1@kepala1.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Kepala_Penjahit', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19');
+(1, 'admin', 'admin@admin.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Admin', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
+(2, 'pemilik', 'pemilik@pemilik.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Pemilik', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
+(3, 'kepala', 'kepala@kepala.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Kepala', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
+(4, 'Penjahit', 'penjahit@penjahit.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Penjahit', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
+(5, 'Finishing', 'finishing@finishing.com', NULL, '$2y$10$CkaE7WZar2jLhrS2CIrBKOpEnfIfwxUOC4x//g0CNZwtsEQZ20nGa', NULL, 'Finishing', 1, '2022-10-10 10:20:19', '2022-10-10 10:20:19'),
+(6, 'Velma Hatfield', 'nocekyqizu@mailinator.com', NULL, '$2y$10$vJZsR2S/szpx5HUWryMq2uiLSeQi0PWd9UQqni42B33cDaieVgD8q', NULL, 'Penjahit', 1, '2023-02-24 07:53:07', '2023-02-24 07:53:07');
 
--- --------------------------------------------------------
+CREATE TABLE `view_laporan_daftar_tanggungan_produksi_jahit` (
+`id` bigint(20) unsigned
+,`penjahit_id` bigint(20)
+,`nama_pelanggan` varchar(255)
+,`tanggal_selesai` date
+,`nama_model` varchar(255)
+,`nama_model_detail` varchar(100)
+,`jumlah` double
+,`nama_prosesproduksi` varchar(255)
+,`realisasi_tanggal_selesai` date
+);
 
---
--- Stand-in structure for view `view_tanggungan_pesanan`
--- (See below for the actual view)
---
 CREATE TABLE `view_tanggungan_pesanan` (
 `id` bigint(20) unsigned
 ,`penjahit_id` bigint(20)
@@ -537,12 +406,6 @@ CREATE TABLE `view_tanggungan_pesanan` (
 ,`tanggal_selesai` date
 );
 
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `view_transaksi_pemesanan_model`
--- (See below for the actual view)
---
 CREATE TABLE `view_transaksi_pemesanan_model` (
 `id_detail_pemesanan_model` bigint(20) unsigned
 ,`tanggal` date
@@ -557,12 +420,6 @@ CREATE TABLE `view_transaksi_pemesanan_model` (
 ,`satuan` varchar(3)
 );
 
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `view_ukuran`
--- (See below for the actual view)
---
 CREATE TABLE `view_ukuran` (
 `id_pemesanan` bigint(20) unsigned
 ,`id_pemesanan_model` bigint(20) unsigned
@@ -573,6 +430,15 @@ CREATE TABLE `view_ukuran` (
 ,`ukuran_baju` varchar(255)
 ,`deskripsi_ukuran` text
 );
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_laporan_daftar_tanggungan_produksi_jahit`
+--
+DROP TABLE IF EXISTS `view_laporan_daftar_tanggungan_produksi_jahit`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_laporan_daftar_tanggungan_produksi_jahit`  AS   (select `pemesanan`.`id` AS `id`,`pemesanan`.`penjahit_id` AS `penjahit_id`,`pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`pemesanan`.`tanggal` AS `tanggal_selesai`,`model`.`nama_model` AS `nama_model`,`detail_pemesanan_model`.`nama_model_detail` AS `nama_model_detail`,`detail_pemesanan_model`.`banyaknya` AS `jumlah`,`proses_produksi`.`nama_prosesproduksi` AS `nama_prosesproduksi`,`realisasi_produksi`.`tanggal_selesai` AS `realisasi_tanggal_selesai` from ((((((`pemesanan` join `pelanggan` on(`pemesanan`.`pelanggan_id` = `pelanggan`.`id`)) join `detail_pemesanan_model` on(`pemesanan`.`id` = `detail_pemesanan_model`.`pemesanan_id`)) join `model` on(`detail_pemesanan_model`.`model_id` = `model`.`id`)) join `perencanaan_produksi` on(`detail_pemesanan_model`.`id` = `perencanaan_produksi`.`id`)) join `realisasi_produksi` on(`perencanaan_produksi`.`id` = `realisasi_produksi`.`perencanaan_produksi_id`)) join `proses_produksi` on(`realisasi_produksi`.`proses_produksi_id` = `proses_produksi`.`id`)) where `proses_produksi`.`id` < 8) union all (select `pemesanan`.`id` AS `id`,`pemesanan`.`penjahit_id` AS `penjahit_id`,`pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`pemesanan`.`tanggal` AS `tanggal_selesai`,`model`.`nama_model` AS `nama_model`,`detail_pemesanan_model`.`nama_model_detail` AS `nama_model_detail`,`detail_pemesanan_model`.`banyaknya` AS `jumlah`,`proses_produksi`.`nama_prosesproduksi` AS `nama_prosesproduksi`,`realisasi_produksi`.`tanggal_selesai` AS `tanggal_selesai` from ((((((`pemesanan` join `pelanggan` on(`pemesanan`.`pelanggan_id` = `pelanggan`.`id`)) join `detail_pemesanan_model` on(`pemesanan`.`id` = `detail_pemesanan_model`.`pemesanan_id`)) join `model` on(`detail_pemesanan_model`.`model_id` = `model`.`id`)) join `perencanaan_produksi` on(`detail_pemesanan_model`.`id` = `perencanaan_produksi`.`id`)) join `realisasi_produksi` on(`perencanaan_produksi`.`id` = `realisasi_produksi`.`perencanaan_produksi_id`)) join `proses_produksi` on(`realisasi_produksi`.`proses_produksi_id` = `proses_produksi`.`id`)) where `pemesanan`.`pengambilan_id` is null)  ;
 
 -- --------------------------------------------------------
 
@@ -773,31 +639,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `detail_pembelian_bahanbaku`
 --
 ALTER TABLE `detail_pembelian_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_bahanbaku`
 --
 ALTER TABLE `detail_pemesanan_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_model`
 --
 ALTER TABLE `detail_pemesanan_model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `detail_pemesanan_model_ukuran`
 --
 ALTER TABLE `detail_pemesanan_model_ukuran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -809,19 +675,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `jasa_ekspedisi`
 --
 ALTER TABLE `jasa_ekspedisi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jenis_model`
 --
 ALTER TABLE `jenis_model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kolom_rak`
 --
 ALTER TABLE `kolom_rak`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -833,31 +699,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `model`
 --
 ALTER TABLE `model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pembelian_bahanbaku`
 --
 ALTER TABLE `pembelian_bahanbaku`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `pengambilan`
 --
 ALTER TABLE `pengambilan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `penjahit`
@@ -869,7 +735,7 @@ ALTER TABLE `penjahit`
 -- AUTO_INCREMENT for table `perencanaan_produksi`
 --
 ALTER TABLE `perencanaan_produksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -881,7 +747,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `proses_produksi`
 --
 ALTER TABLE `proses_produksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `realisasi_penjahit`
@@ -893,7 +759,7 @@ ALTER TABLE `realisasi_penjahit`
 -- AUTO_INCREMENT for table `realisasi_produksi`
 --
 ALTER TABLE `realisasi_produksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `retur_pemesanan`
@@ -911,7 +777,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

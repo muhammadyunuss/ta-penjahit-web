@@ -52,8 +52,8 @@
             <div class="col-md-10">
                 <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
-                    @foreach($pemesanan as $p)
-                        <option value="{{ $p->id }}">Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }}</option>
+                    @foreach($viewTransaksiPemesanan as $p)
+                        <option value="{{ $p->detail_pemesanan_model_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -89,7 +89,7 @@
                     </th>
                     <th>Nama Pelanggan</th>
                     <th>Nama Model</th>
-                    <th>Jenis Model</th>
+                    {{-- <th>Jenis Model</th> --}}
                 </tr>
             </thead>
             </table>
@@ -154,7 +154,7 @@
                 },
                 {data: 'nama_pelanggan', name: 'nama_pelanggan'},
                 {data: 'nama_model', name: 'nama_model'},
-                {data: 'nama_jenismodel', name: 'nama_jenismodel'},
+                // {data: 'nama_jenismodel', name: 'nama_jenismodel'},
             ],
             order: [[1, 'asc']],
         });

@@ -23,6 +23,8 @@ class LaporanTertanggungController extends Controller
 
         $bahanBaku = DB::table('bahan_baku')->get();
         $viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit);
-        return view('laporan-tertanggung.index',compact('data','bahanBaku', 'viewTanggunanPesanan'));
+        $view_laporan_daftar_tpj = ViewRepository::view_laporan_daftar_tanggungan_produksi_jahit2($id_penjahit);
+
+        return view('laporan-tertanggung.index',compact('data','bahanBaku', 'viewTanggunanPesanan', 'view_laporan_daftar_tpj'));
     }
 }
