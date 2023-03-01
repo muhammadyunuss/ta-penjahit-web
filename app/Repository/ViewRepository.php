@@ -59,6 +59,13 @@ class ViewRepository
         return $data;
     }
 
+    public static function view_pemesanan_belum_finish2()
+    {
+        $data = DB::table('view_pemesanan_belum_finish')->get();
+
+        return $data;
+    }
+
     public static function view_laporan_daftar_tanggungan_produksi_jahit()
     {
         $data = DB::select(DB::raw("SELECT pemesanan.id, penjahit_id, pelanggan.nama_pelanggan, pemesanan.tanggal as tanggal_selesai, model.nama_model, detail_pemesanan_model.nama_model_detail, detail_pemesanan_model.banyaknya as jumlah, proses_produksi.nama_prosesproduksi, realisasi_produksi.tanggal_selesai
