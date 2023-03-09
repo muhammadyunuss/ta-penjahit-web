@@ -18,13 +18,13 @@ class RealisasiProgresController extends Controller
         if($request->ajax()){
             $pemesanan_id = $request->pemesanan_id ?? null;
             $data = RealisasiProgres::join('pemesanan', 'realisasi_produksi.pemesanan_id', 'pemesanan.id')
-            ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
-            ->join('proses_produksi', 'realisasi_produksi.proses_produksi_id', 'proses_produksi.id')
-            ->join('perencanaan_produksi', 'realisasi_produksi.perencanaan_produksi_id', 'perencanaan_produksi.id')
-            ->join('detail_pemesanan_model', 'perencanaan_produksi.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
-            ->join('penjahit', 'pemesanan.penjahit_id', 'penjahit.id')
-            ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
-            ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
+            ->leftjoin('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
+            ->leftjoin('proses_produksi', 'realisasi_produksi.proses_produksi_id', 'proses_produksi.id')
+            ->leftjoin('perencanaan_produksi', 'realisasi_produksi.perencanaan_produksi_id', 'perencanaan_produksi.id')
+            ->leftjoin('detail_pemesanan_model', 'perencanaan_produksi.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
+            ->leftjoin('penjahit', 'pemesanan.penjahit_id', 'penjahit.id')
+            ->leftjoin('model', 'detail_pemesanan_model.model_id', 'model.id')
+            ->leftjoin('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
             ->where('realisasi_produksi.pemesanan_id', 'LIKE', '%'.$pemesanan_id.'%')
             ->select(
                 'realisasi_produksi.*',
@@ -90,7 +90,7 @@ class RealisasiProgresController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $prosesProduksiId = DB::table('perencanaan_produksi')

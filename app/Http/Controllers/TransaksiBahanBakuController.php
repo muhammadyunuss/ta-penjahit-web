@@ -97,7 +97,7 @@ class TransaksiBahanBakuController extends Controller
     {
         PembelianBahanBakuDetail::create($request->all());
         BahanBaku::where('id', $request->bahan_baku_id)->update(request()->except(['_token','subtotal','jumlah', 'pembelian_bahanbaku_id', 'bahan_baku_id']));
-
+        
         $bahanBaku = DB::table('bahan_baku')
         ->where('id', $request->bahan_baku_id)
         ->first();

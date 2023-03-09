@@ -16,19 +16,23 @@ class AdminController extends Controller
     }
     public function createUser(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        if($request->password != $request->password_confirmation){
+            return redirect()->back()->with('error', 'User account created password not same!');
+        }
+        else{
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'previledge' => $request->previledge,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return redirect()->back()->with('success', 'User account created successfully!');
+            $user = User::create([
+                'name' => $request->name,
+                'previledge' => $request->previledge,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            return redirect()->back()->with('success', 'User account created successfully!');
+        }
     }
 }

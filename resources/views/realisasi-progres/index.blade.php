@@ -10,9 +10,11 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Realisasi Progres &nbsp;&nbsp;
+    @if (auth()->user()->previledge == "Admin" || auth()->user()->previledge == "Kepala" || auth()->user()->previledge == "Finishing")
     <a href="{{route('realisasi-progres.create')}}" class="btn btn-primary btn-sm">
       + TAMBAH REALISASI PROGRES
     </a>
+    @endif
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -53,7 +55,7 @@
                 <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->pemesanan_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -112,7 +114,10 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
 {{-- <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script> --}}
-
+<script>
+  var user = '{!! auth()->user()->previledge !!}';
+//   console.log(user);
+</script>
 <script>
     /* Formatting function for row details - modify as you need */
     function format(d) {
@@ -124,10 +129,7 @@
             '<td>Nama Penjahit : </td>' +
             '<td>' + d.nama_penjahit + '</td>' +
             '</tr>' +
-            '<tr>' +
-            '<td>Kepala Penjahit : </td>' +
-            '<td>' + d.kepala_penjahit + '</td>' +
-            '</tr>' +
+
             '<tr>' +
             '<td>Tanggal Mulai : </td>' +
             '<td>'+ d.tanggal_mulai +'</td>' +
@@ -148,11 +150,12 @@
                 '</div>' +
             '</td>' +
             '</tr>' +
-            '<tr>' +
-            '<td>Hubungi Pelanggan : </td>' +
-            `<td> <a href="https://wa.me/62${d.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${d.nama_prosesproduksi}" class="btn btn-primary">Pemberitahuan</a>` +
-            '</tr>' +
-            '</table>'
+            '<tr>' 
+            // +
+            // '<td>Hubungi Pelanggan : </td>' +
+            // `<td> <a href="https://wa.me/62${d.no_telepon}?text=Progres%20pesanan%20Anda,%20sampai%20pada%20${d.nama_prosesproduksi}" class="btn btn-primary">Pemberitahuan</a>` +
+            // '</tr>' +
+            // '</table>'
         );
     }
 
@@ -175,14 +178,19 @@
                     var urldel = "{{ route('realisasi-progres.destroy', ':id') }}";
                     url = url.replace(':id', id);
                     urldel = urldel.replace(':id', id);
-                     data = `<a href="https://wa.me/62${row.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
-                     `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
-                     `<form method="POST" action="${urldel}">
-                        @method('DELETE')
-                        @csrf
-                        <input class="btn btn-danger" type="SUBMIT" value="Hapus"
-                        onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
-                    </form>`;
+                    if(user == 'Admin' || user == 'Kepala' || user == 'Finishing'){
+                        data = `<a href="https://wa.me/62${row.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
+                        `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
+                        `<form method="POST" action="${urldel}">
+                            @method('DELETE')
+                            @csrf
+                            <input class="btn btn-danger" type="SUBMIT" value="Hapus"
+                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                        </form>`;
+                    }else{
+                        data= ``;
+                    }
+
                      return data;
                    }
                 }
@@ -215,6 +223,7 @@ $('#s_pemesanan_id').change(function(){
     $('#sample_3').DataTable().destroy();
     $('#sample_3').empty();
     let pemesanan_id = $('#s_pemesanan_id').val();
+    console.log(pemesanan_id);
 
     var table = $('#sample_3').DataTable({
             ajax:{
@@ -231,6 +240,29 @@ $('#s_pemesanan_id').change(function(){
                     defaultContent: '',
                 },
                 { data: 'nama_prosesproduksi' },
+                { "data" : "id",
+                  "render" : function(data, type, row, meta){
+                    var id = row.id;
+                    var url = "{{ route('realisasi-progres.edit', ':id') }}";
+                    var urldel = "{{ route('realisasi-progres.destroy', ':id') }}";
+                    url = url.replace(':id', id);
+                    urldel = urldel.replace(':id', id);
+                    if(user == 'Admin' || user == 'Kepala' || user == 'Finishing'){
+                        data = `<a href="https://wa.me/62${row.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
+                        `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
+                        `<form method="POST" action="${urldel}">
+                            @method('DELETE')
+                            @csrf
+                            <input class="btn btn-danger" type="SUBMIT" value="Hapus"
+                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                        </form>`;
+                    }else{
+                        data= ``;
+                    }
+
+                     return data;
+                   }
+                }
             ],
             order: [[1, 'asc']],
         });

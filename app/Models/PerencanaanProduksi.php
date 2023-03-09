@@ -18,5 +18,6 @@ class PerencanaanProduksi extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'gambar_pola',
+        'user_id'
       ];
 }

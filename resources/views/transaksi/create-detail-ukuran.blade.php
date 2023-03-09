@@ -51,8 +51,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label"><strong>Penjahit</strong></h4>
-                        <p class="control-label">Nama Penjahit : {{ $data->nama_penjahit }}</p>
+                        <h4 class="control-label"><strong>Pegawai</strong></h4>
+                        <p class="control-label">Nama Pegawai : {{ $data->nama_penjahit }}</p>
                     </div>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Jumlah Baju Dengan Ukuran Yang Sama</label>
-                        <input type="number" id="jumlah_baju_dengan_ukuran_yg_sama" name="jumlah_baju_dengan_ukuran_yg_sama" class="form-control" placeholder="Jumlah Baju ukuran yang sama">
+                        <input type="number" id="jumlah_baju_dengan_ukuran_yg_sama" name="jumlah_baju_dengan_ukuran_yg_sama" class="form-control" placeholder="Jumlah Baju ukuran yang sama" required>
                     </div>
                 </div>
             </div>

@@ -66,8 +66,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label"><strong>Penjahit</strong></h4>
-                        <p class="control-label">Nama Penjahit : {{ $data->nama_penjahit }}</p>
+                        <h4 class="control-label"><strong>Pegawai</strong></h4>
+                        <p class="control-label">Nama Pegawai : {{ $data->nama_penjahit }}</p>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                             <th>Model</th>
                             <th>Model Detail</th>
                             <th>Qty</th>
-                            <th>Jenis</th>
+                            
                             <th>Ongkos Jahit</th>
                             <th>Gambar</th>
                             <th>Deksripsi</th>
@@ -155,7 +155,7 @@
                             <td>{{ $model['nama_model'] }}</td>
                             <td>{{ $model['nama_model_detail'] }}</td>
                             <td>{{ $model['banyaknya'] }}</td>
-                            <td>{{ $model['nama_jenismodel'] }}</td>
+                            
                             <td>Rp. {{ number_format($model['ongkos_jahit'] ,2,',','.')}}</td>
                             <td>
                                 @if ($model['file_gambar'])
@@ -219,9 +219,6 @@
                                 <li>Lingkar Siku : {{ $detail->lingkar_siku }}</li>
                                 <li>Lingkar Pergelangan : {{ $detail->lingkar_pergelangan }}</li>
                                 <li>Kerah : {{ $detail->kerah }}</li>
-                            </td>
-                            <td>
-                                +
                             </td>
                             <td>
                                 <li>Ukuran Celana : {{ $detail->ukuran_celana }}</li>
@@ -365,6 +362,17 @@
                                     <option value="">Pilih Bahan Baku</option>
                                     @foreach ($bahanBaku as $bb)
                                         <option value="{{ $bb->id }}">{{ $bb->nama_bahanbaku }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> <br>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Pilih Detail Model</label>
+                            <div class="col-md-9">
+                                <select class="form-control input-sm" id="detail_pemesanan_model_id" name="detail_pemesanan_model_id">
+                                    <option value="">Pilih Pilih Detail Model</option>
+                                    @foreach ($dataModelDetail as $bb)
+                                        <option value="{{ $bb->id }}">{{ $bb->nama_model }} - {{ $bb->nama_model_detail }}</option>
                                     @endforeach
                                 </select>
                             </div>

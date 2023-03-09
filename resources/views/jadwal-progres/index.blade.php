@@ -79,7 +79,7 @@
     <td>{{ $d->nama_prosesproduksi }}</td>
     <td>{{ $d->tanggal_mulai }}</td>
     <td>{{ $d->tanggal_selesai }}</td>
-    <td>{{ $d->kepala_penjahit }}</td>
+    <td>{{ $d->nama_kepalapenjahit }}</td>
     @if (auth()->user()->previledge == "Admin")
     <td>
         <ul class="nav nav-pills">

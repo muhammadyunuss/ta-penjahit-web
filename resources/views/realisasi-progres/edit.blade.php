@@ -43,7 +43,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label">Nama Pemesan</label>
                         <div class="col-md-12">
-                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror">
+                            <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan</option>
                                 @foreach($pemesanan as $p)
                                     <option value="{{ $p->id }}" {{ old('pemesanan_id', $data->pemesanan_id) == $p->id ? 'selected' : null }}>Pelanggan : <b>{{ $p->nama_pelanggan }}</b> | Tanggal: <b>{{ $p->tanggal }}</b></option>
@@ -57,7 +57,7 @@
                     <div class="form-group row">
                         <label for="detail_pemesanan_model_id" class="col-md-4 col-form-label">Pemesan Detail</label>
                         <div class="col-md-12">
-                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror">
+                            <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror" required>
                                 <option value="">Pilih Pemesanan Detail</option>
                             </select>
                             @error('detail_pemesanan_model_id')
@@ -68,7 +68,7 @@
                     <div class="form-group row">
                         <label for="perencanaan_produksi_id" class="col-md-4 col-form-label">Perencanaan Produksi</label>
                         <div class="col-md-12">
-                            <select name="perencanaan_produksi_id" id="perencanaan_produksi_id" data-with="100%" class="form-control @error('perencanaan_produksi_id') is-invalid @enderror">
+                            <select name="perencanaan_produksi_id" id="perencanaan_produksi_id" data-with="100%" class="form-control @error('perencanaan_produksi_id') is-invalid @enderror" required>
                                 <option value="{{ $perencanaan_produksi->proses_produksi_id }}">{{ $perencanaan_produksi->nama_prosesproduksi }}</option>
                             </select>
                             @error('detail_pemesanan_model_id')
@@ -79,13 +79,13 @@
                     <div class="form-group">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai', date('Y-m-d', $data->tanggal_mulai==null ? null : strtotime($data->tanggal_mulai)))}}">
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai', date('Y-m-d', $data->tanggal_mulai==null ? null : strtotime($data->tanggal_mulai)))}}" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="tanggal_selesai">Tanggal Selesai</label>
                         <div>
-                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai', date('Y-m-d', $data->tanggal_selesai==null ? null : strtotime($data->tanggal_selesai)))}}">
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai', date('Y-m-d', $data->tanggal_selesai==null ? null : strtotime($data->tanggal_selesai)))}}" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -172,18 +172,23 @@ $(document).ready(function() {
 
 
     function get_data_edit(){
-                let detail_pemesanan_id = "{{ $perencanaan_produksi->detail_pemesanan_model_id }}";
+                let detail_pemesanan_id = "{{ $perencanaan_produksi->id }}";
+                // console.log(detail_pemesanan_id);
                 $.ajax({
-                    url : "{{ url('/produksi/jadwal-progres/get-ajax-perencanaan-produksi-to-pemesanan-detail-edit') }}"+"/"+detail_pemesanan_id,
+                    url : "{{ url('/produksi/jadwal-progres/get-ajax-perencanaan-produksi-to-pemesanan-detail-edit-first') }}"+"/"+detail_pemesanan_id,
                     method : "GET",
                     async : true,
                     dataType : 'json',
                     success : function(data){
-                        $.each(data, function(i, item){
-                            // $('select[name="detail_pemesanan_model_id"]').append('<option value="'+ data[i].id +'" selected>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs' +'</option>').trigger('change');
-                            $('select[name="detail_pemesanan_model_id"]').append('Model: '+data[i].nama_model+'| Detail Model: '+data[i].nama_model_detail+'| Jumlah: '+data[i].banyaknya+' Pcs'+'</option>').trigger('change');
+                        console.log(data);
+                        // let html ='';
+                        // $('#detail_pemesanan_model_id').html(html);
+                        // $.each(data, function(i, item){
+                            $('select[name="detail_pemesanan_model_id"]').append('<option value="'+ data.id +'" selected>'+'Model: '+data.nama_model+'| Detail Model: '+data.nama_model_detail+' | Jumlah: '+data.banyaknya+' Pcs' +'</option>').trigger('change');
+                            // html += $('select[name="detail_pemesanan_model_id"]').append('Model: '+data.nama_model+'| Detail Model: '+data.nama_model_detail+'| Jumlah: '+data.banyaknya+' Pcs'+'</option>').trigger('change');
                             // $('[name="detail_pemesanan_model_id"]').val(data[i].id).trigger('change');
-                        });
+                        // });
+                        // $('#detail_pemesanan_model_id').html(html);
 
                     }
 

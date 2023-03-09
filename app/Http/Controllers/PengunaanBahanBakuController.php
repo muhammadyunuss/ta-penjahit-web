@@ -27,7 +27,8 @@ class PengunaanBahanBakuController extends Controller
             $data->where('detail_pemesanan_bahanbaku.detail_pemesanan_model_id', $id);
         }
         // ->join('detail_pemesanan_model', 'detail_pemesanan_bahanbaku.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
-        $data = $data->select(
+        $data = $data->whereNotNull('detail_pemesanan_bahanbaku.jumlah_terpakai')
+        ->select(
             'detail_pemesanan_bahanbaku.*',
             'bahan_baku.nama_bahanbaku',
             'bahan_baku.stok',
@@ -115,6 +116,12 @@ class PengunaanBahanBakuController extends Controller
             $bahanBakustock = $bahanBaku->stok;
             $laststock = ($bahanBakustock + $pemakaian_old) - $pemakaian_new;
             // $laststock = $bahanBakustock - $pemakaian_new;
+            #bahanBakustock = 11 #master
+            #pemakaian_old = 0 #pemakaian sebelumnya
+            #pemakaian_new = 2 #pemakaian yg baru saja diinput
+            #laststock = (11+0)-2 = 9
+
+            // 9+6 -7
 
             $data = new DetailPemesananBahanBaku();
             $data->where('id', $pengBahanBakuId->id)->update(request()->except(['_token', '_method']));

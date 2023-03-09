@@ -115,7 +115,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="file_gambar" class="form-label">Gambar</label>
-                        <input class="form-control" type="file" id="file_gambar" name="file_gambar" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])" required>
+                        <input class="form-control" type="file" id="file_gambar" name="file_gambar" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
                         @error('file_gambar')
                             <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                         @enderror
@@ -132,7 +132,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Deskripsi</label>
-                            <input type="text" id="deskripsi_pemesanan" name="deskripsi_pemesanan" class="form-control" placeholder="Deskripsi" required>
+                            <input type="text" id="deskripsi_pemesanan" name="deskripsi_pemesanan" class="form-control" placeholder="Deskripsi" >
                         </div>
                     </div>
                 </div>

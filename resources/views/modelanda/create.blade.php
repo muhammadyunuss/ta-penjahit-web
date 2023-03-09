@@ -41,7 +41,7 @@
 				<div class="form-body">
                     <div class="mb-3">
 						<label for="foto_model" class="form-label">Gambar</label>
-						<input class="form-control" type="file" id="foto_model" name="foto_model" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])" required>
+						<input class="form-control" type="file" id="foto_model" name="foto_model" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])" >
 						@error('foto_model')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
@@ -56,14 +56,14 @@
 					</div><br>
 					<div class="form-group">
 						<label for="ongkos_jahit">Ongkos Jahit</label> (Rp)
-						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit') }}"  placeholder="Isikan harga model Pakaian" min="0" required>
+						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit') }}"  placeholder="Isikan harga model Pakaian" min="0" >
 						@error('ongkos_jahit')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br>
 					<div class="form-group">
 						<label for="deskripsi_model">Deskripsi</label>
-						<textarea class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Pakaian" rows="3" required>{{ old('deskripsi_model') }}</textarea>
+						<textarea class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Pakaian" rows="3" >{{ old('deskripsi_model') }}</textarea>
 					</div><br>
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>

@@ -136,10 +136,11 @@
                        </li>
                     </ul>
                 </li>
+                @if (auth()->user()->previledge == "Admin" || auth()->user()->previledge == "Pemilik")
                 <li class="{{ (request()->segment(1) == 'admin') ? 'active' : '' }}">
                     <a href="javascript:;">
                     <i class="icon-present"></i>
-                    <span class="title">Setting</span>
+                    <span class="title">Akun</span>
                     <span class="selected"></span>
                     <span class="arrow {{ (request()->segment(1) == 'admin') ? 'open' : '' }}"></span>
                     </a>
@@ -150,5 +151,6 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 			</ul>
 			<!-- END SIDEBAR MENU -->

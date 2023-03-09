@@ -85,13 +85,15 @@
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br> --}}
-					<div class="form-group">
+						
+                    <input type="hidden" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok', $bahanBaku->stok) }}"  placeholder="Isikan stok bahan baku Anda" min="0" required>
+					{{-- <div class="form-group">
 						<label for="stok">Stok</label>
 						<input type="number" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok', $bahanBaku->stok) }}"  placeholder="Isikan stok bahan baku Anda" min="0" required>
 						@error('stok')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
-					</div><br>
+					</div><br> --}}
                     <div class="form-group">
                             <label for="satuan">Satuan</label>
                             <input type="text" class="form-control @error('satuan') is-invalid @enderror" name="satuan" value="{{ old('satuan', $bahanBaku->satuan) }}" placeholder="Isikan satuan bahan baku Anda" required>

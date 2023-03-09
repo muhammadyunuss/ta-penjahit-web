@@ -160,7 +160,7 @@
                     dataType : 'json',
                     success : function(data){
                         $.each(data, function(i, item){
-                            $('select[name="detail_pemesanan_model_id"]').append('<option value="'+ data[i].id +'" selected>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs' +'</option>').trigger('change');
+                            $('select[name="detail_pemesanan_model_id"]').append('<option value="'+ data[i].id +'" selected>'+data[i].nama_model+' '+data[i].nama_model_detail+' '+data[i].banyaknya+' Pcs' +'</option>').trigger('change');
                             // $('[name="detail_pemesanan_model_id"]').val(data[i].id).trigger('change');
                         });
 

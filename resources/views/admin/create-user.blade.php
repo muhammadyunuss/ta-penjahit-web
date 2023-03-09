@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">
-   Ukuran Pria
+   Tambah Akun
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -12,11 +12,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('ukuranpria.index')}}">Pemesanan</a>
+            <a href="{{route('admin.users.create')}}">Akun</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{ route('ukuranpria.create') }}">Ukuran Pria</a>
+            <a href="{{ route('admin.users.create') }}">Tambah Akun</a>
         </li>
     </ul>
 </div>

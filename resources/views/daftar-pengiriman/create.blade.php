@@ -45,7 +45,7 @@
                             <select name="pemesanan_id" id="pemesanan_id" data-with="100%" class="form-control @error('pemesanan_id') is-invalid @enderror" required>
                                 <option value="">Pilih Nama Pemesanan</option>
                                 @foreach($pemesanan as $p)
-                                    <option value="{{ $p->id }}">Pelanggan : {{ $p->nama_pelanggan }} | Tanggal : {{ $p->tanggal }}</option>
+                                    <option value="{{ $p->id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }}</option>
                                 @endforeach
                             </select>
                             @error('pemesanan_id')

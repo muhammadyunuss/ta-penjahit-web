@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('jadwal-progres')->group(function () {
             Route::get('get-ajax-pemesanan-to-pemesanan-detail/{id}', [JadwalProgresController::class, 'getAjaxPemesanantoPemesananDetail'])->name('get-ajax-pemesanan-to-pemesanan-detail');
             Route::get('get-ajax-perencanaan-produksi-to-pemesanan-detail-edit/{id}', [JadwalProgresController::class, 'getAjaxPerencanaanProduksitoPemesananDetailEdit'])->name('get-ajax-perencanaan-produksi-to-pemesanan-detail-edit');
+            Route::get('get-ajax-perencanaan-produksi-to-pemesanan-detail-edit-first/{id}', [JadwalProgresController::class, 'getAjaxPerencanaanProduksitoPemesananDetailEditFirst'])->name('get-ajax-perencanaan-produksi-to-pemesanan-detail-edit-first');
         });
         Route::prefix('peng-bahan-baku')->group(function () {
             Route::get('get-ajax-bahan-baku-first/{id}', [PengunaanBahanBakuController::class, 'getAjaxBahanBaku'])->name('get-ajax-bahan-baku-first');

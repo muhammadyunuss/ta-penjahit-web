@@ -46,7 +46,7 @@
         <th>Tanggal</th>
         <th>Pelanggan</th>
         <th>Total</th>
-        <th>Penjahit</th>
+        <th>Status Pembayaran</th>
         <th>Aksi</th>
         </tr>
     </thead>
@@ -57,7 +57,7 @@
             <td>{{ $d->tanggal }}</td>
             <td>{{ $d->nama_pelanggan }}</td>
             <td>{{ $d->total_ongkos }}</td>
-            <td>{{ $d->nama_penjahit }}</td>
+            <td>{{ $d->status_pembayaran }}</td>
             <td>
             <ul class="nav nav-pills">
                 <li >

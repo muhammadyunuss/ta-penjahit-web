@@ -51,8 +51,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <h4 class="control-label"><strong>Penjahit</strong></h4>
-                        <p class="control-label">Nama Penjahit : {{ $data->nama_penjahit }}</p>
+                        <h4 class="control-label"><strong>Pegawai</strong></h4>
+                        <p class="control-label">Nama Pegawai : {{ $data->nama_penjahit }}</p>
                     </div>
                 </div>
             </div>
