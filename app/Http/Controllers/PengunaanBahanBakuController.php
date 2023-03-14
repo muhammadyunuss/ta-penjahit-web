@@ -114,14 +114,11 @@ class PengunaanBahanBakuController extends Controller
             $pemakaian_old = $pengBahanBaku->jumlah_terpakai;
             $pemakaian_new = floatval($request->jumlah_terpakai);
             $bahanBakustock = $bahanBaku->stok;
-            $laststock = ($bahanBakustock + $pemakaian_old) - $pemakaian_new;
-            // $laststock = $bahanBakustock - $pemakaian_new;
-            #bahanBakustock = 11 #master
-            #pemakaian_old = 0 #pemakaian sebelumnya
-            #pemakaian_new = 2 #pemakaian yg baru saja diinput
-            #laststock = (11+0)-2 = 9
+            $laststock = $bahanBakustock - ($pemakaian_new - $pemakaian_old);
+            // $pemakaian_old = 15
+            // $pemakaian_new = 14
+            // $bahanBakustock = 20
 
-            // 9+6 -7
 
             $data = new DetailPemesananBahanBaku();
             $data->where('id', $pengBahanBakuId->id)->update(request()->except(['_token', '_method']));
@@ -240,7 +237,11 @@ class PengunaanBahanBakuController extends Controller
         $pemakaian_old = $bahan_baku->stok;
         $pemakaian_new = floatval($request->jumlah_terpakai);
         $peng_bahan_baku_stock = $peng_bahan_baku->jumlah_terpakai;
-        $laststock = ($pemakaian_new + $pemakaian_old) - $peng_bahan_baku_stock;
+        $laststock = $pemakaian_old - ($pemakaian_new - $peng_bahan_baku_stock);
+        // $pemakaian_old = 20;
+        // $pemakaian_new = 16;
+        // $peng_bahan_baku_stock = 15;
+
         // a = 80 + 140 - 100
 
         $bahanBaku = BahanBaku::findOrFail($request->bahan_baku_id);
