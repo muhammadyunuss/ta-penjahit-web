@@ -146,13 +146,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Panjang Atasan</label>
-                        <input type="number" id="panjang_atasan" name="panjang_atasan" class="form-control" placeholder="Panjang Atasan">
+                        <input type="text" id="panjang_atasan" name="panjang_atasan" class="form-control" placeholder="Panjang Atasan">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Dada</label>
-                        <input type="number" id="lingkar_dada" name="lingkar_dada" class="form-control" placeholder="Lingkar Dada">
+                        <input type="text" id="lingkar_dada" name="lingkar_dada" class="form-control" placeholder="Lingkar Dada">
                     </div>
                 </div>
             </div>
@@ -160,13 +160,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Perut Atasan</label>
-                        <input type="number" id="lingkar_perut_atasan" name="lingkar_perut_atasan" class="form-control" placeholder="Lingkar Pinggang">
+                        <input type="text" id="lingkar_perut_atasan" name="lingkar_perut_atasan" class="form-control" placeholder="Lingkar Pinggang">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Pinggul Atasan</label>
-                        <input type="number" id="lingkar_pinggul_atasan" name="lingkar_pinggul_atasan" class="form-control" placeholder="Lingkar Pinggul">
+                        <input type="text" id="lingkar_pinggul_atasan" name="lingkar_pinggul_atasan" class="form-control" placeholder="Lingkar Pinggul">
                     </div>
                 </div>
             </div>
@@ -174,13 +174,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lebar Bahu</label>
-                        <input type="number" id="lebar_bahu" name="lebar_bahu" class="form-control" placeholder="Lebar Bahu">
+                        <input type="text" id="lebar_bahu" name="lebar_bahu" class="form-control" placeholder="Lebar Bahu">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Panjang Tangan</label>
-                        <input type="number" id="panjang_tangan" name="panjang_tangan" class="form-control" placeholder="Panjang Tangan">
+                        <input type="text" id="panjang_tangan" name="panjang_tangan" class="form-control" placeholder="Panjang Tangan">
                     </div>
                 </div>
 
@@ -189,13 +189,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Siku</label>
-                        <input type="number" id="lingkar_siku" name="lingkar_siku" class="form-control" placeholder="Lingkar Siku">
+                        <input type="text" id="lingkar_siku" name="lingkar_siku" class="form-control" placeholder="Lingkar Siku">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Pergelangan</label>
-                        <input type="number" id="lingkar_pergelangan" name="lingkar_pergelangan" class="form-control" placeholder="Lingkar Pergelangan">
+                        <input type="text" id="lingkar_pergelangan" name="lingkar_pergelangan" class="form-control" placeholder="Lingkar Pergelangan">
                     </div>
                 </div>
             </div>
@@ -203,7 +203,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Kerah</label>
-                        <input type="number" id="kerah" name="kerah" class="form-control" placeholder="Kerah">
+                        <input type="text" id="kerah" name="kerah" class="form-control" placeholder="Kerah">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -216,7 +216,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Ukuran Celana</label>
-                        <input type="number" id="ukuran_celana" name="ukuran_celana" class="form-control" placeholder="Ukuran Celana">
+                        <input type="text" id="ukuran_celana" name="ukuran_celana" class="form-control" placeholder="Ukuran Celana">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -227,14 +227,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Panjang Celana</label>
-                        <input type="number" id="panjang_celana" name="panjang_celana" class="form-control" placeholder="Panjang Celana">
+                        <input type="text" id="panjang_celana" name="panjang_celana" class="form-control" placeholder="Panjang Celana">
                     </div>
                 </div>
                 <!--/span-->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Perut Celana</label>
-                        <input type="number" id="lingkar_perut_celana" name="lingkar_perut_celana" class="form-control" placeholder="Lingkar Perut Celana">
+                        <input type="text" id="lingkar_perut_celana" name="lingkar_perut_celana" class="form-control" placeholder="Lingkar Perut Celana">
                     </div>
                 </div>
                 <!--/span-->
@@ -244,13 +244,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Pesak</label>
-                        <input type="number" id="pesak" name="pesak" class="form-control" placeholder="Pesak">
+                        <input type="text" id="pesak" name="pesak" class="form-control" placeholder="Pesak">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Pinggul Celana</label>
-                        <input type="number" id="lingkar_pinggul_celana" name="lingkar_pinggul_celana" class="form-control" placeholder="Lingkar Pinggul Celana">
+                        <input type="text" id="lingkar_pinggul_celana" name="lingkar_pinggul_celana" class="form-control" placeholder="Lingkar Pinggul Celana">
                     </div>
                 </div>
             </div>
@@ -259,13 +259,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Paha</label>
-                        <input type="number" id="lingkar_paha" name="lingkar_paha" class="form-control" placeholder="Lingkar Paha">
+                        <input type="text" id="lingkar_paha" name="lingkar_paha" class="form-control" placeholder="Lingkar Paha">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Lutut</label>
-                        <input type="number" id="lingkar_lutut" name="lingkar_lutut" class="form-control" placeholder="Lingkar Lutut">
+                        <input type="text" id="lingkar_lutut" name="lingkar_lutut" class="form-control" placeholder="Lingkar Lutut">
                     </div>
                 </div>
             </div>
@@ -273,7 +273,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Bawah</label>
-                        <input type="number" id="lingkar_bawah" name="lingkar_bawah" class="form-control" placeholder="Lingkar Bawah">
+                        <input type="text" id="lingkar_bawah" name="lingkar_bawah" class="form-control" placeholder="Lingkar Bawah">
                     </div>
                 </div>
             </div>
@@ -331,5 +331,158 @@
         }
     });
    });
+
+   $( "#panjang_atasan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_dada" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_perut_atasan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_pinggul_atasan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lebar_bahu" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#panjang_tangan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_siku" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_pergelangan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#kerah" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#ukuran_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#panjang_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_perut_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#pesak" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_pinggul_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_paha" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_lutut" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_bawah" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
 </script>
 @stop

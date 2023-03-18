@@ -43,7 +43,7 @@
     <thead>
         <tr>
         <!-- <th>ID</th> -->
-        <th>Tanggal</th>
+        <th>Estimasi Selesai</th>
         <th>Pelanggan</th>
         <th>Total</th>
         <th>Status Pembayaran</th>

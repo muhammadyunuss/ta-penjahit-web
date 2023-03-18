@@ -24,7 +24,7 @@
 <div class="invoice">
     <div class="row invoice-logo">
         <div class="col-xs-6 invoice-logo-space">
-            <img src="{{ asset('assets/img/invoice/invoice.png')}}" alt=""/>
+            <img src="{{ asset('assets/img/invoice/atamslogo.jpg')}} " width=500px alt=""/>
         </div>
         <div class="col-xs-6">
 

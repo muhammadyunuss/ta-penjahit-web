@@ -34,6 +34,7 @@ class DaftarPengirimanController extends Controller
                 'pelanggan.nama_pelanggan',
                 'pelanggan.alamat as alamat_pelanggan',
                 'model.nama_model as nama_model',
+                'detail_pemesanan_model.nama_model_detail as nama_model_detail',
                 'jenis_model.nama_jenismodel as nama_jenismodel',
                 'jasa_ekspedisi.jasa_ekspedisi'
             )
@@ -67,6 +68,7 @@ class DaftarPengirimanController extends Controller
             'pemesanan.*',
             'pelanggan.nama_pelanggan'
         )
+        ->where('status_pembayaran','Lunas')
         ->get();
         return view('daftar-pengiriman.create',compact('jasaEkspedisi', 'pemesanan', 'jasaEkspedisi'));
     }

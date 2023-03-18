@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Transaksi
+    Transaksi Pemesanan
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -71,7 +71,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <p class="control-label">Model : {{ $dataModelDetail->nama_model }}</p>
-                        <p class="control-label">Jenis Model : {{ $dataModelDetail->nama_jenismodel }}</p>
+                        <p class="control-label">Nama Detail Model : {{ $dataModelDetail->nama_model_detail }}</p>
                         <p class="control-label">Deskripsi : {{ $dataModelDetail->deskripsi_pemesanan }}</p>
                     </div>
                 </div>
@@ -97,7 +97,8 @@
         <div class="form-body">
             <h4 class="control-label"><strong>Ukuran Badan</strong></h4>
             <input type="hidden" name="pemesanan_id" id="pemesanan_id" value="{{ $dataModelDetail->pemesanan_id }}">
-            <input type="hidden" name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" value="{{ $detailUkuran->detail_pemesanan_model_id }}">
+           <!-- <input type="hidden" name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" value="{{ $detailUkuran->detail_pemesanan_model_id }}">!-->
+            <input type="hidden" name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" value="{{ $detailUkuran->id }}">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -145,13 +146,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Panjang Atasan</label>
-                        <input type="number" id="panjang_atasan" name="panjang_atasan" class="form-control" value="{{ $detailUkuran->panjang_atasan }}" placeholder="Panjang Atasan">
+                        <input type="text" id="panjang_atasan" name="panjang_atasan" class="form-control" value="{{ $detailUkuran->panjang_atasan }}" placeholder="Panjang Atasan">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Perut Atasan</label>
-                        <input type="number" id="lingkar_perut_atasan" name="lingkar_perut_atasan" class="form-control" value="{{ $detailUkuran->lingkar_perut_atasan }}" placeholder="Lingkar Pinggang">
+                        <input type="text" id="lingkar_perut_atasan" name="lingkar_perut_atasan" class="form-control" value="{{ $detailUkuran->lingkar_perut_atasan }}" placeholder="Lingkar Pinggang">
                     </div>
                 </div>
             </div>
@@ -159,13 +160,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Dada</label>
-                        <input type="number" id="lingkar_dada" name="lingkar_dada" class="form-control" value="{{ $detailUkuran->lingkar_dada }}" placeholder="Lingkar Dada">
+                        <input type="text" id="lingkar_dada" name="lingkar_dada" class="form-control" value="{{ $detailUkuran->lingkar_dada }}" placeholder="Lingkar Dada">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lebar Bahu</label>
-                        <input type="number" id="lebar_bahu" name="lebar_bahu" class="form-control" value="{{ $detailUkuran->lebar_bahu }}" placeholder="Lebar Bahu">
+                        <input type="text" id="lebar_bahu" name="lebar_bahu" class="form-control" value="{{ $detailUkuran->lebar_bahu }}" placeholder="Lebar Bahu">
                     </div>
                 </div>
             </div>
@@ -173,13 +174,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Panjang Tangan</label>
-                        <input type="number" id="panjang_tangan" name="panjang_tangan" class="form-control" value="{{ $detailUkuran->panjang_tangan }}" placeholder="Panjang Tangan">
+                        <input type="text" id="panjang_tangan" name="panjang_tangan" class="form-control" value="{{ $detailUkuran->panjang_tangan }}" placeholder="Panjang Tangan">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Pinggul Atasan</label>
-                        <input type="number" id="lingkar_pinggul_atasan" name="lingkar_pinggul_atasan" class="form-control" value="{{ $detailUkuran->lingkar_pinggul_atasan }}" placeholder="Lingkar Pinggul">
+                        <input type="text" id="lingkar_pinggul_atasan" name="lingkar_pinggul_atasan" class="form-control" value="{{ $detailUkuran->lingkar_pinggul_atasan }}" placeholder="Lingkar Pinggul">
                     </div>
                 </div>
             </div>
@@ -187,13 +188,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Siku</label>
-                        <input type="number" id="lingkar_siku" name="lingkar_siku" class="form-control" value="{{ $detailUkuran->lingkar_siku }}" placeholder="Lingkar Siku">
+                        <input type="text" id="lingkar_siku" name="lingkar_siku" class="form-control" value="{{ $detailUkuran->lingkar_siku }}" placeholder="Lingkar Siku">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Pergelangan</label>
-                        <input type="number" id="lingkar_pergelangan" name="lingkar_pergelangan" class="form-control" value="{{ $detailUkuran->lingkar_pergelangan }}" placeholder="Lingkar Pergelangan">
+                        <input type="text" id="lingkar_pergelangan" name="lingkar_pergelangan" class="form-control" value="{{ $detailUkuran->lingkar_pergelangan }}" placeholder="Lingkar Pergelangan">
                     </div>
                 </div>
             </div>
@@ -201,7 +202,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Kerah</label>
-                        <input type="number" id="kerah" name="kerah" class="form-control" value="{{ $detailUkuran->kerah }}" placeholder="Kerah">
+                        <input type="text" id="kerah" name="kerah" class="form-control" value="{{ $detailUkuran->kerah }}" placeholder="Kerah">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -214,7 +215,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Ukuran Celana</label>
-                        <input type="number" id="ukuran_celana" name="ukuran_celana" class="form-control" value="{{ $detailUkuran->ukuran_celana }}" placeholder="Ukuran Celana">
+                        <input type="text" id="ukuran_celana" name="ukuran_celana" class="form-control" value="{{ $detailUkuran->ukuran_celana }}" placeholder="Ukuran Celana">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -225,14 +226,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Panjang Celana</label>
-                        <input type="number" id="panjang_celana" name="panjang_celana" class="form-control" value="{{ $detailUkuran->panjang_celana }}" placeholder="Panjang Celana">
+                        <input type="text" id="panjang_celana" name="panjang_celana" class="form-control" value="{{ $detailUkuran->panjang_celana }}" placeholder="Panjang Celana">
                     </div>
                 </div>
                 <!--/span-->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Perut Celana</label>
-                        <input type="number" id="lingkar_perut_celana" name="lingkar_perut_celana" class="form-control" value="{{ $detailUkuran->lingkar_perut_celana }}" placeholder="Lingkar Perut Celana">
+                        <input type="text" id="lingkar_perut_celana" name="lingkar_perut_celana" class="form-control" value="{{ $detailUkuran->lingkar_perut_celana }}" placeholder="Lingkar Perut Celana">
                     </div>
                 </div>
                 <!--/span-->
@@ -242,13 +243,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Pesak</label>
-                        <input type="number" id="pesak" name="pesak" class="form-control" value="{{ $detailUkuran->pesak }}" placeholder="Pesak">
+                        <input type="text" id="pesak" name="pesak" class="form-control" value="{{ $detailUkuran->pesak }}" placeholder="Pesak">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Pinggul Celana</label>
-                        <input type="number" id="lingkar_pinggul_celana" name="lingkar_pinggul_celana" class="form-control" value="{{ $detailUkuran->lingkar_pinggul_celana }}" placeholder="Lingkar Pinggul Celana">
+                        <input type="text" id="lingkar_pinggul_celana" name="lingkar_pinggul_celana" class="form-control" value="{{ $detailUkuran->lingkar_pinggul_celana }}" placeholder="Lingkar Pinggul Celana">
                     </div>
                 </div>
             </div>
@@ -257,13 +258,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Paha</label>
-                        <input type="number" id="lingkar_paha" name="lingkar_paha" class="form-control" value="{{ $detailUkuran->lingkar_paha }}" placeholder="Lingkar Paha">
+                        <input type="text" id="lingkar_paha" name="lingkar_paha" class="form-control" value="{{ $detailUkuran->lingkar_paha }}" placeholder="Lingkar Paha">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Lutut</label>
-                        <input type="number" id="lingkar_lutut" name="lingkar_lutut" class="form-control" value="{{ $detailUkuran->lingkar_lutut }}" placeholder="Lingkar Lutut">
+                        <input type="text" id="lingkar_lutut" name="lingkar_lutut" class="form-control" value="{{ $detailUkuran->lingkar_lutut }}" placeholder="Lingkar Lutut">
                     </div>
                 </div>
             </div>
@@ -271,7 +272,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Lingkar Bawah</label>
-                        <input type="number" id="lingkar_bawah" name="lingkar_bawah" class="form-control" value="{{ $detailUkuran->lingkar_bawah }}" placeholder="Lingkar Bawah">
+                        <input type="text" id="lingkar_bawah" name="lingkar_bawah" class="form-control" value="{{ $detailUkuran->lingkar_bawah }}" placeholder="Lingkar Bawah">
                     </div>
                 </div>
             </div>
@@ -329,5 +330,158 @@
         }
     });
    });
+
+   $( "#panjang_atasan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_dada" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_perut_atasan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_pinggul_atasan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lebar_bahu" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#panjang_tangan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_siku" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_pergelangan" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#kerah" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#ukuran_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#panjang_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_perut_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#pesak" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_pinggul_celana" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_paha" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_lutut" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
+
+    $( "#lingkar_bawah" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+    });
 </script>
 @stop

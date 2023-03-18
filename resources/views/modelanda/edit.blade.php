@@ -62,14 +62,14 @@
 					</div>
 					<div class="form-group">
 						<label for="ongkos_jahit">Ongkos Jahit</label> (Rp)
-						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit', $data->ongkos_jahit) }}"  placeholder="Isikan harga model Pakaian" min="0" required>
+						<input type="number" class="form-control @error('ongkos_jahit') is-invalid @enderror" name="ongkos_jahit" value="{{ old('ongkos_jahit', $data->ongkos_jahit) }}"  placeholder="Isikan harga model Pakaian" min="0">
 						@error('ongkos_jahit')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div>
 					<div class="form-group">
 						<label for="deskripsi_model">Deskripsi</label>
-						<textarea required class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Pakaian" rows="3">{{ old('deskripsi_model', $data->deskripsi_model) }}</textarea>
+						<textarea class="form-control @error('deskripsi_model') is-invalid @enderror" name="deskripsi_model" placeholder="Isikan deskripsi model Pakaian" rows="3">{{ old('deskripsi_model', $data->deskripsi_model) }}</textarea>
 					</div>
                     <!-- <div class="form-group">
                         <label for="tampilModel">Tampilkan Model pada Konsumen</label> <br>

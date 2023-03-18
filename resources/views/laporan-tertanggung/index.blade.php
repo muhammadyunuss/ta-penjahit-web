@@ -40,8 +40,9 @@
         <tr>
         <!-- <th>ID</th> -->
         <th>Pelanggan</th>
-        <th>Estimasi Selesai</th>
+        <th>Estimasi Pemesanan Selesai</th>
         <th>Model</th>
+        <th>Detil Nama Model</th>
         <th>Jumlah</th>
         <th>Realisasi</th>
         </tr>
@@ -51,8 +52,9 @@
         <?php $total=0 ?>
         <tr>
             <td>{{ $d->nama_pelanggan }}</td>
-            <td>{{ $d->realisasi_tanggal_selesai }}</td>
+            <td>{{ $d->tanggal_selesai }}</td>
             <td>{{ $d->nama_model }}</td>
+            <td>{{ $d->nama_model_detail }}</td>
             <td>{{ $d->jumlah }}</td>
             <td>{{ $d->nama_prosesproduksi }}</td>
         </tr>

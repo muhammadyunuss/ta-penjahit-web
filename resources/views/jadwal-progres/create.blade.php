@@ -54,10 +54,10 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="user_id" class="col-md-4 col-form-label">Nama Kepala Penjahit</label>
+                        <label for="user_id" class="col-md-4 col-form-label">Nama Penanggung Jawab</label>
                         <div class="col-md-12">
                             <select name="user_id" id="user_id" data-with="100%" class="form-control @error('kepala_penjahit') is-invalid @enderror" required>
-                                <option value="">Pilih Kepala Penjahit</option>
+                                <option value="">Pilih Penanggung Jawab</option>
                                 @foreach($user as $p)
                                     <option value="{{ $p->id }}" {{ old('kepala_penjahit') == $p->name ? 'selected' : null }}><b>{{ $p->name }}</b></option>
                                 @endforeach

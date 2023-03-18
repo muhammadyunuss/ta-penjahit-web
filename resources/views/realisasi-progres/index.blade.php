@@ -52,10 +52,10 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label">Nama Pemesanan</label>
             <div class="col-md-10">
-                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
+                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control select2me @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->pemesanan_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->pemesanan_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{ $p->nama_model_detail }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -119,16 +119,17 @@
 //   console.log(user);
 </script>
 <script>
+    // https://datatables.net/examples/api/row_details.html
     /* Formatting function for row details - modify as you need */
     function format(d) {
         // `d` is the original data object for the row
         var flagsUrl = '{{ URL::asset('/upload_image/foto_realisasi/') }}';
         return (
             '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-            '<tr>' +
-            '<td>Nama Penjahit : </td>' +
-            '<td>' + d.nama_penjahit + '</td>' +
-            '</tr>' +
+            // '<tr>' +
+            // '<td>Nama Penjahit : </td>' +
+            // '<td>' + d.nama_penjahit + '</td>' +
+            // '</tr>' +
 
             '<tr>' +
             '<td>Tanggal Mulai : </td>' +
@@ -178,16 +179,25 @@
                     var urldel = "{{ route('realisasi-progres.destroy', ':id') }}";
                     url = url.replace(':id', id);
                     urldel = urldel.replace(':id', id);
-                    if(user == 'Admin' || user == 'Kepala' || user == 'Finishing'){
-                        data = `<a href="https://wa.me/62${row.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
+                    if(user == 'Admin'){
+                        data = `<a href="https://wa.me/62${row.no_telepon}?text=Progres%20pesanan%20Anda,%20sampai%20pada%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
                         `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
                         `<form method="POST" action="${urldel}">
                             @method('DELETE')
                             @csrf
                             <input class="btn btn-danger" type="SUBMIT" value="Hapus"
-                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data realisasi progres?')) {return false;}">
                         </form>`;
-                    }else{
+                    }else if(user == 'Kepala' || user == 'Finishing'){
+                        data = `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
+                        `<form method="POST" action="${urldel}">
+                            @method('DELETE')
+                            @csrf
+                            <input class="btn btn-danger" type="SUBMIT" value="Hapus"
+                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data realisasi progres?')) {return false;}">
+                        </form>`;
+                    }
+                    else{
                         data= ``;
                     }
 
@@ -200,7 +210,7 @@
         // $('#sample_3').DataTable().ajax.reload();
 
 
-        // Add event listener for opening and closing details
+        // Add event listener for opening and closing details -- selectors
         $('#sample_3 tbody').on('click', 'td.dt-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
@@ -247,16 +257,25 @@ $('#s_pemesanan_id').change(function(){
                     var urldel = "{{ route('realisasi-progres.destroy', ':id') }}";
                     url = url.replace(':id', id);
                     urldel = urldel.replace(':id', id);
-                    if(user == 'Admin' || user == 'Kepala' || user == 'Finishing'){
-                        data = `<a href="https://wa.me/62${row.no_telepon}?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
+                    if(user == 'Admin'){
+                        data = `<a href="https://wa.me/62${row.no_telepon}?text=Progres%20pesanan%20Anda,%20sampai%20pada%20${row.nama_prosesproduksi}" class="btn btn-primary" target="_blank">Pemberitahuan</a>`+
                         `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
                         `<form method="POST" action="${urldel}">
                             @method('DELETE')
                             @csrf
                             <input class="btn btn-danger" type="SUBMIT" value="Hapus"
-                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data realisasi progres?')) {return false;}">
                         </form>`;
-                    }else{
+                    }else if(user == 'Kepala' || user == 'Finishing'){
+                        data = `<a href="${url}" class="btn btn-success" style="margin-left: 12px;">Ubah</a>`+
+                        `<form method="POST" action="${urldel}">
+                            @method('DELETE')
+                            @csrf
+                            <input class="btn btn-danger" type="SUBMIT" value="Hapus"
+                            onclick="if(!confirm('Apakah Anda yakin akan menghapus data realisasi progres?')) {return false;}">
+                        </form>`;
+                    }
+                    else{
                         data= ``;
                     }
 
@@ -269,7 +288,7 @@ $('#s_pemesanan_id').change(function(){
         // $('#sample_3').DataTable().ajax.reload();
 
 
-        // Add event listener for opening and closing details
+        // Add event listener for opening and closing details -- selectors
         $('#sample_3 tbody').on('click', 'td.dt-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);

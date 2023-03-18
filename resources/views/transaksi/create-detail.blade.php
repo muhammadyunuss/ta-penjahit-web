@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Transaksi
+    Transaksi Pemesanan
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">

@@ -109,7 +109,7 @@ class RealisasiProgresController extends Controller
 
         RealisasiProgres::create($data);
 
-        return redirect()->route('realisasi-progres.index')->with('status','Data model Anda berhasil ditambah');
+        return redirect()->route('realisasi-progres.index')->with('status','Data realisasi progres berhasil ditambah');
     }
 
     public function show(RealisasiProgres $modelAnda)
@@ -148,7 +148,7 @@ class RealisasiProgresController extends Controller
         //     'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         // ]);
 
-        $data = request()->except(['_token', '_method', 'detail_pemesanan_model_id']);
+        $data = request()->except(['_token', '_method', 'detail_pemesanan_model_id', 'perencanaan_produksi_id']);
 
         if ($image = $request->file('foto')) {
             $destinationPath = 'upload_image/foto_realisasi/';
@@ -161,7 +161,7 @@ class RealisasiProgresController extends Controller
         }
 
         RealisasiProgres::where('id', $id)->update($data);
-        return redirect()->route('realisasi-progres.index')->with('status','Data model Anda berhasil diubah');
+        return redirect()->route('realisasi-progres.index')->with('status','Data realisasi progres berhasil diubah');
 
     }
 

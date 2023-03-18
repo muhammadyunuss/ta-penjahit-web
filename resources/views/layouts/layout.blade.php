@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Penjahit</title>
+<title>Atam's Tailor & Textile</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
@@ -46,6 +46,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{ asset('assets/css/pages/tasks.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/css/themes/default.css')}}" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="{{ asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.css')}}"/>
 <!-- END THEME STYLES -->
 @yield('styles')
 <link rel="shortcut icon" href="favicon.ico"/>
@@ -85,7 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN FOOTER -->
 <div class="footer">
 	<div class="footer-inner">
-		 {{ date('Y') }} &copy; M.Y
+		 {{ date('Y') }} &copy; 
 	</div>
 	<div class="footer-tools">
 		<span class="go-top">

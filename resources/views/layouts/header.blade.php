@@ -1,15 +1,15 @@
 <!-- BEGIN LOGO -->
 <div class="page-logo">
     <a href="index.html">
-        <img src="{{asset('assets/img/logo.png')}}" alt="logo"/>
+        <img src="{{asset('assets/img/atamslogo5.png')}}" height=32px alt="logo"/>
     </a>
 </div>
-<form class="search-form search-form-header" role="form" action="index.html">
+<!-- <form class="search-form search-form-header" role="form" action="index.html">
     <div class="input-icon right">
         <i class="icon-magnifier"></i>
         <input type="text" class="form-control input-sm" name="query" placeholder="Search...">
     </div>
-</form>
+</form> -->
 <!-- END LOGO -->
 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
 <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -361,7 +361,7 @@
     <!-- BEGIN USER LOGIN DROPDOWN -->
     <li class="dropdown user">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-        <img alt="" src="{{asset('assets/img/avatar3_small.jpg')}}"/>
+        <!-- <img alt="" src="{{asset('assets/img/avatar3_small.jpg')}}"/> -->
         <span class="username username-hide-on-mobile">{{ Auth::user()->name }} </span>
         <i class="fa fa-angle-down"></i>
         </a>

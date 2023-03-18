@@ -13,6 +13,8 @@ use App\Repository\ViewRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+date_default_timezone_set('Asia/Jakarta');
+
 class TransaksiController extends Controller
 {
     /**
@@ -350,7 +352,7 @@ class TransaksiController extends Controller
 
     public function updateDetailUkuran(Request $request)
     {
-        DetailPemesananUkuran::where('id', $request->detail_pemesanan_model_id)->update($request->except(['_token', 'pemesanan_id']));
+        DetailPemesananUkuran::where('id', $request->detail_pemesanan_model_id)->update($request->except(['_token', 'pemesanan_id', 'detail_pemesanan_model_id']));
 
         if($request){
             return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['success' => 'Data Berhasil Diupdate!']);

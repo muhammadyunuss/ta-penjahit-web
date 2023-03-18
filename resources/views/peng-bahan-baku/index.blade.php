@@ -41,10 +41,10 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label">Nama Pemesanan</label>
             <div class="col-md-10">
-                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
+                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control select2me @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->detail_pemesanan_model_id }}" {{ old('s_pemesanan_id', $id) == $p->detail_pemesanan_model_id ? 'selected' : null }}>Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{ $p->nama_model_detail }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -74,7 +74,7 @@
 <tbody>
     @foreach($data as $d)
     <tr>
-    <td>{{ $d->nama_bahanbaku }}</td>
+    <td>{{ $d->kode_bahan_baku }} - {{ $d->nama_bahanbaku }}</td>
     <td>{{ $d->jumlah_terpakai }}</td>
     {{-- <td>{{ $d->stok }} {{ $d->satuan }}</td> --}}
     @if (auth()->user()->previledge == "Admin" || auth()->user()->previledge == "Kepala" || auth()->user()->previledge == "Finishing")
@@ -88,7 +88,7 @@
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data penggunaan bahan baku?')) {return false;}">
                 </form>
             </li>
         </ul>

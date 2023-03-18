@@ -70,7 +70,7 @@
                             <select name="bahan_baku_id" id="bahan_baku_id" data-with="100%" class="form-control @error('bahan_baku_id') is-invalid @enderror" required>
                                 <option value="">Pilih Bahan Baku</option>
                                 @foreach($bahanBaku as $p)
-                                    <option value="{{ $p->id }}" {{ old('bahan_baku_id') == $p->id ? 'selected' : null }}>{{ $p->nama_bahanbaku }}</option>
+                                    <option value="{{ $p->id }}" {{ old('bahan_baku_id') == $p->id ? 'selected' : null }}>{{ $p->kode_bahan_baku }} - {{ $p->nama_bahanbaku }}</option>
                                 @endforeach
                             </select>
                             @error('bahan_baku_id')
@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label for="jumlah_terpakai">Jumlah Pemakaian</label>
                         <div>
-                            <input type="number" class="form-control @error('jumlah_terpakai') is-invalid @enderror" id="jumlah_terpakai" name="jumlah_terpakai" placeholder="Jumlah Pemakaian" value="{{ old('jumlah_terpakai') }}" required min="0">
+                            <input type="text" class="form-control @error('jumlah_terpakai') is-invalid @enderror" id="jumlah_terpakai" name="jumlah_terpakai" placeholder="Jumlah Pemakaian" value="{{ old('jumlah_terpakai') }}" required min="0">
                             <div id="keterangan_jumlah"></div>
                         </div>
                     </div>
@@ -121,6 +121,16 @@
             return false;
         });
 
+
+        $( "#jumlah_terpakai" ).keyup(function() {
+            var regex = /[^\d.]|\.(?=.*\.)/g;
+            var subst = "";
+
+            var str    = $(this).val();
+            var result = str.replace(regex, subst);
+            $(this).val(result);
+        });
+
         $('#bahan_baku_id').change(function(e){
             let id=$(this).val();
             $.ajax({
@@ -132,6 +142,13 @@
                     console.log(data.stok);
                     $('#keterangan_jumlah').append('<p>'+data.satuan+'</p>');
                     $( "#jumlah_terpakai" ).keyup(function() {
+                        var regex = /[^\d.]|\.(?=.*\.)/g;
+                        var subst = "";
+
+                        var str    = $(this).val();
+                        var result = str.replace(regex, subst);
+                        $(this).val(result);
+
                         let jumlah=$(this).val();
                         if(jumlah > data.stok){
                             $("#notification").fadeIn("slow").html('<p style="color:red;">Mohon maaf pemakaian bahan baku melebihi jumlah <b>'+data.stok+'</b> stok sediaan bahan baku dan tidak bisa tersimpan, stok anda akan minus</p>');
@@ -139,7 +156,7 @@
                         }else{
                             $("#notification").fadeOut("slow").html('<p style="color:green;">Stok sudah aman</p>');
                             $(".tombolsimpan").prop('disabled', false);
-                        }
+                        } 
                     });
 
                 }

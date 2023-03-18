@@ -102,10 +102,11 @@ class TransaksiBahanBakuController extends Controller
         ->where('id', $request->bahan_baku_id)
         ->first();
 
-        $pemakaian_old = $bahanBaku->stok;
-        $pemakaian_new = floatval($request->jumlah);
+        $pemakaian_old = $bahanBaku->stok; // stok lama di master bahan baku
+        $pemakaian_new = floatval($request->jumlah); // stok baru
         $laststock = ($pemakaian_old + $pemakaian_new);
 
+        // update stok dan harga
         $bahanBaku = BahanBaku::findOrFail($bahanBaku->id);
         $bahanBaku->update([
             'stok'     => $laststock
@@ -144,6 +145,7 @@ class TransaksiBahanBakuController extends Controller
         ->where('detail_pembelian_bahanbaku.pembelian_bahanbaku_id', $id)
         ->select(
             'detail_pembelian_bahanbaku.*',
+            'bahan_baku.kode_bahan_baku as kode_bahan_baku',
             'bahan_baku.nama_bahanbaku as nama_bahan_baku',
         )
         ->get();
@@ -211,14 +213,24 @@ class TransaksiBahanBakuController extends Controller
             ->where('id', $id)
             ->first();
 
-        $pemakaian_old = $bahan_baku->stok;
-        $pemakaian_new = floatval($request->jumlah);
-        $peng_bahan_baku_stock = $peng_bahan_baku->jumlah;
+           
+
+        $pemakaian_old = $bahan_baku->stok; // stok pada master = 15
+        $pemakaian_new = floatval($request->jumlah); // jumlah baru = 5
+        $peng_bahan_baku_stock = $peng_bahan_baku->jumlah; // jumlah lama = 3
         $laststock = ($pemakaian_new + $pemakaian_old) - $peng_bahan_baku_stock;
 
+        //
+        // jml bahan baku = 10
+
+        // ambil data harga beli terakhir
+        $harga_beli_new = $request->harga_beli;
+
+        // update stok dan harga
         $bahanBaku = BahanBaku::findOrFail($request->bahan_baku_id);
             $bahanBaku->update([
-                'stok'     => $laststock
+                'stok'     => $laststock,
+                'harga_beli'     => $harga_beli_new,
             ]);
 
         DetailTransaksiBahanBaku::where('id', $id)->update(request()->except(['_token','pembelian_bahanbaku_id','_method']));
@@ -269,6 +281,7 @@ class TransaksiBahanBakuController extends Controller
             'bahan_baku.nama_bahanbaku as nama_bahan_baku',
         )
         ->get();
+        // SELECT * FROM `detail_pembelian_bahanbaku` JOIN bahan_baku ON detail_pembelian_bahanbaku.bahan_baku_id=bahan_baku.id WHERE detail_pembelian_bahanbaku.bahan_baku_id=6 AND detail_pembelian_bahanbaku.id=13;
 
         foreach ($dataDetail as $d){
             $bahanBaku = BahanBaku::findOrFail($d->bahan_baku_id);
@@ -281,6 +294,6 @@ class TransaksiBahanBakuController extends Controller
         DB::table('pembelian_bahanbaku')->where('id', $id)->delete();
         DB::table('detail_pembelian_bahanbaku')->where('pembelian_bahanbaku_id', $id)->delete();
 
-        return redirect()->back()->with(['success' => 'Data Berhasil Diupdate!']);
+        return redirect()->back()->with(['error' => 'Data Berhasil Dihapus!']);
     }
 }

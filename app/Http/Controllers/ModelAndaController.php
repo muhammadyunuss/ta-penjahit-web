@@ -119,6 +119,6 @@ class ModelAndaController extends Controller
     public function destroy($id)
     {
         ModelAnda::where('id', $id)->delete();
-        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->back()->with(['statushapus' => 'Data Berhasil Dihapus!']);
     }
 }

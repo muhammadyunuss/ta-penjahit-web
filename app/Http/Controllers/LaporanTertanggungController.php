@@ -12,8 +12,8 @@ class LaporanTertanggungController extends Controller
     {
         $id_penjahit = auth()->user()->id_penjahit;
         $data = DB::table('pemesanan')
-        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
-        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
+        ->leftjoin('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
+        ->leftjoin('penjahit','pemesanan.penjahit_id', 'penjahit.id')
         ->select(
             'pemesanan.*',
             'pelanggan.nama_pelanggan as nama_pelanggan',
@@ -22,9 +22,10 @@ class LaporanTertanggungController extends Controller
         ->get();
 
         $bahanBaku = DB::table('bahan_baku')->get();
-        $viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit);
+        //$viewTanggunanPesanan = ViewRepository::view_tanggungan_pesanan()->where('penjahit_id', $id_penjahit);
         $view_laporan_daftar_tpj = ViewRepository::view_laporan_daftar_tanggungan_produksi_jahit2($id_penjahit);
 
-        return view('laporan-tertanggung.index',compact('data','bahanBaku', 'viewTanggunanPesanan', 'view_laporan_daftar_tpj'));
+        //return view('laporan-tertanggung.index',compact('data','bahanBaku', 'viewTanggunanPesanan', 'view_laporan_daftar_tpj'));
+        return view('laporan-tertanggung.index',compact('data','bahanBaku', 'view_laporan_daftar_tpj'));
     }
 }

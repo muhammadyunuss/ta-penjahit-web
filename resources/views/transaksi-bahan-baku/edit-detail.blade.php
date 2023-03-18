@@ -78,7 +78,7 @@
                             <select class="select2_category form-control" name="bahan_baku_id" id="bahan_baku_id" tabindex="1" required>
                                 <option value="">Pilih</option>
                                 @foreach ($dataBahanBaku as $bahan)
-                                <option value="{{ $bahan->id }}" {{ old('bahan_baku_id', $bahan->id ) == $dataDetail->bahan_baku_id ? 'selected' : null }}>{{ $bahan->nama_bahanbaku }}</option>
+                                <option value="{{ $bahan->id }}" {{ old('bahan_baku_id', $bahan->id ) == $dataDetail->bahan_baku_id ? 'selected' : null }}>{{ $bahan->kode_bahan_baku }} - {{ $bahan->nama_bahanbaku }}</option>
                                     {{-- <option value="{{ $bahan->id }}">{{ $bahan->nama_bahanbaku }}</option> --}}
                                 @endforeach
                             </select>
@@ -95,7 +95,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Jumlah</label>
-                            <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Jumlah" value="{{  $dataDetail->jumlah }}" required>
+                            <input type="text" id="jumlah" name="jumlah" class="form-control" placeholder="Jumlah" value="{{  $dataDetail->jumlah }}" required>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -143,9 +143,16 @@
         });
 
     $( "#jumlah" ).keyup(function() {
+        var regex = /[^\d.]|\.(?=.*\.)/g;
+        var subst = "";
+
+        var str    = $(this).val();
+        var result = str.replace(regex, subst);
+        $(this).val(result);
+
         let jumlah = $(this).val();
         let harga_beli = document.getElementById("harga_beli").value;
-        let total = parseInt(jumlah) * parseInt(harga_beli);
+        let total = parseFloat(jumlah) * parseFloat(harga_beli);
         let subtotal = document.getElementById("subtotal").value = total;
 
     });
@@ -153,9 +160,13 @@
     $( "#harga_beli" ).keyup(function() {
         let harga_beli = $(this).val();
         let jumlah = document.getElementById("jumlah").value;
-        let total = parseInt(jumlah) * parseInt(harga_beli);
+        let total = parseFloat(jumlah) * parseFloat(harga_beli);
         let subtotal = document.getElementById("subtotal").value = total;
 
     });
+
+
+   
+
 </script>
 @stop

@@ -88,7 +88,7 @@
 <!-- END BEGIN STYLE CUSTOMIZER -->
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-Dashboard <small>statistics and more</small>
+Dashboard
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -150,7 +150,7 @@ Dashboard <small>statistics and more</small>
         <div class="stats-overview stat-block">
             <div class="details">
                 <div class="title">
-                     Pengiriman Telah Di Kirim
+                     Total Pengiriman
                 </div>
                 <div class="numbers">
                     {{ $jumlah_pesanan_telah_dikirim }}
@@ -175,11 +175,12 @@ Dashboard <small>statistics and more</small>
 <div class="clearfix">
 </div>
 <div class="col-md-6 col-sm-4">
+    <h3>Kain yang harus dibeli</h3>
     <table class="table" id="example" class="display">
         <thead>
             <tr>
             <th>Nama Bahan Baku</th>
-            <th>Stok</th>
+            <th>Sisa Stok</th>
             </tr>
         </thead>
         <tbody>

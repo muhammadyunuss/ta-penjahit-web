@@ -40,7 +40,7 @@ class PelangganController extends Controller
         Pelanggan::create($request->all());
 
         if($request){
-            return redirect()->route('pelanggan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('pelanggan.index')->with(['status' => 'Data Berhasil Disimpan!']);
         }else{
             return redirect()->route('pelanggan.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
@@ -80,7 +80,7 @@ class PelangganController extends Controller
         $pelanggan->update($request->all());
 
         if($pelanggan){
-            return redirect()->route('pelanggan.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('pelanggan.index')->with(['status' => 'Data Berhasil Diupdate!']);
         }else{
             return redirect()->route('pelanggan.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
@@ -97,7 +97,7 @@ class PelangganController extends Controller
         $pelanggan->delete();
 
         if($pelanggan){
-            return redirect()->route('pelanggan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+            return redirect()->route('pelanggan.index')->with(['statushapus' => 'Data Berhasil Dihapus!']);
         }else{
             return redirect()->route('pelanggan.index')->with(['error' => 'Data Gagal Dihapus!']);
         }

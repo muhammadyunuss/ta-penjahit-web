@@ -50,10 +50,10 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label">Nama Pemesanan</label>
             <div class="col-md-10">
-                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control @error('s_pemesanan_id') is-invalid @enderror">
+                <select name="s_pemesanan_id" id="s_pemesanan_id" data-with="100%" class="form-control select2me @error('s_pemesanan_id') is-invalid @enderror">
                     <option value="">Pilih Nama Pemesanan</option>
                     @foreach($viewTransaksiPemesanan as $p)
-                        <option value="{{ $p->detail_pemesanan_model_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{-- $p->nama_model_detail --}} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
+                        <option value="{{ $p->pemesanan_id }}">Pelanggan : {{ $p->nama_pelanggan }} | Estimasi Selesai : {{ $p->tanggal }} | Nama Model : {{ $p->nama_model }} | Nama Model Detail : {{ $p->nama_model_detail }} | Jumlah : {{ $p->jumlah }} {{ $p->satuan }}</option>
                     @endforeach
                 </select>
                 @error('s_pemesanan_id')
@@ -71,7 +71,7 @@
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-globe"></i>Realisasi Progres
+                <i class="fa fa-globe"></i>Daftar Pengiriman
             </div>
             <div class="tools">
                 <a href="javascript:;" class="reload">
@@ -89,6 +89,7 @@
                     </th>
                     <th>Nama Pelanggan</th>
                     <th>Nama Model</th>
+                    <th>Nama Detail Model</th>
                     {{-- <th>Jenis Model</th> --}}
                 </tr>
             </thead>
@@ -154,7 +155,7 @@
                 },
                 {data: 'nama_pelanggan', name: 'nama_pelanggan'},
                 {data: 'nama_model', name: 'nama_model'},
-                // {data: 'nama_jenismodel', name: 'nama_jenismodel'},
+                {data: 'nama_model_detail', name: 'nama_model_detail'},
             ],
             order: [[1, 'asc']],
         });
@@ -184,7 +185,7 @@ $('#s_pemesanan_id').change(function(){
     $('#sample_3').DataTable().destroy();
     $('#sample_3').empty();
     let pemesanan_id = $('#s_pemesanan_id').val();
-
+    console.log(pemesanan_id);
     var table = $('#sample_3').DataTable({
             ajax:{
                 url: "{{ route('daftar-pengiriman.index') }}",
@@ -201,7 +202,7 @@ $('#s_pemesanan_id').change(function(){
                 },
                 {data: 'nama_pelanggan', name: 'nama_pelanggan'},
                 {data: 'nama_model', name: 'nama_model'},
-                {data: 'nama_jenismodel', name: 'nama_jenismodel'},
+                {data: 'nama_model_detail', name: 'nama_model_detail'},
             ],
             order: [[1, 'asc']],
         });

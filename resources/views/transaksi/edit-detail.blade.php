@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Edit Detail Transaksi
+    Edit Detail Transaksi Pemesanan
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -103,7 +103,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Stock</label>
+                            <label class="control-label">Qty</label>
                             <input type="number" id="banyaknya" name="banyaknya" class="form-control" placeholder="Stock" value="{{ $dataModelDetail->banyaknya }}" min="0" required>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
 					</div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Nama Model</label>
+                            <label class="control-label">Nama Detail Model</label>
                             <input type="input" id="nama_model_detail" name="nama_model_detail" class="form-control" placeholder="Nama Model" value="{{ $dataModelDetail->nama_model_detail }}" required>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
 
 @section('content')
 <h3 class="page-title">
-    Transaksi
+    Transaksi Pemesanan
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -208,7 +208,7 @@
                                     </li>
                             </td>
                             <td>
-                                +
+                                {{ $detail->jumlah_baju_dengan_ukuran_yg_sama }}
                             </td>
                             <td>
                                 <li>Panjang Atasan : {{ $detail->panjang_atasan }}</li>
@@ -326,12 +326,14 @@
                 <div class="col-md-6">
 
                 </div>
+                @if (auth()->user()->previledge == "Admin")
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Bayar</label>
                         <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar" value="{{ $data->bayar }}">
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         @if (auth()->user()->previledge == "Admin")
@@ -358,10 +360,10 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Bahan Baku</label>
                             <div class="col-md-9">
-                                <select class="form-control input-sm" id="bahan_baku_id" name="bahan_baku_id">
+                                <select class="form-control input-sm" id="bahan_baku_id" name="bahan_baku_id" required>
                                     <option value="">Pilih Bahan Baku</option>
                                     @foreach ($bahanBaku as $bb)
-                                        <option value="{{ $bb->id }}">{{ $bb->nama_bahanbaku }}</option>
+                                        <option value="{{ $bb->id }}">{{ $bb->kode_bahan_baku }} - {{ $bb->nama_bahanbaku }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -369,7 +371,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Pilih Detail Model</label>
                             <div class="col-md-9">
-                                <select class="form-control input-sm" id="detail_pemesanan_model_id" name="detail_pemesanan_model_id">
+                                <select class="form-control input-sm" id="detail_pemesanan_model_id" name="detail_pemesanan_model_id" required>
                                     <option value="">Pilih Pilih Detail Model</option>
                                     @foreach ($dataModelDetail as $bb)
                                         <option value="{{ $bb->id }}">{{ $bb->nama_model }} - {{ $bb->nama_model_detail }}</option>

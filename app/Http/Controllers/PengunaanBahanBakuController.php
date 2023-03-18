@@ -30,6 +30,7 @@ class PengunaanBahanBakuController extends Controller
         $data = $data->whereNotNull('detail_pemesanan_bahanbaku.jumlah_terpakai')
         ->select(
             'detail_pemesanan_bahanbaku.*',
+            'bahan_baku.kode_bahan_baku',
             'bahan_baku.nama_bahanbaku',
             'bahan_baku.stok',
             'bahan_baku.satuan'
@@ -111,14 +112,21 @@ class PengunaanBahanBakuController extends Controller
             ->where('id', $pengBahanBaku->bahan_baku_id)
             ->first();
 
-            $pemakaian_old = $pengBahanBaku->jumlah_terpakai;
-            $pemakaian_new = floatval($request->jumlah_terpakai);
-            $bahanBakustock = $bahanBaku->stok;
+            // floatval=konversi kalkulasi hitungan
+            $pemakaian_old = $pengBahanBaku->jumlah_terpakai; // 3
+            $pemakaian_new = floatval($request->jumlah_terpakai); //6
+            $bahanBakustock = $bahanBaku->stok; // 11
             $laststock = $bahanBakustock - ($pemakaian_new - $pemakaian_old);
-            // $pemakaian_old = 15
-            // $pemakaian_new = 14
-            // $bahanBakustock = 20
+            
+            // STOK MASTER = 11
 
+            // 1. INSERT PEMAKAIAN = 3
+            // ARTINYA : 11-3
+            // MAKA STOK MASTER = 8
+
+            // 2. UBAH PEMAKAIAN = JADI 6
+            // ARTINYA  : 8 - (6-3)
+            // MAKA STOK MASTER = 5
 
             $data = new DetailPemesananBahanBaku();
             $data->where('id', $pengBahanBakuId->id)->update(request()->except(['_token', '_method']));
@@ -202,6 +210,15 @@ class PengunaanBahanBakuController extends Controller
         )
         ->first();
 
+        $detail_pemesanan_model = DetailPemesanan::join('model', 'detail_pemesanan_model.model_id', 'model.id')
+        ->where('detail_pemesanan_model.id', $pengBahanBaku->detail_pemesanan_model_id)
+        ->select(
+            'detail_pemesanan_model.*',
+            'model.nama_model'
+        )
+        ->first();
+        // dd($detail_pemesanan_model);
+
         $pemesanan = DB::table('pemesanan')
         ->join('pelanggan','pemesanan.pelanggan_id','pelanggan.id')
         ->select(
@@ -213,8 +230,7 @@ class PengunaanBahanBakuController extends Controller
         $prosesProduksi = ProsesProduksi::get();
         $bahanBaku = BahanBaku::get();
 
-
-        return view('peng-bahan-baku.edit', compact('pemesanan', 'prosesProduksi', 'bahanBaku', 'pengBahanBaku'));
+        return view('peng-bahan-baku.edit', compact('pemesanan', 'prosesProduksi', 'bahanBaku', 'pengBahanBaku', 'detail_pemesanan_model'));
     }
 
     /**
@@ -267,6 +283,18 @@ class PengunaanBahanBakuController extends Controller
      */
     public function destroy($id)
     {
+        $detail_pemesanan_bahan_baku = DetailPemesananBahanBaku::where('id', $id)->first();
+        $bahan_baku = BahanBaku::where('id', $detail_pemesanan_bahan_baku->bahan_baku_id)->first();
+
+        $pemakaian_old = $bahan_baku->stok;
+        $pemakaian_new = floatval($detail_pemesanan_bahan_baku->jumlah_terpakai);
+        $laststock = $pemakaian_old + $pemakaian_new;
+
+
+        $bahanBaku = BahanBaku::findOrFail($detail_pemesanan_bahan_baku->bahan_baku_id);
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
         DetailPemesananBahanBaku::where('id', $id)->delete();
         return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }

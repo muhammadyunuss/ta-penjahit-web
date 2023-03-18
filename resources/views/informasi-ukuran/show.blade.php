@@ -82,14 +82,14 @@
                             {{ $dataModelDetail->nama_model }}
                         </td>
                     </tr>
-                    {{-- <tr>
+                    <tr>
                         <td>
-                            Jenis Model
+                            Nama Detail Model
                         </td>
                         <td>
-                            {{ $dataModelDetail->nama_jenismodel }}
+                            {{ $dataModelDetail->nama_model_detail }}
                         </td>
-                    </tr> --}}
+                    </tr> 
                     <tr>
                         <td>
                             Jumlah Pakaian dengan ukuran yang sama

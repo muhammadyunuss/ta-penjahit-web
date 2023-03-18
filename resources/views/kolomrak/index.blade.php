@@ -63,7 +63,7 @@
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data supplier dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data kolom rak dan data sediaan bahan baku yang berkaitan?')) {return false;}">
                 </form>
             </li>
         </ul>

@@ -96,7 +96,7 @@
                         @endphp
                         @foreach ($dataDetail as $model)
                         <tr>
-                            <td>{{ $model->nama_bahan_baku }}</td>
+                            <td>{{ $model->kode_bahan_baku }} - {{ $model->nama_bahan_baku }}</td>
                             <td>Rp. {{ number_format($model->harga_beli ,2,',','.') }}</td>
                             <td>{{ $model->jumlah }}</td>
                             <td>Rp. {{ number_format($model->subtotal ,2,',','.') }}</td>
@@ -152,12 +152,20 @@
                 <div class="col-md-6">
 
                 </div>
+                @if (auth()->user()->previledge == "Admin")
+                
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Bayar</label>
+                        @if(isset($data->bayar))
                         <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar" value="{{ $data->bayar }}">
+                        @else
+                        <input type="number" id="bayar" name="bayar" class="form-control" placeholder="Bayar" value="0">
+                        @endif
+
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         @if (auth()->user()->previledge == "Admin")

@@ -61,7 +61,7 @@
                                 <option value="{{ $dp->id }}" {{ old('kolom_rak_id') == $dp->id ? 'selected' : null }}>{{ $dp->nama_rak }} - {{  $dp->nama_kolom }}</option>
                             @endforeach
                         </select>
-                        @error('supplier_id')
+                        @error('kolom_rak_id')
                             <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                         @enderror
 					</div><br>

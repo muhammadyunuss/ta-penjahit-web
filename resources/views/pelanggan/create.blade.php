@@ -41,7 +41,7 @@
 				<div class="form-body">
                     <div class="form-group">
 						<label for="nama_pelanggan">Nama</label>
-						<input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror" name="nama_pelanggan" value="{{ old('nama_pelanggan') }}" placeholder="Isikan nama pelanggan Anda">
+						<input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror" name="nama_pelanggan" value="{{ old('nama_pelanggan') }}" placeholder="Isikan nama pelanggan Anda" required>
 						@error('nama_pelanggan')
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror

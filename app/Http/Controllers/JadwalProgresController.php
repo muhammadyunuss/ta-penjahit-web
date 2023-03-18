@@ -32,7 +32,7 @@ class JadwalProgresController extends Controller
         )
         ->get();
 
-        $viewTransaksiPemesanan = ViewRepository::view_pemesanan_belum_finish();
+        $viewTransaksiPemesanan = ViewRepository::view_transaksi_pemesanan_model();
 
         return view('jadwal-progres.index', compact('data', 'viewTransaksiPemesanan', 'id'));
     }
@@ -51,7 +51,7 @@ class JadwalProgresController extends Controller
             'pelanggan.nama_pelanggan'
         )
         ->get();
-        $user = User::where('previledge', 'Kepala')->select(['id', 'name', 'email'])->get();
+        $user = User::where('previledge', 'Kepala')->orwhere('previledge', 'Finishing')->select(['id', 'name', 'email'])->get();
         $prosesProduksi = ProsesProduksi::get();
 
         return view('jadwal-progres.create', compact('pemesanan', 'prosesProduksi', 'user'));

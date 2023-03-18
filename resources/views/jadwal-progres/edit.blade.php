@@ -32,7 +32,7 @@
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Ubah Supplier
+				<i class="fa fa-reorder"></i> Ubah Jadwal Progress
 			</div>
 		</div>
 		<div class="portlet-body form">
