@@ -59,7 +59,7 @@
                         <label for="detail_pemesanan_model_id" class="col-md-4 col-form-label">Pemesan Detail</label>
                         <div class="col-md-12">
                             <select name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" data-with="100%" class="form-control @error('detail_pemesanan_model_id') is-invalid @enderror" required>
-                                <option value="">Pilih Pemesanan Detail</option>
+                                <option value="{{ $detail_pemesanan_model->id }}">{{ $detail_pemesanan_model->nama_model }}{{ $detail_pemesanan_model->nama_jenismodel }} {{ $detail_pemesanan_model->banyaknya}} Pcs</option>";
                             </select>
                             @error('detail_pemesanan_model_id')
                                 <div class="invalid-feedback" style="color:red">{{ $message }}</div>
@@ -102,7 +102,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-        get_data_edit();
+        // get_data_edit();
         $('#pemesanan_id').change(function(e){
             let id=$(this).val();
             let detail_pemesanan_model_id = "{{ $pengBahanBaku->detail_pemesanan_model_id }}";
