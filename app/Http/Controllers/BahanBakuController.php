@@ -54,7 +54,20 @@ class BahanBakuController extends Controller
      */
     public function store(Request $request)
     {
-        BahanBaku::create($request->all());
+        $request->validate([
+            'foto_bahanbaku' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+
+        if ($image = $request->file('foto_bahanbaku')) {
+            $destinationPath = 'upload_image/foto_bahanbaku/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['foto_bahanbaku'] = "$profileImage";
+        }
+
+        BahanBaku::create($data);
 
         if($request){
             return redirect()->route('bahanbaku.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -97,10 +110,22 @@ class BahanBakuController extends Controller
      * @param  \App\Models\BahanBaku  $bahanBaku
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBahanBakuRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $data = request()->except(['_token', '_method']);
+
+        if ($image = $request->file('foto_bahanbaku')) {
+            $destinationPath = 'upload_image/foto_bahanbaku/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['foto_bahanbaku'] = "$profileImage";
+        }
+        else{
+            unset($data['foto_bahanbaku']);
+        }
+
         $bahanBaku = BahanBaku::find($id);
-        $bahanBaku->update($request->all());
+        $bahanBaku->update($data);
 
         if($bahanBaku){
             return redirect()->route('bahanbaku.index')->with(['success' => 'Data Berhasil Diupdate!']);

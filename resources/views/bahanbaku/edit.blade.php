@@ -41,10 +41,23 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form method="POST" action="{{ route('bahanbaku.update', $bahanBaku->id) }}" enctype="multipart/form-bahanBaku">
+            <form method="POST" action="{{ route('bahanbaku.update', $bahanBaku->id) }}" enctype="multipart/form-data">
             @csrf
             @method("PUT")
             <div class="form-body">
+                    <div class="mb-3">
+                        <label for="foto_bahanbaku" class="form-label">Gambar</label>
+                        {{-- <input type="hidden" name="foto_bahanbaku" value="{{ $data->foto_bahanbaku }}"> --}}
+                        <input class="form-control" type="file" id="foto_bahanbaku" name="foto_bahanbaku" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+                        @if($bahanBaku->foto_bahanbaku)
+                            <img src="{{ asset('upload_image/foto_bahanbaku/'.$bahanBaku->foto_bahanbaku) }}" class="img-fluid" id="img-preview" style="max-height:400px">
+                        @else
+                            <img class="img-fluid" id="img-preview" style="max-height:400px">
+                            @error('foto_bahanbaku')
+                                <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                            @enderror
+                        @endif
+                    </div>
                     <div class="form-group">
                         <label for="kode_bahan_baku">Kode Bahan Baku</label>
                         <input type="text" class="form-control @error('kode_bahan_baku') is-invalid @enderror" name="kode_bahan_baku" value="{{ old('kode_bahan_baku', $bahanBaku->kode_bahan_baku) }}" placeholder="Isikan Kode bahan baku Anda" required>
@@ -85,7 +98,7 @@
 							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
 						@enderror
 					</div><br> --}}
-						
+
                     <input type="hidden" step="any" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok', $bahanBaku->stok) }}"  placeholder="Isikan stok bahan baku Anda" min="0" required>
 					{{-- <div class="form-group">
 						<label for="stok">Stok</label>
@@ -115,6 +128,20 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="lebar">Lebar</label>
+                        <input type="text" class="form-control @error('lebar') is-invalid @enderror" name="lebar" value="{{ old('lebar', $bahanBaku->lebar) }}" placeholder="Isikan lebar bahan baku Anda" required>
+                        @error('lebar')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+                    </div><br>
+                    <div class="form-group">
+						<label for="warna_kain">Warna Kain</label>
+						<input type="text" class="form-control @error('warna_kain') is-invalid @enderror" name="warna_kain" value="{{ old('warna_kain', $bahanBaku->warna_kain) }}" placeholder="Isikan nama bahan baku Anda" required>
+						@error('warna_kain')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+					</div><br>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Simpan</button>
 				</div>

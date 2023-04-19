@@ -39,6 +39,14 @@
 			<form method="POST" action="{{ route('bahanbaku.store') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
+                    <div class="mb-3">
+						<label for="foto_bahanbaku" class="form-label">Foto</label>
+						<input class="form-control" type="file" id="foto_bahanbaku" name="foto_bahanbaku" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])" >
+						@error('foto_bahanbaku')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+						<img class="img-fluid" id="img-preview" style="max-height:400px">
+					</div><br>
                     <div class="form-group">
 						<label for="kode_bahan_baku">Kode Bahan Baku</label>
 						<input type="text" class="form-control @error('kode_bahan_baku') is-invalid @enderror" name="kode_bahan_baku" value="{{ old('kode_bahan_baku') }}" placeholder="Isikan Kode Bahan Baku bahan baku Anda" required>
@@ -104,6 +112,20 @@
                         @error('supplier_id')
                             <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                         @enderror
+					</div><br>
+                    <div class="form-group">
+						<label for="lebar">Lebar</label>
+						<input type="number" class="form-control @error('lebar') is-invalid @enderror" name="lebar" value="{{ old('lebar') }}" placeholder="Lebar" required>
+						@error('lebar')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
+					</div><br>
+                    <div class="form-group">
+						<label for="warna_kain">Warna Kain</label>
+						<input type="text" class="form-control @error('warna_kain') is-invalid @enderror" name="warna_kain" value="{{ old('warna_kain') }}" placeholder="Warna kain" required>
+						@error('warna_kain')
+							<div class="invalid-feedback" style="color:red">{{ $message }}</div>
+						@enderror
 					</div><br>
 				</div>
 				<div class="form-actions">

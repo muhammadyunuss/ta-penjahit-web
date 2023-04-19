@@ -19,6 +19,9 @@ class BahanBaku extends Model
         'harga_jual',
         'stok',
         'satuan',
+        'foto_bahanbaku',
+        'lebar',
+        'warna_kain',
         'supplier_id',
       ];
 
