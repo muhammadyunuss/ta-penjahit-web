@@ -193,6 +193,31 @@ Dashboard
         </tbody>
         </table>
 </div>
+<div class="col-md-6 col-sm-4">
+    <h3>Pemberitahuan ! Deadline Terdekat</h3>
+    <table class="table" id="example1" class="display">
+        <thead>
+            <tr>
+            <th>Nama Pelanggan</th>
+            <th>Estimasi Selesai (H-5)</th>
+            <th>Nama Model</th>
+            <th>Model Detail</th>
+            <th>Jumlah</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($notifikasi_selesai as $d)
+            <tr>
+                <td>{{ $d->nama_pelanggan }}</td>
+                <td>{{ $d->realisasi_tanggal_selesai }}</td>
+                <td>{{ $d->nama_model }}</td>
+                <td>{{ $d->nama_model_detail }}</td>
+                <td>{{ $d->jumlah }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+        </table>
+</div>
 <div class="clearfix">
 </div>
 <div class="row ">
@@ -221,6 +246,10 @@ Dashboard
 <script>
     $(document).ready(function () {
         $('#example').DataTable();
+    });
+
+    $(document).ready(function () {
+        $('#example1').DataTable();
     });
 </script>
 @endsection

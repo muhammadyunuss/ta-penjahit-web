@@ -97,37 +97,46 @@ class ViewRepository
         //$data = DB::table('view_laporan_daftar_tanggungan_produksi_jahit')->where('penjahit_id', $id)->get();
 
         $data = DB::select("
-        SELECT view_laporan_daftar_tanggungan_produksi_jahit_group2.id, penjahit_id, nama_pelanggan, nama_model, tanggal_selesai, nama_model_detail, jumlah, id_proses_produksi, proses_produksi.nama_prosesproduksi, realisasi_tanggal_selesai 
+        SELECT view_laporan_daftar_tanggungan_produksi_jahit_group2.id, penjahit_id, nama_pelanggan, nama_model, tanggal_selesai, nama_model_detail, jumlah, id_proses_produksi, proses_produksi.nama_prosesproduksi, realisasi_tanggal_selesai
         FROM view_laporan_daftar_tanggungan_produksi_jahit_group2
-        INNER JOIN proses_produksi 
+        INNER JOIN proses_produksi
         ON view_laporan_daftar_tanggungan_produksi_jahit_group2.id_proses_produksi=proses_produksi.id
         ");
-       
-        
+
+
         return $data;
 
         // Query
         // ambil seluruh data pemesanan yang belum finish
-        // select `pemesanan`.`id` AS `id`,`pemesanan`.`penjahit_id` AS `penjahit_id`,`pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`model`.`nama_model` AS `nama_model`,`pemesanan`.`tanggal` AS `tanggal_selesai`,`detail_pemesanan_model`.`nama_model_detail` AS `nama_model_detail`,`detail_pemesanan_model`.`banyaknya` AS `jumlah`,`proses_produksi`.`id` AS `id_proses_produksi`,`proses_produksi`.`nama_prosesproduksi` AS `nama_prosesproduksi`,`realisasi_produksi`.`tanggal_selesai` AS `realisasi_tanggal_selesai` 
-        // from ((((((`pemesanan` 
-        // join `pelanggan` on(`pemesanan`.`pelanggan_id` = `pelanggan`.`id`)) 
-        // join `detail_pemesanan_model` 
-        // on(`pemesanan`.`id` = `detail_pemesanan_model`.`pemesanan_id`)) 
-        // join `model` on(`detail_pemesanan_model`.`model_id` = `model`.`id`)) 
-        // join `perencanaan_produksi` 
-        // on(`detail_pemesanan_model`.`id` = `perencanaan_produksi`.`detail_pemesanan_model_id`)) 
-        // join `realisasi_produksi` on(`perencanaan_produksi`.`id` = `realisasi_produksi`.`perencanaan_produksi_id`)) 
-        // join `proses_produksi` 
-        // on(`realisasi_produksi`.`proses_produksi_id` = `proses_produksi`.`id`)) 
-        // where `proses_produksi`.`nama_prosesproduksi` <> 'Finishing' 
+        // select `pemesanan`.`id` AS `id`,`pemesanan`.`penjahit_id` AS `penjahit_id`,`pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`model`.`nama_model` AS `nama_model`,`pemesanan`.`tanggal` AS `tanggal_selesai`,`detail_pemesanan_model`.`nama_model_detail` AS `nama_model_detail`,`detail_pemesanan_model`.`banyaknya` AS `jumlah`,`proses_produksi`.`id` AS `id_proses_produksi`,`proses_produksi`.`nama_prosesproduksi` AS `nama_prosesproduksi`,`realisasi_produksi`.`tanggal_selesai` AS `realisasi_tanggal_selesai`
+        // from ((((((`pemesanan`
+        // join `pelanggan` on(`pemesanan`.`pelanggan_id` = `pelanggan`.`id`))
+        // join `detail_pemesanan_model`
+        // on(`pemesanan`.`id` = `detail_pemesanan_model`.`pemesanan_id`))
+        // join `model` on(`detail_pemesanan_model`.`model_id` = `model`.`id`))
+        // join `perencanaan_produksi`
+        // on(`detail_pemesanan_model`.`id` = `perencanaan_produksi`.`detail_pemesanan_model_id`))
+        // join `realisasi_produksi` on(`perencanaan_produksi`.`id` = `realisasi_produksi`.`perencanaan_produksi_id`))
+        // join `proses_produksi`
+        // on(`realisasi_produksi`.`proses_produksi_id` = `proses_produksi`.`id`))
+        // where `proses_produksi`.`nama_prosesproduksi` <> 'Finishing'
         // order by `realisasi_produksi`.`tanggal_selesai`
 
         // Ambil id maksimal dari proses produksi (dengan asumsi semakin besar id proses produksi berarti prosesnya semakin baru)
-        // CREATE VIEW view_laporan_daftar_tanggungan_produksi_jahit_group 
-        // AS 
-        // (SELECT view_laporan_daftar_tanggungan_produksi_jahit.id, penjahit_id, nama_pelanggan, nama_model, tanggal_selesai, nama_model_detail, jumlah, max(id_proses_produksi) as id_proses_produksi, realisasi_tanggal_selesai 
+        // CREATE VIEW view_laporan_daftar_tanggungan_produksi_jahit_group
+        // AS
+        // (SELECT view_laporan_daftar_tanggungan_produksi_jahit.id, penjahit_id, nama_pelanggan, nama_model, tanggal_selesai, nama_model_detail, jumlah, max(id_proses_produksi) as id_proses_produksi, realisasi_tanggal_selesai
         // FROM view_laporan_daftar_tanggungan_produksi_jahit
         // GROUP BY view_laporan_daftar_tanggungan_produksi_jahit.id ASC)
+    }
+
+    public static function view_laporan_daftar_tanggungan_produksi_jahit_group2()
+    {
+        $data = DB::table('view_laporan_daftar_tanggungan_produksi_jahit_group2')
+        ->whereBetween('realisasi_tanggal_selesai', [now()->subDays(5), now()])
+        ->get();
+
+        return $data;
     }
 
 }
