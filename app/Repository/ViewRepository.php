@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ViewRepository
@@ -133,7 +134,8 @@ class ViewRepository
     public static function view_laporan_daftar_tanggungan_produksi_jahit_group2()
     {
         $data = DB::table('view_laporan_daftar_tanggungan_produksi_jahit_group2')
-        ->whereBetween('realisasi_tanggal_selesai', [now()->subDays(5), now()])
+        ->whereBetween('realisasi_tanggal_selesai', [now()->subDays(5), 'realisasi_tanggal_selesai'])
+        // ->whereDay('realisasi_tanggal_selesai', '25')
         ->get();
 
         return $data;

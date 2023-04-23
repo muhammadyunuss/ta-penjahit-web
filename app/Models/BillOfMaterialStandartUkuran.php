@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BillOfMaterial extends Model
+class BillOfMaterialStandartUkuran extends Model
 {
     use HasFactory;
 
-    protected $table = 'bom_model';
+    protected $table = 'bom_standart_ukuran';
     protected $primaryKey = 'id';
     protected $fillable = [
         'id',
-        'model_id',
-        'bom_standart_ukuran_id',
+        'ukuran',
+        'lebar_kain',
     ];
 }

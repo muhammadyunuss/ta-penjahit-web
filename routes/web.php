@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BahanBakuController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\BillOfMaterialController;
 use App\Http\Controllers\DaftarPengirimanController;
 use App\Http\Controllers\ModelAndaController;
 use App\Http\Controllers\ModelBajuPelangganController;
@@ -52,11 +53,18 @@ Route::middleware(['auth'])->group(function () {
         Route::put('update-detail-transaksi-bahanbaku/{id}', [TransaksiBahanBakuController::class, 'updateDetailTransaksi'])->name('transaksi.bahanbaku.update.detail');
         Route::put('update-transaksi-totalbayar/{id}/update', [TransaksiBahanBakuController::class, 'updateTransaksiTotalbayar'])->name('transaksi.update.totalbayar');
         Route::get('get-ajax-bahan-baku/{id}', [TransaksiBahanBakuController::class, 'getAjaxBahanBaku'])->name('get-ajax-bahan-baku');
+        Route::get('tambah-detail-bom/{id}', [BillOfMaterialController::class, 'createDetail'])->name('bom.detail.create');
+        Route::post('save-detail-bom', [BillOfMaterialController::class, 'saveDetail'])->name('bom.detail.save');
+        Route::get('edit-detail-bom/{id}', [BillOfMaterialController::class, 'editDetail'])->name('bom.detail.edit');
+        Route::put('update-detail-bom/{id}', [BillOfMaterialController::class, 'updateDetail'])->name('bom.detail.update');
+
+
 
         Route::resource('transaksi-bahanbaku', TransaksiBahanBakuController::class);
         Route::resource('supplier', SupplierController::class);
         Route::resource('bahanbaku', BahanBakuController::class);
         Route::resource('kolomrak', KolomRakController::class);
+        Route::resource('bom', BillOfMaterialController::class);
     });
 
     Route::prefix('pemesanan')->group(function () {
@@ -121,7 +129,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/users', [AdminController::class, 'create'])->name('admin.users');
     Route::post('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
-
 
 });
 

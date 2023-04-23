@@ -48,6 +48,10 @@
                             <a href="{{ route('transaksi-bahanbaku.index') }}">
                             Daftar Pembelian Bahan Baku</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'bom') ? 'active' : '' }}">
+                            <a href="{{ route('bom.index') }}">
+                            Bill Of Material</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="{{ (request()->segment(1) == 'pemesanan') ? 'active' : '' }}">
