@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 18, 2023 at 07:30 AM
+-- Generation Time: Apr 23, 2023 at 03:27 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `bahan_baku` (
   `harga_jual` double DEFAULT NULL,
   `stok` double DEFAULT NULL,
   `satuan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto_bahanbaku` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lebar` float NOT NULL,
   `warna_kain` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `supplier_id` bigint DEFAULT NULL,
@@ -44,21 +44,22 @@ CREATE TABLE IF NOT EXISTS `bahan_baku` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `bahan_baku`
 --
 
-INSERT INTO `bahan_baku` (`id`, `kode_bahan_baku`, `nama_bahanbaku`, `harga_beli`, `harga_jual`, `stok`, `satuan`, `foto`, `lebar`, `warna_kain`, `supplier_id`, `kolom_rak_id`, `created_at`, `updated_at`) VALUES
-(18, 'B', 'kain balenciaga', 95000, NULL, 23.5, 'meter', '', 0, '', 6, 12, '2023-03-21 06:20:49', '2023-03-30 21:18:45'),
+INSERT INTO `bahan_baku` (`id`, `kode_bahan_baku`, `nama_bahanbaku`, `harga_beli`, `harga_jual`, `stok`, `satuan`, `foto_bahanbaku`, `lebar`, `warna_kain`, `supplier_id`, `kolom_rak_id`, `created_at`, `updated_at`) VALUES
+(18, 'B', 'kain balenciaga', 95000, NULL, 23.5, 'meter', '20230419112310.png', 12, 'Merah', 6, 12, '2023-03-21 06:20:49', '2023-04-19 04:25:06'),
 (19, 'D', 'kain dior', 97000, NULL, 45, 'meter', '', 0, '', 6, 13, '2023-03-21 06:22:37', '2023-03-30 18:20:49'),
 (20, 'R', 'kain richmond', 120000, NULL, 47, 'meter', '', 0, '', 9, 15, '2023-03-21 06:22:53', '2023-03-30 17:29:50'),
-(22, 'AG', 'kain alberto giovinco', 100000, NULL, 20.5, 'meter', '', 0, '', 11, 16, '2023-03-30 16:08:34', '2023-03-30 21:18:16'),
-(23, 'BV', 'kain bulgari', 85000, NULL, 45, 'meter', '', 0, '', 13, 17, '2023-03-30 16:10:28', '2023-03-30 16:22:26'),
+(22, 'AG', 'kain alberto giovinco', 100000, NULL, 20.5, 'meter', '20230419112230.png', 14, 'Kuning', 11, 16, '2023-03-30 16:08:34', '2023-04-19 04:22:30'),
+(23, 'BV', 'kain bulgari', 85000, NULL, 45, 'meter', '20230419112431.jpg', 11, 'Hijau', 13, 17, '2023-03-30 16:10:28', '2023-04-19 04:24:31'),
 (24, 'C', 'kain chanel', 90000, NULL, 30, 'meter', '', 0, '', 14, 20, '2023-03-31 00:26:57', '2023-03-31 00:36:15'),
 (25, 'Kancing', 'Kancing', 500, NULL, 100, 'biji', '', 0, '', 14, 20, '2023-03-31 00:26:57', '2023-03-31 00:36:15'),
-(26, 'RL', 'Resleting', 500, NULL, 100, 'biji', '', 0, '', 14, 20, '2023-03-31 00:26:57', '2023-03-31 00:36:15');
+(26, 'RL', 'Resleting', 500, NULL, 100, 'biji', '', 0, '', 14, 20, '2023-03-31 00:26:57', '2023-03-31 00:36:15'),
+(27, 'Harum nobis excepteu', 'Commodi in asperiore', 5, NULL, NULL, 'Pariatur Est sed n', '20230418161943.png', 12, 'Commodi voluptate et', 6, 20, '2023-04-18 09:19:43', '2023-04-19 03:51:46');
 
 -- --------------------------------------------------------
 
@@ -70,11 +71,19 @@ DROP TABLE IF EXISTS `bom_model`;
 CREATE TABLE IF NOT EXISTS `bom_model` (
   `id` int NOT NULL AUTO_INCREMENT,
   `model_id` int NOT NULL,
-  `ukuran` int NOT NULL,
+  `bom_standart_ukuran_id` int NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `bom_model`
+--
+
+INSERT INTO `bom_model` (`id`, `model_id`, `bom_standart_ukuran_id`, `created_at`, `updated_at`) VALUES
+(1, 18, 1, '2023-04-21 07:42:50', '2023-04-21 07:42:50'),
+(2, 18, 1, '2023-04-21 13:36:59', '2023-04-21 13:36:59');
 
 -- --------------------------------------------------------
 
@@ -86,12 +95,21 @@ DROP TABLE IF EXISTS `bom_model_detail`;
 CREATE TABLE IF NOT EXISTS `bom_model_detail` (
   `id` int NOT NULL AUTO_INCREMENT,
   `bom_id` int NOT NULL,
-  `bahan_baku_id` int NOT NULL,
+  `bahanbaku_id` int NOT NULL,
   `jumlah` double NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `bom_model_detail`
+--
+
+INSERT INTO `bom_model_detail` (`id`, `bom_id`, `bahanbaku_id`, `jumlah`, `created_at`, `updated_at`) VALUES
+(1, 1, 25, 5, '2023-04-22 05:14:04', '2023-04-23 01:29:31'),
+(2, 1, 19, 3, '2023-04-22 07:30:24', '2023-04-23 01:29:23'),
+(3, 1, 18, 3, '2023-04-23 01:29:54', '2023-04-23 01:29:54');
 
 -- --------------------------------------------------------
 
@@ -101,17 +119,17 @@ CREATE TABLE IF NOT EXISTS `bom_model_detail` (
 
 DROP TABLE IF EXISTS `bom_standart_ukuran`;
 CREATE TABLE IF NOT EXISTS `bom_standart_ukuran` (
-  `id_standart_ukuran` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ukuran` varchar(5) NOT NULL,
   `lebar_kain` double NOT NULL COMMENT 'meter',
-  PRIMARY KEY (`id_standart_ukuran`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `bom_standart_ukuran`
 --
 
-INSERT INTO `bom_standart_ukuran` (`id_standart_ukuran`, `ukuran`, `lebar_kain`) VALUES
+INSERT INTO `bom_standart_ukuran` (`id`, `ukuran`, `lebar_kain`) VALUES
 (1, 'S', 3),
 (2, 'M', 3),
 (3, 'L', 3.5),
@@ -206,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `detail_pemesanan_model` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `detail_pemesanan_model`
@@ -220,7 +238,8 @@ INSERT INTO `detail_pemesanan_model` (`id`, `model_id`, `pemesanan_id`, `jenis_m
 (40, 19, 48, 1, 3, 1000000, '-', NULL, NULL, '2023-03-31 03:56:55', '2023-03-31 03:56:55'),
 (41, 18, 49, 1, 3, 900000, '-', NULL, NULL, '2023-03-31 04:14:57', '2023-03-31 04:14:57'),
 (42, 20, 50, 1, 5, 1200000, '-', NULL, NULL, '2023-03-31 05:40:05', '2023-03-31 05:40:05'),
-(43, 18, 33, 1, 2, 1000000, '-', NULL, NULL, '2023-04-18 05:23:02', '2023-04-18 05:23:02');
+(43, 18, 33, 1, 2, 1000000, '-', NULL, NULL, '2023-04-18 05:23:02', '2023-04-18 05:23:02'),
+(44, 20, 33, 1, 10, 1200000, '-', NULL, NULL, '2023-04-23 03:26:20', '2023-04-23 03:26:20');
 
 -- --------------------------------------------------------
 
@@ -567,7 +586,7 @@ CREATE TABLE IF NOT EXISTS `pemesanan` (
 INSERT INTO `pemesanan` (`id`, `pelanggan_id`, `penjahit_id`, `proses_produksi_id`, `pengambilan_id`, `perencanaan_produksi_id`, `tanggal`, `total_ongkos`, `bayar`, `status_pembayaran`, `created_at`, `updated_at`) VALUES
 (33, 15, 1, NULL, NULL, NULL, '2023-04-05', 10000000, 10000000, 'Lunas', '2023-03-21 22:15:06', '2023-03-23 06:07:07'),
 (45, 15, 1, NULL, NULL, NULL, '2023-04-27', 5000000, 5000000, 'Lunas', '2023-03-29 22:19:16', '2023-03-29 22:19:56'),
-(46, 16, 1, NULL, NULL, NULL, '2023-04-20', 5000000, 2500000, 'Bayar Sebagian', '2023-03-30 10:33:02', '2023-03-30 10:34:30'),
+(46, 16, 1, NULL, NULL, NULL, '2023-04-25', 5000000, 2500000, 'Bayar Sebagian', '2023-03-30 10:33:02', '2023-03-30 10:34:30'),
 (47, 17, 1, NULL, NULL, NULL, '2023-04-12', 5000000, 5000000, 'Lunas', '2023-03-31 00:18:59', '2023-03-31 00:49:21'),
 (48, 18, 1, NULL, NULL, NULL, '2023-04-17', 3000000, 3000000, 'Lunas', '2023-03-31 03:56:42', '2023-03-31 04:06:49'),
 (49, 18, 1, NULL, NULL, NULL, '2023-04-17', 2700000, 2700000, 'Lunas', '2023-03-31 04:14:42', '2023-03-31 04:15:41'),
@@ -769,7 +788,7 @@ INSERT INTO `realisasi_produksi` (`id`, `pemesanan_id`, `perencanaan_produksi_id
 (23, 33, 20, 13, '2023-03-22', '2023-03-22', NULL, NULL, '2023-03-29 15:54:44', '2023-03-29 15:54:44'),
 (24, 33, 24, 15, '2023-03-23', '2023-04-03', NULL, NULL, '2023-03-29 15:55:30', '2023-03-29 15:55:30'),
 (25, 33, 22, 17, '2023-04-04', '2023-04-05', NULL, NULL, '2023-03-29 15:57:19', '2023-03-29 15:57:19'),
-(26, 45, 34, 15, '2023-03-31', '2023-04-24', NULL, NULL, '2023-03-29 22:15:54', '2023-03-29 22:15:54'),
+(26, 45, 34, 15, '2023-03-31', '2023-04-25', NULL, NULL, '2023-03-29 22:15:54', '2023-03-29 22:15:54'),
 (27, 46, 35, 13, '2023-03-30', '2023-03-31', NULL, NULL, '2023-03-30 03:38:01', '2023-03-30 03:38:01'),
 (28, 46, 36, 15, '2023-04-01', '2023-04-14', NULL, NULL, '2023-03-30 03:38:33', '2023-03-30 03:38:33'),
 (29, 47, 38, 13, '2023-03-31', '2023-03-31', NULL, NULL, '2023-03-30 17:32:29', '2023-03-30 17:32:29'),
