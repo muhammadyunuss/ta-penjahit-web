@@ -35,6 +35,7 @@ class DetailPemesananUkuran extends Model
     'lingkar_paha',
     'lingkar_lutut',
     'lingkar_bawah',
+    'bom_id',
     'deskripsi_ukuran'
     ];
 }

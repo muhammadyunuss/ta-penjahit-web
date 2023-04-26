@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BahanBaku;
+use App\Models\BillOfMaterialDetail;
 use App\Models\DetailPemesanan;
 use App\Models\DetailPemesananBahanBaku;
 use App\Models\DetailPemesananUkuran;
@@ -102,6 +104,8 @@ class TransaksiController extends Controller
         )
         ->first();
 
+        // dd($dataModelDetail);
+
         $data = DB::table('pemesanan')
         ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
         ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
@@ -117,7 +121,19 @@ class TransaksiController extends Controller
         ->first();
         $dataModel = DB::table('model')->get();
         $dataJenisModel = DB::table('jenis_model')->get();
-        return view('transaksi.create-detail-ukuran', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail'));
+
+        $dataBom = DB::table('bom_model')
+        ->where('model_id', $dataModelDetail->model_id)
+        ->join('bom_standart_ukuran', 'bom_model.bom_standart_ukuran_id', 'bom_standart_ukuran.id')
+        ->select(
+            'bom_model.*',
+            'bom_standart_ukuran.ukuran'
+        )
+        ->get();
+
+        // dd($dataBom);
+
+        return view('transaksi.create-detail-ukuran', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail', 'dataBom'));
     }
 
     /**
@@ -136,6 +152,60 @@ class TransaksiController extends Controller
         }else{
             return redirect()->route('transaksi.detail.create', $data->id)->with(['error' => 'Data Gagal Disimpan!']);
         }
+    }
+
+    public function saveDetail(Request $request)
+    {
+        $request->validate([
+            'file_gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+
+        if ($image = $request->file('file_gambar')) {
+            $destinationPath = 'upload_image/file_gambar/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['file_gambar'] = "$profileImage";
+        }
+
+        DetailPemesanan::create($data);
+
+        if($request){
+            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['error' => 'Data Gagal Disimpan!']);
+        }
+
+    }
+
+    public function saveDetailUkuran(Request $request)
+    {
+        DetailPemesananUkuran::create($request->all());
+
+        $bom_detail = BillOfMaterialDetail::where('bom_id', $request->bom_id)->get();
+        foreach ($bom_detail as $key => $value) {
+            $bahanBaku = DB::table('bahan_baku')
+            ->where('id', $value->bahanbaku_id)
+            ->first();
+
+            $pemakaian_old = $bahanBaku->stok; // stok lama di master bahan baku
+            $pemakaian_new = floatval($value->jumlah) * floatval($request->jumlah_baju_dengan_ukuran_yg_sama); // stok baru
+            $laststock = ($pemakaian_old - $pemakaian_new);
+
+            // update stok dan harga
+            $bahanBaku = BahanBaku::findOrFail($bahanBaku->id);
+            $bahanBaku->update([
+                'stok'     => $laststock
+            ]);
+        }
+
+        if($request){
+            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['error' => 'Data Gagal Disimpan!']);
+        }
+
     }
 
     public function saveBahanBaku(Request $request)
@@ -225,6 +295,51 @@ class TransaksiController extends Controller
         return view('transaksi.show', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail','id','bahanBaku', 'detailBahanBaku', 'dataParam'));
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Pemesanan::find($id);
+        $dataPelanggan = Pelanggan::all();
+        $dataModel = ModelAnda::all();
+        $dataPenjahit = Penjahit::all();
+
+        return view('transaksi.edit', compact('data', 'dataPelanggan', 'dataModel','dataPenjahit','id'));
+    }
+
+    public function editDetailUkuran($id)
+    {
+        $detailUkuran = DetailPemesananUkuran::where('id', $id)->first();
+        $dataModelDetail = DB::table('detail_pemesanan_model')
+        ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
+        ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
+        ->where('detail_pemesanan_model.id', $detailUkuran->detail_pemesanan_model_id)
+        ->select(
+            'detail_pemesanan_model.*',
+            'model.nama_model as nama_model',
+            'jenis_model.nama_jenismodel as nama_jenismodel'
+        )
+        ->first();
+        $data = DB::table('pemesanan')
+        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
+        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
+        ->where('pemesanan.id', $dataModelDetail->pemesanan_id)
+        ->select(
+            'pemesanan.*',
+            'pelanggan.nama_pelanggan as nama_pelanggan',
+            'pelanggan.email as email_pelanggan',
+            'pelanggan.no_telepon as no_telepon_pelanggan',
+            'pelanggan.alamat as alamat_pelanggan',
+            'penjahit.nama_penjahit as nama_penjahit'
+        )
+        ->first();
+        return view('transaksi.edit-detail-ukuran', compact('detailUkuran', 'dataModelDetail', 'data'));
+    }
+
     public function editDetailTransaksi($id)
     {
         $dataModel = DB::table('model')->get();
@@ -257,6 +372,25 @@ class TransaksiController extends Controller
         return view('transaksi.edit-detail', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $data = new Pemesanan();
+        $data->where('id', $id)->update(request()->except(['_token', '_method']));
+
+        if($request){
+            return redirect()->route('transaksi.show', $id )->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('transaksi.show', $id )->with(['error' => 'Data Gagal Diupdate!']);
+        }
+    }
+
     public function updateDetailTransaksi(Request $request)
     {
         $request->validate([
@@ -284,72 +418,6 @@ class TransaksiController extends Controller
         }
     }
 
-    public function saveDetail(Request $request)
-    {
-        $request->validate([
-            'file_gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $data = $request->all();
-
-        if ($image = $request->file('file_gambar')) {
-            $destinationPath = 'upload_image/file_gambar/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $data['file_gambar'] = "$profileImage";
-        }
-
-        DetailPemesanan::create($data);
-
-        if($request){
-            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['error' => 'Data Gagal Disimpan!']);
-        }
-
-    }
-
-    public function saveDetailUkuran(Request $request)
-    {
-        DetailPemesananUkuran::create($request->all());
-
-        if($request){
-            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            return redirect()->route('transaksi.show', $request->pemesanan_id)->with(['error' => 'Data Gagal Disimpan!']);
-        }
-
-    }
-
-    public function editDetailUkuran($id)
-    {
-        $detailUkuran = DetailPemesananUkuran::where('id', $id)->first();
-        $dataModelDetail = DB::table('detail_pemesanan_model')
-        ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
-        ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
-        ->where('detail_pemesanan_model.id', $detailUkuran->detail_pemesanan_model_id)
-        ->select(
-            'detail_pemesanan_model.*',
-            'model.nama_model as nama_model',
-            'jenis_model.nama_jenismodel as nama_jenismodel'
-        )
-        ->first();
-        $data = DB::table('pemesanan')
-        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
-        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
-        ->where('pemesanan.id', $dataModelDetail->pemesanan_id)
-        ->select(
-            'pemesanan.*',
-            'pelanggan.nama_pelanggan as nama_pelanggan',
-            'pelanggan.email as email_pelanggan',
-            'pelanggan.no_telepon as no_telepon_pelanggan',
-            'pelanggan.alamat as alamat_pelanggan',
-            'penjahit.nama_penjahit as nama_penjahit'
-        )
-        ->first();
-        return view('transaksi.edit-detail-ukuran', compact('detailUkuran', 'dataModelDetail', 'data'));
-    }
-
     public function updateDetailUkuran(Request $request)
     {
         DetailPemesananUkuran::where('id', $request->detail_pemesanan_model_id)->update($request->except(['_token', 'pemesanan_id', 'detail_pemesanan_model_id']));
@@ -358,41 +426,6 @@ class TransaksiController extends Controller
             return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['success' => 'Data Berhasil Diupdate!']);
         }else{
             return redirect()->route('transaksi.show', $request->pemesanan_id )->with(['error' => 'Data Gagal Diupdate!']);
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $data = Pemesanan::find($id);
-        $dataPelanggan = Pelanggan::all();
-        $dataModel = ModelAnda::all();
-        $dataPenjahit = Penjahit::all();
-
-        return view('transaksi.edit', compact('data', 'dataPelanggan', 'dataModel','dataPenjahit','id'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $data = new Pemesanan();
-        $data->where('id', $id)->update(request()->except(['_token', '_method']));
-
-        if($request){
-            return redirect()->route('transaksi.show', $id )->with(['success' => 'Data Berhasil Diupdate!']);
-        }else{
-            return redirect()->route('transaksi.show', $id )->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 
@@ -425,43 +458,6 @@ class TransaksiController extends Controller
             return redirect()->route('transaksi.show', $id )->with(['error' => 'Data Gagal Di Simpan!']);
         }
 
-    }
-
-    public function invoiceTransaksi(Request $request, $id)
-    {
-        $data = DB::table('pemesanan')
-        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
-        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
-        ->where('pemesanan.id', $id)
-        ->select(
-            'pemesanan.*',
-            'pelanggan.nama_pelanggan as nama_pelanggan',
-            'pelanggan.email as email_pelanggan',
-            'pelanggan.no_telepon as no_telepon_pelanggan',
-            'pelanggan.alamat as alamat_pelanggan',
-            'penjahit.nama_penjahit as nama_penjahit'
-        )
-        ->first();
-        $dataModel = DB::table('model')->get();
-        $dataJenisModel = DB::table('jenis_model')->get();
-        $dataModelDetail = DB::table('detail_pemesanan_model')
-        ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
-        ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
-        ->where('detail_pemesanan_model.pemesanan_id', $id)
-        ->select(
-            'detail_pemesanan_model.*',
-            'model.nama_model as nama_model',
-            'jenis_model.nama_jenismodel as nama_jenismodel'
-        )
-        ->get();
-        $bahanBaku = DB::table('bahan_baku')->get();
-        $detailBahanBaku = DB::table('detail_pemesanan_bahanbaku')
-        ->join('bahan_baku', 'detail_pemesanan_bahanbaku.bahan_baku_id', 'bahan_baku.id')
-        ->where('pemesanan_id', $id)
-        ->select('detail_pemesanan_bahanbaku.*', 'bahan_baku.nama_bahanbaku', 'bahan_baku.kode_bahan_baku')
-        ->get();
-        // dd($detailBahanBaku);
-        return view('transaksi.invoice', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail','id','bahanBaku', 'detailBahanBaku'));
     }
 
     /**
@@ -503,5 +499,42 @@ class TransaksiController extends Controller
     {
         $model = ModelAnda::where('id', $id)->first();
         return response()->json($model);
+    }
+
+    public function invoiceTransaksi(Request $request, $id)
+    {
+        $data = DB::table('pemesanan')
+        ->join('pelanggan', 'pemesanan.pelanggan_id', 'pelanggan.id')
+        ->join('penjahit','pemesanan.penjahit_id', 'penjahit.id')
+        ->where('pemesanan.id', $id)
+        ->select(
+            'pemesanan.*',
+            'pelanggan.nama_pelanggan as nama_pelanggan',
+            'pelanggan.email as email_pelanggan',
+            'pelanggan.no_telepon as no_telepon_pelanggan',
+            'pelanggan.alamat as alamat_pelanggan',
+            'penjahit.nama_penjahit as nama_penjahit'
+        )
+        ->first();
+        $dataModel = DB::table('model')->get();
+        $dataJenisModel = DB::table('jenis_model')->get();
+        $dataModelDetail = DB::table('detail_pemesanan_model')
+        ->join('model', 'detail_pemesanan_model.model_id', 'model.id')
+        ->join('jenis_model', 'detail_pemesanan_model.jenis_model_id', 'jenis_model.id')
+        ->where('detail_pemesanan_model.pemesanan_id', $id)
+        ->select(
+            'detail_pemesanan_model.*',
+            'model.nama_model as nama_model',
+            'jenis_model.nama_jenismodel as nama_jenismodel'
+        )
+        ->get();
+        $bahanBaku = DB::table('bahan_baku')->get();
+        $detailBahanBaku = DB::table('detail_pemesanan_bahanbaku')
+        ->join('bahan_baku', 'detail_pemesanan_bahanbaku.bahan_baku_id', 'bahan_baku.id')
+        ->where('pemesanan_id', $id)
+        ->select('detail_pemesanan_bahanbaku.*', 'bahan_baku.nama_bahanbaku', 'bahan_baku.kode_bahan_baku')
+        ->get();
+        // dd($detailBahanBaku);
+        return view('transaksi.invoice', compact('data', 'dataModel', 'dataJenisModel','dataModelDetail','id','bahanBaku', 'detailBahanBaku'));
     }
 }
