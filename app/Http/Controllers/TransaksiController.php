@@ -183,16 +183,21 @@ class TransaksiController extends Controller
     public function saveDetailUkuran(Request $request)
     {
         // dd($request->all());
-        $get_bom = BillOfMaterial::join('bom_standart_ukuran', 'bom_model.bom_standart_ukuran_id', 'bom_standart_ukuran.id')
+        $count_bom = BillOfMaterial::join('bom_standart_ukuran', 'bom_model.bom_standart_ukuran_id', 'bom_standart_ukuran.id')
         ->where('model_id', $request->model_id)
         ->where('bom_standart_ukuran.ukuran', $request->ukuran_baju)
         ->count();
-        // dd($get_bom);
 
-        DetailPemesananUkuran::create($request->all());
+        if($count_bom > 0) {
 
-        if($get_bom > 0) {
-            $bom_detail = BillOfMaterialDetail::where('bom_id', $request->bom_id)->get();
+            $get_bom = BillOfMaterial::join('bom_standart_ukuran', 'bom_model.bom_standart_ukuran_id', 'bom_standart_ukuran.id')
+            ->where('model_id', $request->model_id)
+            ->where('bom_standart_ukuran.ukuran', $request->ukuran_baju)
+            ->first();
+
+            DetailPemesananUkuran::create(array_merge($request->all(),['bom_id' => $get_bom->id]));
+
+            $bom_detail = BillOfMaterialDetail::where('bom_id', $get_bom->id)->get();
             foreach ($bom_detail as $key => $value) {
                 $bahanBaku = DB::table('bahan_baku')
                 ->where('id', $value->bahanbaku_id)
@@ -208,6 +213,8 @@ class TransaksiController extends Controller
                     'stok'     => $laststock
                 ]);
             }
+        }else{
+            DetailPemesananUkuran::create($request->all());
         }
 
         if($request){
