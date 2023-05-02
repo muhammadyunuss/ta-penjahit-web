@@ -96,7 +96,8 @@
         <form method="POST" action="{{ route('transaksi.save.detail.ukuran') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-body">
-            <h4 class="control-label"><strong>Bill Of Material</strong></h4>
+            <input type="hidden" name="model_id" value="{{ $dataModelDetail->model_id }}">
+            {{-- <h4 class="control-label"><strong>Bill Of Material</strong></h4>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -107,10 +108,10 @@
                                 <option value="{{ $bom->id }}">{{ $bom->ukuran }}</option>
                             @endforeach
                         </select>
-                        {{-- <input type="number" id="ukuran_baju" name="ukuran_baju" class="form-control" placeholder="Ukuran Baju"> --}}
+                        <input type="number" id="bom_id" name="bom_id" class="form-control" placeholder="Ukuran Baju">
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <h4 class="control-label"><strong>Ukuran Badan</strong></h4>
             <input type="hidden" name="pemesanan_id" id="pemesanan_id" value="{{ $data->id }}">
             <input type="hidden" name="detail_pemesanan_model_id" id="detail_pemesanan_model_id" value="{{ $dataModelDetail->id }}">
